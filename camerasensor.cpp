@@ -1,0 +1,200 @@
+#include "CameraSensor.h"
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
+#include <cmath>
+#include <QString>
+
+CameraSensor::CameraSensor(const QString& name, const QString& inchSize, int resolution, const QString& format) {
+    *this = createCameraSensorFromInchSize(name, inchSize, resolution, format);
+}
+
+CameraSensor::CameraSensor(const QString& name, int horizontalPixels, double pixelSize, const QString& format) {
+    *this = createCameraSensorFromPixels(name, horizontalPixels, pixelSize, format);
+}
+
+CameraSensor CameraSensor::createCameraSensorFromInchSize(const QString& name, const QString& inchSize, int resolution, const QString& format) {
+    // Parse das Inch-Format, z.B. "1/2,76"
+    QString cleaned = inchSize;
+    cleaned.replace(",", ".");  // Komma durch Punkt ersetzen
+    QStringList parts = cleaned.split('/');
+
+    if (parts.size() != 2) {
+        qWarning() << "Ungültiges Format für inchSize:" << inchSize;
+        return CameraSensor(); // Rückgabe eines leeren Objekts bei Fehler
+    }
+
+    bool ok1, ok2;
+    double num = parts[0].toDouble(&ok1);
+    double den = parts[1].toDouble(&ok2);
+
+    if (!ok1 || !ok2 || den == 0.0) {
+        qWarning() << "Fehler beim Parsen von inchSize:" << inchSize;
+        return CameraSensor();
+    }
+
+    double realFraction = num / den;
+    double realDiameter = realFraction * 25.4;
+
+    double opticalDiameter = (realFraction >= 0.5)
+                                 ? (realDiameter / 1.5875)
+                                 : (realDiameter / 1.4111);
+
+    // Nun muss noch Sensorfläche, Breite, Höhe, Pixelgröße etc. berechnet werden
+    // Wir nehmen das Format 4:3 an, d.h. Seitenverhältnis ist 4:3
+    double aspectX = 4.0;
+    double aspectY = 3.0;
+    if (format == "16:9") {
+        aspectX = 16.0;
+        aspectY = 9.0;
+    }
+
+    double diag = opticalDiameter;
+    double ratio = aspectX / aspectY;
+
+    // Rechne Breite und Höhe aus der Diagonale
+    double height = diag / std::sqrt(1 + ratio * ratio);
+    double width = ratio * height;
+
+    double area = width * height;
+
+    int verticalPixels = static_cast<int>(std::sqrt(resolution * aspectY / aspectX));
+    int horizontalPixels = static_cast<int>(std::round((double)verticalPixels * aspectX / aspectY));
+
+    double pixelSize = width * 1000.0 / horizontalPixels; // µm
+    int bitDepth = 10;
+
+    // Crop Factor relativ zu Kleinbild (43,3 mm Diagonale)
+    double cropFactor = 43.3 / diag;
+
+    return CameraSensor(
+        name,
+        resolution,
+        horizontalPixels,
+        verticalPixels,
+        pixelSize,
+        area,
+        width,
+        height,
+        diag,
+        cropFactor,
+        0,             // releaseYear
+        0.0,           // sensitivity
+        format,
+        inchSize,
+        "RGGB",        // Standard pattern
+        bitDepth,
+        ""
+        );
+}
+
+CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format){
+    // Seitenverhältnis bestimmen
+    double aspectX = 4.0;
+    double aspectY = 3.0;
+
+    if (format == "16:9") {
+        aspectX = 16.0;
+        aspectY = 9.0;
+    } else if (format == "3:2") {
+        aspectX = 3.0;
+        aspectY = 2.0;
+    } else if (format == "1:1") {
+        aspectX = 1.0;
+        aspectY = 1.0;
+    }
+
+    // Berechne vertikale Pixelanzahl aus horizontaler und Format
+    int verticalPixels = static_cast<int>(std::round(horizontalPixels * aspectY / aspectX));
+
+    // Sensorbreite und -höhe (in mm)
+    double width = (horizontalPixels * pixelSize) / 1000.0; // µm → mm
+    double height = (verticalPixels * pixelSize) / 1000.0;
+
+    // Diagonale des Sensors (in mm)
+    double diagonal = std::sqrt(width * width + height * height);
+
+    // Sensorfläche (in mm²)
+    double area = width * height;
+
+    // Auflösung insgesamt (Pixelanzahl)
+    int resolution = horizontalPixels * verticalPixels;
+
+    // Berechne optisches Inch-Maß (zurückrechnen aus realer Diagonale)
+    double inchFactor = (diagonal >= 8.0) ? 1.5875 : 1.4111;
+    double realInchSize = diagonal * inchFactor / 2.54;
+
+    // Format als Bruch annähern
+    double num = std::round(realInchSize * 100.0);
+    double den = 100.0;
+    QString inchSizeStr = QString("%1/%2").arg(static_cast<int>(num), 1).arg(static_cast<int>(den));
+
+    // Crop Factor relativ zu 43.3 mm Vollformat
+    double cropFactor = 43.3 / diagonal;
+
+    return CameraSensor(
+        name,
+        resolution,
+        horizontalPixels,
+        verticalPixels,
+        pixelSize,
+        area,
+        width,
+        height,
+        diagonal,
+        cropFactor,
+        0,              // releaseYear
+        0.0,            // sensitivity
+        format,
+        inchSizeStr,
+        "RGGB",         // Standard Bayer Pattern
+        10,             // Bit-Tiefe
+        ""              // other
+        );
+}
+
+
+
+QJsonObject CameraSensor::toJson() const {
+    QJsonObject obj;
+    obj["name"] = m_name;
+    obj["resolution"] = m_resolution;
+    obj["horizontalPixels"] = m_horizontalPixels;
+    obj["verticalPixels"] = m_verticalPixels;
+    obj["pixelSize"] = m_pixelSize;
+    obj["sensorArea"] = m_sensorArea;
+    obj["width"] = m_width;
+    obj["height"] = m_height;
+    obj["diagonal"] = m_diagonal;
+    obj["cropFactor"] = m_cropFactor;
+    obj["releaseYear"] = m_releaseYear;
+    obj["sensitivity"] = m_sensitivity;
+    obj["format"] = m_format;
+    obj["inchSize"] = m_inchSize;
+    obj["pattern"] = m_pattern;
+    obj["bitDepth"] = m_bitDepth;
+    obj["other"] = m_other;
+    return obj;
+}
+
+CameraSensor CameraSensor::fromJson(const QJsonObject& obj) {
+    return CameraSensor(
+        obj["name"].toString(),
+        obj["resolution"].toInt(),
+        obj["horizontalPixels"].toInt(),
+        obj["verticalPixels"].toInt(),
+        obj["pixelSize"].toDouble(),
+        obj["sensorArea"].toDouble(),
+        obj["width"].toDouble(),
+        obj["height"].toDouble(),
+        obj["diagonal"].toDouble(),
+        obj["cropFactor"].toDouble(),
+        obj["releaseYear"].toInt(),
+        obj["sensitivity"].toDouble(),
+        obj["format"].toString(),
+        obj["inchSize"].toString(),
+        obj["pattern"].toString(),
+        obj["bitDepth"].toInt(),
+        obj["other"].toString()
+        );
+}
