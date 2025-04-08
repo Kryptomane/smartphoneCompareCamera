@@ -1,147 +1,158 @@
 #include "smartphonecomparewidget.h"
-#include <QMessageBox>
-#include <QTableWidgetItem>
-#include <QColor>
-#include <QDebug>
+#include <QHeaderView>
+#include <QLabel>
+#include <QGridLayout>
 
 SmartphoneComparatorWidget::SmartphoneComparatorWidget(QWidget* parent)
-    : QWidget(parent)
-{
+    : QWidget(parent), comparisonTable(new QTableWidget(this)) {
     setupUI();
 }
 
 void SmartphoneComparatorWidget::setupUI() {
-    auto* layout = new QVBoxLayout(this);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-    auto* phoneSelectorLayout = new QHBoxLayout();
-    phoneSelector1 = new QComboBox(this);
-    phoneSelector2 = new QComboBox(this);
-    phoneSelector3 = new QComboBox(this);
-    phoneSelector4 = new QComboBox(this);
+    QHBoxLayout* comboLayout = new QHBoxLayout;
+    for (int i = 0; i < 4; ++i) {
+        QComboBox* combo = new QComboBox;
+        comboBoxes.append(combo);
+        comboLayout->addWidget(combo);
+        connect(combo, &QComboBox::currentTextChanged, this, &SmartphoneComparatorWidget::fillTable);
+    }
 
-    phoneSelectorLayout->addWidget(phoneSelector1);
-    phoneSelectorLayout->addWidget(phoneSelector2);
-    phoneSelectorLayout->addWidget(phoneSelector3);
-    phoneSelectorLayout->addWidget(phoneSelector4);
+    mainLayout->addLayout(comboLayout);
 
-    layout->addLayout(phoneSelectorLayout);
+    comparisonTable->setColumnCount(4);
+    comparisonTable->setRowCount(standardFocalLengths.size());
+    QStringList headers;
+    for (int i = 0; i < 4; ++i)
+        headers << "Phone " + QString::number(i + 1);
+    comparisonTable->setHorizontalHeaderLabels(headers);
+    comparisonTable->setVerticalHeaderLabels(
+        QStringList() << "15mm" << "24mm" << "35mm" << "65mm" << "90mm" << "120mm" << "240mm");
+    comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    comparisonTable = new QTableWidget(this);
-    comparisonTable->setRowCount(7); // 7 Brennweiten
-    comparisonTable->setColumnCount(4); // Maximal 4 Smartphones
-    comparisonTable->setVerticalHeaderLabels({"15mm", "24mm", "35mm", "65mm", "85mm", "120mm", "240mm"});
-    layout->addWidget(comparisonTable);
+    connect(comparisonTable, &QTableWidget::cellClicked, this, &SmartphoneComparatorWidget::onCellClicked);
 
-    connect(phoneSelector1, SIGNAL(currentIndexChanged(int)), this, SLOT(updateComparisonTable()));
-    connect(phoneSelector2, SIGNAL(currentIndexChanged(int)), this, SLOT(updateComparisonTable()));
-    connect(phoneSelector3, SIGNAL(currentIndexChanged(int)), this, SLOT(updateComparisonTable()));
-    connect(phoneSelector4, SIGNAL(currentIndexChanged(int)), this, SLOT(updateComparisonTable()));
+    mainLayout->addWidget(comparisonTable);
+
+    // Detailanzeige
+    detailLabel = new QLabel("Details zur Auswahl", this);
+    detailLabel->setWordWrap(true);
+    mainLayout->addWidget(detailLabel);
 }
 
 void SmartphoneComparatorWidget::setSmartphones(const QList<Smartphone>& phones) {
     smartphones = phones;
-    phoneSelector1->clear();
-    phoneSelector2->clear();
-    phoneSelector3->clear();
-    phoneSelector4->clear();
 
-    for (const Smartphone& phone : smartphones) {
-        phoneSelector1->addItem(phone.name());
-        phoneSelector2->addItem(phone.name());
-        phoneSelector3->addItem(phone.name());
-        phoneSelector4->addItem(phone.name());
+    for (auto* combo : comboBoxes) {
+        combo->clear();
+        for (const Smartphone& phone : smartphones)
+            combo->addItem(phone.getName());
     }
 
-    // Setze die Horizontal-Header auf aktuelle Smartphone-Namen
-    QStringList headers;
-    QList<QComboBox*> selectors = {phoneSelector1, phoneSelector2, phoneSelector3, phoneSelector4};
-    for (QComboBox* selector : selectors) {
-        int index = selector->currentIndex();
-        if (index >= 0 && index < smartphones.size()) {
-            headers << smartphones[index].name();
-        } else {
-            headers << "";
+    fillTable();
+}
+
+void SmartphoneComparatorWidget::fillTable() {
+    comparisonTable->clearContents();
+
+    for (int col = 0; col < comboBoxes.size(); ++col) {
+        int phoneIndex = comboBoxes[col]->currentIndex();
+        if (phoneIndex < 0 || phoneIndex >= smartphones.size())
+            continue;
+
+        const Smartphone& phone = smartphones[phoneIndex];
+        const auto& pairs = phone.getSensorLensPairs();
+
+        for (const auto& pair : pairs) {
+            double focal = pair.second.focalLengthMin();
+            double aperture = pair.second.apertureMin();
+            double area = pair.first.sensorArea();
+            double performance = area * (1.0 / (aperture * aperture));
+
+            int row = standardFocalLengths.indexOf(static_cast<int>(focal));
+            if (row >= 0) {
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(performance, 'f', 1));
+                item->setBackground(Qt::green);
+                item->setData(Qt::UserRole, QVariant::fromValue(pair));
+                comparisonTable->setItem(row, col, item);
+            }
         }
     }
-    comparisonTable->setHorizontalHeaderLabels(headers);
-    updateComparisonTable();
+}
+
+void SmartphoneComparatorWidget::onCellClicked(int row, int column) {
+    QTableWidgetItem* item = comparisonTable->item(row, column);
+    if (!item)
+        return;
+
+    int phoneIndex = comboBoxes[column]->currentIndex();
+    if (phoneIndex < 0 || phoneIndex >= smartphones.size())
+        return;
+
+    const Smartphone& phone = smartphones[phoneIndex];
+    const auto& pairs = phone.getSensorLensPairs();
+    const auto& fovs = phone.getFieldOfViews();
+    const auto& resolutions = phone.getAngularResolutions();
+
+    double focal = standardFocalLengths[row];
+
+    for (int i = 0; i < pairs.size(); ++i) {
+        if (qFuzzyCompare(pairs[i].second.focalLengthMin(), focal)) {
+            const CameraSensor& sensor = pairs[i].first;
+            const Lens& lens = pairs[i].second;
+
+            QString detailText = QString(
+                                     "<b>Brennweite:</b> %1 mm<br>"
+                                     "<b>Blende:</b> f/%2<br>"
+                                     "<b>Sensorgröße:</b> %3 mm x %4 mm<br>"
+                                     "<b>Auflösung:</b> %5 MP<br>"
+                                     "<b>Winkelauflösung:</b> %6 px/Grad<br>"
+                                     "<b>Bildwinkel:</b> %7 °")
+                                     .arg(lens.focalLengthMin())
+                                     .arg(lens.apertureMin())
+                                     .arg(sensor.width())
+                                     .arg(sensor.height())
+                                     .arg(sensor.resolution())
+                                     .arg(resolutions.value(i, 0.0), 0, 'f', 2)
+                                     .arg(fovs.value(i, 0.0), 0, 'f', 2);
+
+            detailLabel->setText(detailText);
+            return;
+        }
+    }
 }
 
 void SmartphoneComparatorWidget::updateComparisonTable() {
-    for (int i = 0; i < 7; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            comparisonTable->setItem(i, j, new QTableWidgetItem(""));
-        }
-    }
+    // Clear previous table contents
+    comparisonTable->clearContents();
 
-    QList<QComboBox*> selectors = {phoneSelector1, phoneSelector2, phoneSelector3, phoneSelector4};
-    QList<int> standardFocalLengths = {15, 24, 35, 65, 85, 120, 240};
-
-    QStringList headers;
-
-    for (int j = 0; j < selectors.size(); ++j) {
-        int index = selectors[j]->currentIndex();
-        if (index < 0 || index >= smartphones.size()) {
-            headers << "";
+    // Loop over each combo box and fill in the corresponding column of the table
+    for (int col = 0; col < comboBoxes.size(); ++col) {
+        int phoneIndex = comboBoxes[col]->currentIndex();
+        if (phoneIndex < 0 || phoneIndex >= smartphones.size()) {
             continue;
         }
-        const Smartphone& phone = smartphones[index];
-        headers << phone.name();
 
-        for (int i = 0; i < standardFocalLengths.size(); ++i) {
-            int focalLength = standardFocalLengths[i];
-            bool isNative = false;
-            QColor color;
-            QString lensInfo = findClosestLensInfo(phone, focalLength, isNative, color);
+        const Smartphone& phone = smartphones[phoneIndex];
+        const auto& pairs = phone.getSensorLensPairs(); // Get lens-sensor pairs
 
-            QTableWidgetItem* item = new QTableWidgetItem(lensInfo);
-            item->setBackground(QBrush(color));
-            comparisonTable->setItem(i, j, item);
+        // Loop through standard focal lengths
+        for (const auto& pair : pairs) {
+            double focal = pair.second.focalLengthMin(); // Focal length of the lens
+            double aperture = pair.second.apertureMin(); // Aperture of the lens
+            double area = pair.first.width() * pair.first.height(); // Sensor area
+            double performance = area * (1.0 / (aperture * aperture)); // Performance value
+
+            int row = standardFocalLengths.indexOf(static_cast<int>(focal)); // Find the matching focal length row
+            if (row >= 0) {
+                // Create a table item and set the performance value with a green background
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(performance, 'f', 1));
+                item->setBackground(Qt::green);
+                item->setData(Qt::UserRole, QVariant::fromValue(pair)); // Store the lens-sensor pair for reference
+                comparisonTable->setItem(row, col, item); // Add the item to the table
+            }
         }
     }
-
-    comparisonTable->setHorizontalHeaderLabels(headers);
-}
-
-QString SmartphoneComparatorWidget::findClosestLensInfo(const Smartphone& phone, int targetFocalLength, bool& isNative, QColor& color) {
-    for (const auto& pair : phone.sensorLensPairs()) {
-        const CameraSensor& sensor = pair.first;
-        const Lens& lens = pair.second;
-
-        if (lens.focalLengthMin() <= targetFocalLength && lens.focalLengthMax() >= targetFocalLength) {
-            isNative = true;
-            color = Qt::green;
-            return QString("%1-%2mm f/%3\n%4MP %5mm")
-                .arg(lens.focalLengthMin())
-                .arg(lens.focalLengthMax())
-                .arg(lens.apertureMax())
-                .arg(sensor.resolution() / 1e6)
-                .arg(sensor.sensorArea());
-        }
-    }
-
-    int closestFocalLength = -1;
-    const Lens* bestLens = nullptr;
-    const CameraSensor* bestSensor = nullptr;
-    for (const auto& pair : phone.sensorLensPairs()) {
-        const Lens& lens = pair.second;
-        if (lens.focalLengthMax() < targetFocalLength && lens.focalLengthMax() > closestFocalLength) {
-            closestFocalLength = lens.focalLengthMax();
-            bestLens = &lens;
-            bestSensor = &pair.first;
-        }
-    }
-
-    if (bestLens) {
-        color = QColor("orange");
-        return QString("%1-%2mm f/%3\n%4MP %5mm")
-            .arg(bestLens->focalLengthMin())
-            .arg(bestLens->focalLengthMax())
-            .arg(bestLens->apertureMax())
-            .arg(bestSensor->resolution() / 1e6)
-            .arg(bestSensor->sensorArea());
-    }
-
-    color = Qt::red;
-    return "Keine Linse verfügbar";
 }

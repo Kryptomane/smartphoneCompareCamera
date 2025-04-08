@@ -18,22 +18,14 @@ MainWindow::MainWindow(QWidget* parent)
 
     // Compare Tab
     comparatorWidget = new SmartphoneComparatorWidget(this);
-
     // Smartphone hinzufügen Button
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
-
     // Layout des comparatorWidgets erweitern
     QVBoxLayout* compareLayout = qobject_cast<QVBoxLayout*>(comparatorWidget->layout());
     if (compareLayout) {
         compareLayout->addWidget(addSmartphoneButton);
     }
-
-    // Signal mit Slot verbinden
     connect(addSmartphoneButton, &QPushButton::clicked, this, &MainWindow::addSmartphone);
-
-
-
-
     tabWidget->addTab(comparatorWidget, "Smartphone Compare");
 
     // Table Tab
@@ -57,8 +49,6 @@ MainWindow::MainWindow(QWidget* parent)
     // Buttons verbinden
     connect(addSensorButton, &QPushButton::clicked, this, &MainWindow::addSensor);
     connect(addLensButton, &QPushButton::clicked, this, &MainWindow::addLens);
-
-
     //loadData
     loadLensData();
 }
@@ -129,13 +119,21 @@ void MainWindow::addLens() {
 }
 
 void MainWindow::addSmartphone() {
-    if (smartphoneDialog->exec() == QDialog::Accepted) {
-        Smartphone newSmartphone = smartphoneDialog->getSmartphone();
+    // Dialog erzeugen
+    AddSmartphoneDialog dialog(this);
+
+    // Sensor- und Linsen-Widgets übergeben
+    dialog.setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
+
+    // Dialog anzeigen und bei Bestätigung Smartphone übernehmen
+    if (dialog.exec() == QDialog::Accepted) {
+        Smartphone newSmartphone = dialog.getSmartphone();
         smartphones.append(newSmartphone);
         comparatorWidget->setSmartphones(smartphones);
         comparatorWidget->updateComparisonTable();
     }
 }
+
 
 LensTableWidget* MainWindow::getLensesWidget() {
     return lensTableWidget;
@@ -147,7 +145,7 @@ void MainWindow::updateSensorAndLensLists() {
 
     // Iterieren durch die Smartphones und alle Sensoren und Linsen sammeln
     for (const Smartphone& phone : smartphones) {
-        for (const auto& pair : phone.sensorLensPairs()) {
+        for (const auto& pair : phone.getSensorLensPairs()) {
             const CameraSensor& sensor = pair.first;
             const Lens& lens = pair.second;
 

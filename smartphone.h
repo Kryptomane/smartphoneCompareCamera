@@ -3,39 +3,48 @@
 
 #include <QString>
 #include <QList>
-#include <QPair>
 #include <QJsonObject>
 #include <QJsonArray>
-
-#include "camerasensor.h"
 #include "lens.h"
+#include "camerasensor.h"
 
 class Smartphone {
 public:
-    Smartphone() = default;
+    Smartphone();
 
-    Smartphone(const QString& name, const QString& manufacturer, int releaseYear,
-               double displayDiagonal, int batteryCapacity);
+    void setName(const QString& name);
+    void setManufacturer(const QString& manufacturer);
+    void setReleaseYear(int year);
+    void setDisplaySize(double inches);
+    void setBatteryCapacity(int capacity);
 
-    QString name() const;
-    QString manufacturer() const;
-    int releaseYear() const;
-    double displayDiagonal() const;
-    int batteryCapacity() const;
+    QString getName() const;
+    QString getManufacturer() const;
+    int getReleaseYear() const;
+    double getDisplaySize() const;
+    int getBatteryCapacity() const;
 
-    const QList<QPair<CameraSensor, Lens>>& sensorLensPairs() const;
     void addSensorLensPair(const CameraSensor& sensor, const Lens& lens);
+    QList<QPair<CameraSensor, Lens>> getSensorLensPairs() const;
+
+    void addFieldOfView(double fov);
+    void addAngularResolution(double pixelsPerDegree);
+    QList<double> getFieldOfViews() const;
+    QList<double> getAngularResolutions() const;
 
     QJsonObject toJson() const;
     static Smartphone fromJson(const QJsonObject& obj);
 
 private:
-    QString m_name;
-    QString m_manufacturer;
-    int m_releaseYear;
-    double m_displayDiagonal;
-    int m_batteryCapacity;
-    QList<QPair<CameraSensor, Lens>> m_sensorLensPairs;
+    QString name;
+    QString manufacturer;
+    int releaseYear;
+    double displaySize;
+    int batteryCapacity;
+
+    QList<QPair<CameraSensor, Lens>> sensorLensPairs;
+    QList<double> fieldOfViews;
+    QList<double> angularResolutions;
 };
 
 #endif // SMARTPHONE_H
