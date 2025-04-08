@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(addLensButton, &QPushButton::clicked, this, &MainWindow::addLens);
     //loadData
     loadLensData();
+    loadCameraSensors();
 }
 
 // Destruktor
@@ -186,6 +187,37 @@ void MainWindow::loadLensData()
         QJsonObject lensObject = value.toObject();
         Lens lens = Lens::fromJson(lensObject);  // Hier wird angenommen, dass fromJson() existiert
         lensTableWidget->addLens(lens);
+    }
+}
+
+void MainWindow::loadCameraSensors()
+{
+    // Pfad zur JSON-Datei
+    QString filePath = "camerasensors.json";  // Ersetze durch den tatsächlichen Pfad
+
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
+        return;
+    }
+
+    QByteArray fileData = file.readAll();
+    file.close();
+
+    // JSON-Dokument erstellen
+    QJsonDocument document = QJsonDocument::fromJson(fileData);
+    if (document.isNull()) {
+        QMessageBox::warning(this, "Fehler", "Ungültiges JSON-Format.");
+        return;
+    }
+
+    QJsonArray sensorArray = document.array();  // JSON-Array der Linsen
+
+    // Liste von Linsen einlesen
+    for (const QJsonValue& value : sensorArray) {
+        QJsonObject sensorObject = value.toObject();
+        CameraSensor sensor = CameraSensor::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
+        cameraSensorTableWidget->addCameraSensor(sensor);
     }
 }
 

@@ -64,7 +64,10 @@ void AddSmartphoneDialog::setSensorAndLensWidgets(CameraSensorTableWidget* senso
         sensorComboBox->addItem(sensor.name());
 
     for (const auto& lens : lenses)
-        lensComboBox->addItem(lens.id());
+    {
+        QString temp = QString(lens.type()+" %1mm, f=%2").arg(QString::number(lens.focalLengthMin()), QString::number(lens.apertureMin()));
+        lensComboBox->addItem(temp);
+    }
 }
 
 void AddSmartphoneDialog::addSensorLensPair() {

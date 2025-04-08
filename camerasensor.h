@@ -9,9 +9,10 @@ class CameraSensor
 public:
     CameraSensor() = default;
 
-    CameraSensor(const QString& name, int resolution, int horizontalPixels, int verticalPixels, double pixelSize, double area, double width, double height,
+    CameraSensor(const QString& name, const QString& manufacture, int resolution, int horizontalPixels, int verticalPixels, double pixelSize, double area, double width, double height,
                               double diagonal, double cropFactor, int releaseYear, double sensitivity, const QString& format, const QString& inchSize, const QString& pattern, int bitDepth, const QString& other)
         : m_name(name),
+        m_manufacture(manufacture),
         m_resolution(resolution),
         m_horizontalPixels(horizontalPixels),
         m_verticalPixels(verticalPixels),
@@ -34,6 +35,7 @@ public:
     CameraSensor(const QString& name, int horizontalPixels, double pixelSize, const QString& format);
 
     // Getter
+    QString manufacture() const {return m_manufacture; }
     QString name() const { return m_name; }
     int resolution() const { return m_resolution; }
     int horizontalPixels() const { return m_horizontalPixels; }
@@ -70,6 +72,7 @@ public:
     void setInchSize(const QString& size) { m_inchSize = size; }
     void setBitDepth(int depth) { m_bitDepth = depth; }
     void setPattern(const QString& pattern) { m_pattern = pattern; }
+    void setManufacture(const QString& manu) { m_manufacture = manu; }
 
     // (De-)Serialisierung (Deklaration – du kannst sie bei Bedarf noch inline definieren)
     QJsonObject toJson() const;
@@ -77,7 +80,10 @@ public:
 
     static CameraSensor createCameraSensorFromInchSize(const QString& name, const QString& inchSize, int resolution, const QString& format = "4:3");
     static CameraSensor createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format = "4:3");
+    static CameraSensor makePlausibelCameraSensor(CameraSensor original);
+    static bool compareValueDeviation(double expected, double calculated, double deviation = 0.05);
 private:
+    QString m_manufacture;
     QString m_name;
     int m_resolution;
     int m_horizontalPixels;

@@ -69,6 +69,7 @@ CameraSensor CameraSensor::createCameraSensorFromInchSize(const QString& name, c
 
     return CameraSensor(
         name,
+        "",
         resolution,
         horizontalPixels,
         verticalPixels,
@@ -134,6 +135,7 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
 
     return CameraSensor(
         name,
+        "",
         resolution,
         horizontalPixels,
         verticalPixels,
@@ -153,11 +155,29 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
         );
 }
 
+bool CameraSensor::compareValueDeviation(double expected, double calculated, double deviation){
+    if (qAbs(expected - calculated) / expected <= deviation) {
+        return true;
+    }
+    return false;
+}
 
+CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
+    if (original.resolution() > 0 && original.resolution() < 1000000)
+        original.setResolution(original.resolution()*1000000);
+
+    if (original.inchSize() != "") && (original.resolution() > 0){
+        CameraSensor temp = createCameraSensorFromInchSize(original.name(), original.inchSize(), original.resolution(), original.format());
+    }
+    if (original.horizontalPixels() > 0 && original.pixelSize() > 0)
+        CameraSensor temp2 = createCameraSensorFromPixels(original.name(), original.horizontalPixels(), original.pixelSize(), original.format()) ;
+    }
+}
 
 QJsonObject CameraSensor::toJson() const {
     QJsonObject obj;
     obj["name"] = m_name;
+    obj["manufacture"] = m_manufacture;
     obj["resolution"] = m_resolution;
     obj["horizontalPixels"] = m_horizontalPixels;
     obj["verticalPixels"] = m_verticalPixels;
@@ -180,6 +200,7 @@ QJsonObject CameraSensor::toJson() const {
 CameraSensor CameraSensor::fromJson(const QJsonObject& obj) {
     return CameraSensor(
         obj["name"].toString(),
+        obj["manufacture"].toString(),
         obj["resolution"].toInt(),
         obj["horizontalPixels"].toInt(),
         obj["verticalPixels"].toInt(),
