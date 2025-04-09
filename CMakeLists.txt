@@ -42,3 +42,6 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/camerasensors.json ${CMAKE_CURRENT_BINARY_DIR}/camerasensors.json COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/lens.json ${CMAKE_CURRENT_BINARY_DIR}/lens.json COPYONLY)
