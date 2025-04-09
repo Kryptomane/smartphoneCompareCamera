@@ -217,6 +217,7 @@ void MainWindow::loadCameraSensors()
     for (const QJsonValue& value : sensorArray) {
         QJsonObject sensorObject = value.toObject();
         CameraSensor sensor = CameraSensor::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
+        sensor = CameraSensor::makePlausibelCameraSensor(sensor);
         cameraSensorTableWidget->addCameraSensor(sensor);
     }
 }

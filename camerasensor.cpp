@@ -164,9 +164,52 @@ bool CameraSensor::compareValueDeviation(double expected, double calculated, dou
 }
 
 CameraSensor CameraSensor::takeOver(CameraSensor master, CameraSensor slave){
-
-
-
+    if (master.manufacture() == "") {
+        master.setManufacture(slave.manufacture());
+    }
+    if (compareValueDeviation(slave.verticalPixels(), master.verticalPixels()) || master.verticalPixels() == 0) {
+        master.setVerticalPixels(slave.verticalPixels());
+    }
+    if (compareValueDeviation(slave.horizontalPixels(), master.horizontalPixels()) || master.horizontalPixels() == 0) {
+        master.setHorizontalPixels(slave.horizontalPixels());
+    }
+    if ((master.horizontalPixels() != 0) && (master.verticalPixels() != 0) && master.resolution() != 0){
+        if (compareValueDeviation(master.horizontalPixels()*master.verticalPixels(), master.resolution())){
+            master.setResolution(master.horizontalPixels()*master.verticalPixels());
+        }
+    } else {
+        master.setResolution(slave.resolution());
+    }
+    if (compareValueDeviation(slave.pixelSize(), master.pixelSize()) || master.pixelSize() == 0) {
+        master.setPixelSize(slave.pixelSize());
+    }
+    if (compareValueDeviation(slave.sensorArea(), master.sensorArea()) || master.sensorArea() == 0) {
+        master.setSensorArea(slave.sensorArea());
+    }
+    if (compareValueDeviation(slave.diagonal(), master.diagonal()) || master.diagonal() == 0) {
+        master.setDiagonal(slave.sensorArea());
+    }
+    if (compareValueDeviation(slave.width(), master.width()) || master.width() == 0) {
+        master.setWidth(slave.width());
+    }
+    if (compareValueDeviation(slave.height(), master.height()) || master.height() == 0) {
+        master.setHeight(slave.height());
+    }
+    if (compareValueDeviation(slave.cropFactor(), master.cropFactor()) || master.cropFactor() == 0) {
+        master.setCropFactor(slave.cropFactor());
+    }
+    if (master.releaseYear() == 2010 && slave.releaseYear() != 0){
+        master.setReleaseYear(slave.releaseYear());
+    }
+    if (master.sensitivity() == 1.0 && slave.sensitivity() != 0){
+        master.setSensitivity(slave.sensitivity());
+    }
+    if (master.other() == "filledByPixelSize" || master.other() == "filledByInchSize"){
+        if (slave.other() != ""){
+            master.setOther(slave.other());
+        }
+    }
+    return master;
 }
 
 CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
@@ -188,7 +231,7 @@ CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
         } else {
             //valid
             //überschreiben von original was fehlt
-            return takeover(original,temp);
+            return takeOver(original,temp);
         }
     }
     if (temp.other() == "filledByInchSize") {
