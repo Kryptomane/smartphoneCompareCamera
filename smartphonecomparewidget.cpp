@@ -65,22 +65,73 @@ void SmartphoneComparatorWidget::fillTable() {
         const Smartphone& phone = smartphones[phoneIndex];
         const auto& pairs = phone.getSensorLensPairs();
 
-        for (const auto& pair : pairs) {
-            double focal = pair.second.focalLengthMin();
-            double aperture = pair.second.apertureMin();
-            double area = pair.first.sensorArea();
-            double performance = area * (1.0 / (aperture * aperture));
+        for (int row = 0; row < standardFocalLengths.size(); ++row) {
+            int targetFocal = standardFocalLengths[row];
 
-            int row = standardFocalLengths.indexOf(static_cast<int>(focal));
-            if (row >= 0) {
+            // Variablen für das beste Sensor-Linsen-Paar und Farbberechnung
+            const QPair<CameraSensor, Lens>* bestPair = nullptr;
+            double minDelta = 9999;
+            bool isNative = false;
+            double focalLengthUsed = 0;
+            double apertureUsed = 0;
+            double sensorAreaUsed = 0;
+
+            // Überprüfe alle Linsen, um die beste Option zu finden
+            for (const auto& pair : pairs) {
+                double focal = pair.second.focalLengthMin();
+
+                // Exakte Übereinstimmung (native Linse)
+                if (qFuzzyCompare(focal, targetFocal)) {
+                    bestPair = &pair;
+                    isNative = true;
+                    focalLengthUsed = focal;
+                    apertureUsed = pair.second.apertureMin();
+                    sensorAreaUsed = pair.first.sensorArea();
+                    break;
+                }
+
+                // Nächstkleinere Brennweite finden (gecroppt)
+                if (focal < targetFocal && (targetFocal - focal) < minDelta) {
+                    bestPair = &pair;
+                    minDelta = targetFocal - focal;
+                    focalLengthUsed = focal;
+                    apertureUsed = pair.second.apertureMin();
+                    sensorAreaUsed = pair.first.sensorArea();
+                }
+            }
+
+            // Falls ein passendes Paar gefunden wurde, fülle die Zelle
+            if (bestPair) {
+                double cropFactor = (focalLengthUsed > 0) ? targetFocal / focalLengthUsed : 1;
+                double effectiveArea = isNative ? sensorAreaUsed : sensorAreaUsed / (cropFactor * cropFactor);
+                double effectiveAperture = isNative ? apertureUsed : apertureUsed * cropFactor;
+                double performance = effectiveArea * (1.0 / (effectiveAperture * effectiveAperture));
+
                 QTableWidgetItem* item = new QTableWidgetItem(QString::number(performance, 'f', 1));
-                item->setBackground(Qt::green);
-                item->setData(Qt::UserRole, QVariant::fromValue(pair));
+
+                // Wenn native Brennweite, setze Hintergrund auf grün, andernfalls Farbverlauf
+                if (isNative) {
+                    item->setBackground(Qt::green);
+                } else {
+                    // Farbverlauf von grün nach orange je nach Abweichung
+                    int intensity = qMin(255, static_cast<int>((minDelta / targetFocal) * 255));
+                    item->setBackground(QColor(255, 255 - intensity, 0));
+                    item->setToolTip(QString("Crop: %.1fx\nOrig: %.1fmm\nEffAperture: f/%.2f\nEffArea: %.1f mm²")
+                                         .arg(cropFactor, 0, 'f', 2)
+                                         .arg(focalLengthUsed)
+                                         .arg(effectiveAperture)
+                                         .arg(effectiveArea));
+                }
+
+                item->setData(Qt::UserRole, QVariant::fromValue(*bestPair));
                 comparisonTable->setItem(row, col, item);
             }
         }
     }
 }
+
+
+
 
 void SmartphoneComparatorWidget::onCellClicked(int row, int column) {
     QTableWidgetItem* item = comparisonTable->item(row, column);

@@ -39,10 +39,9 @@ private:
 
     void loadDataFromJson();
     void saveDataToJson();
-    void addTestSmartphones();
     void loadLensData();
     void loadCameraSensors();
-
+    void loadSmartPhones();
     void updateSensorAndLensLists();
 };
 

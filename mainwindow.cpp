@@ -222,54 +222,33 @@ void MainWindow::loadCameraSensors()
     }
 }
 
-void MainWindow::addTestSmartphones() {
-    // Zwei Smartphones mit je 3 Kameras und Objektiven hinzufügen
-    /*
-    // Smartphone 1
-    Smartphone phone1("Smartphone 1", "Hersteller 1", 2023, 6.5, 4000);
-    CameraSensor sensor1("Sensor 1", 12 * 1000000, 4000, 3000, 1.12, 7.5, 50.0, 5.6, 4.5, 1.0, 2021, 3.0, "4:3", "Sonstiges");
-    Lens lens1(1, "Festbrennweite", 15, 15, 2.0, 2.0);
-    phone1.addSensorLensPair(sensor1, lens1);
+void MainWindow::loadSmartPhones()
+{
+    // Pfad zur JSON-Datei
+    QString filePath = "smartphones.json";  // Ersetze durch den tatsächlichen Pfad
 
-    CameraSensor sensor2("Sensor 2", 12 * 1000000, 4000, 3000, 1.08, 6.0, 50.0, 5.5, 4.2, 1.0, 2022, 3.5, "16:9", "Sonstiges");
-    Lens lens2(2, "Festbrennweite", 24, 24, 1.6, 1.6);
-    phone1.addSensorLensPair(sensor2, lens2);
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
+        return;
+    }
 
-    CameraSensor sensor3("Sensor 3", 12 * 1000000, 4000, 3000, 1.0, 5.0, 50.0, 4.5, 4.0, 1.0, 2022, 2.8, "4:3", "Sonstiges");
-    Lens lens3(3, "Festbrennweite", 85, 85, 2.5, 2.5);
-    phone1.addSensorLensPair(sensor3, lens3);
+    QByteArray fileData = file.readAll();
+    file.close();
 
-    smartphones.append(phone1);
+    // JSON-Dokument erstellen
+    QJsonDocument document = QJsonDocument::fromJson(fileData);
+    if (document.isNull()) {
+        QMessageBox::warning(this, "Fehler", "Ungültiges JSON-Format.");
+        return;
+    }
 
-    // Smartphone 2
-    Smartphone phone2("Smartphone 2", "Hersteller 2", 2023, 6.5, 4000);
-    CameraSensor sensor4("Sensor 1", 8192, 1.12, "4:3", 2024);
-    Lens lens4(1, "Festbrennweite", 12, 12, 1.8, 1.8);
-    phone2.addSensorLensPair(sensor4, lens4);
+    QJsonArray smartphoneArray = document.array();  // JSON-Array der Linsen
 
-    CameraSensor sensor5("Sensor 2", 8192, 1.08, "16:9", 2023);
-    Lens lens5(2, "Festbrennweite", 23, 23, 1.8, 1.8);
-    phone2.addSensorLensPair(sensor5, lens5);
-
-    CameraSensor sensor6("Sensor 3", 8192, 1.0, "4:3", 2024);
-    Lens lens6(3, "Festbrennweite", 105, 105, 3.5, 3.5);
-    phone2.addSensorLensPair(sensor6, lens6);
-    smartphones.append(phone2);
-
-    Smartphone phone3("Smartphone 3", "Hersteller 3", 2023, 6.5, 4000);
-    CameraSensor sensor7("Sensor 7", 819, 1.12, "4:3", 2024);
-    Lens lens7(1, "Festbrennweite", 12, 12, 1.8, 1.8);
-    phone1.addSensorLensPair(sensor1, lens1);
-
-    CameraSensor sensor8("Sensor 8", 819, 1.08, "16:9", 2023);
-    Lens lens8(2, "Festbrennweite", 23, 23, 1.8, 1.8);
-    phone1.addSensorLensPair(sensor2, lens2);
-
-    CameraSensor sensor9("Sensor 9", 819, 1.0, "4:3", 2024);
-    Lens lens9(3, "Festbrennweite", 105, 105, 3.5, 3.5);
-    phone1.addSensorLensPair(sensor3, lens3);
-    smartphones.append(phone3);
-    */
+    // Liste von Linsen einlesen
+    for (const QJsonValue& value : smartphoneArray) {
+        QJsonObject sensorObject = value.toObject();
+        Smartphone sensor = Smartphone::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
+        comparatorWidget->ad
+    }
 }
-
-
