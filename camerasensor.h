@@ -82,6 +82,8 @@ public:
     static CameraSensor createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format = "4:3");
     static CameraSensor makePlausibelCameraSensor(CameraSensor original);
     static bool compareValueDeviation(double expected, double calculated, double deviation = 0.05);
+    static CameraSensor takeOver(CameraSensor master, CameraSensor slave);
+
 private:
     QString m_manufacture;
     QString m_name;

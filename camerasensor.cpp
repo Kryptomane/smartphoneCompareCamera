@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <cmath>
 #include <QString>
+#include <QMessageBox>
 
 CameraSensor::CameraSensor(const QString& name, const QString& inchSize, int resolution, const QString& format) {
     *this = createCameraSensorFromInchSize(name, inchSize, resolution, format);
@@ -69,7 +70,7 @@ CameraSensor CameraSensor::createCameraSensorFromInchSize(const QString& name, c
 
     return CameraSensor(
         name,
-        "",
+        "model",
         resolution,
         horizontalPixels,
         verticalPixels,
@@ -79,13 +80,13 @@ CameraSensor CameraSensor::createCameraSensorFromInchSize(const QString& name, c
         height,
         diag,
         cropFactor,
-        0,             // releaseYear
-        0.0,           // sensitivity
+        2010,             // releaseYear
+        1.0,           // sensitivity
         format,
         inchSize,
         "RGGB",        // Standard pattern
         bitDepth,
-        ""
+        "filledByInchSize"
         );
 }
 
@@ -113,7 +114,7 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
     double height = (verticalPixels * pixelSize) / 1000.0;
 
     // Diagonale des Sensors (in mm)
-    double diagonal = std::sqrt(width * width + height * height);
+    double diameter = std::sqrt(width * width + height * height);
 
     // Sensorfläche (in mm²)
     double area = width * height;
@@ -122,8 +123,8 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
     int resolution = horizontalPixels * verticalPixels;
 
     // Berechne optisches Inch-Maß (zurückrechnen aus realer Diagonale)
-    double inchFactor = (diagonal >= 8.0) ? 1.5875 : 1.4111;
-    double realInchSize = diagonal * inchFactor / 2.54;
+    double inchFactor = (diameter >= 8.0) ? 1.5875 : 1.4111;
+    double realInchSize = diameter * inchFactor / 2.54;
 
     // Format als Bruch annähern
     double num = std::round(realInchSize * 100.0);
@@ -131,11 +132,11 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
     QString inchSizeStr = QString("%1/%2").arg(static_cast<int>(num), 1).arg(static_cast<int>(den));
 
     // Crop Factor relativ zu 43.3 mm Vollformat
-    double cropFactor = 43.3 / diagonal;
+    double cropFactor = 43.3 / diameter;
 
     return CameraSensor(
         name,
-        "",
+        "model",
         resolution,
         horizontalPixels,
         verticalPixels,
@@ -143,15 +144,15 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
         area,
         width,
         height,
-        diagonal,
+        diameter,
         cropFactor,
-        0,              // releaseYear
-        0.0,            // sensitivity
+        2010,              // releaseYear
+        1.0,            // sensitivity
         format,
         inchSizeStr,
         "RGGB",         // Standard Bayer Pattern
         10,             // Bit-Tiefe
-        ""              // other
+        "filledByPixelSize"              // other
         );
 }
 
@@ -162,16 +163,42 @@ bool CameraSensor::compareValueDeviation(double expected, double calculated, dou
     return false;
 }
 
-CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
-    if (original.resolution() > 0 && original.resolution() < 1000000)
-        original.setResolution(original.resolution()*1000000);
+CameraSensor CameraSensor::takeOver(CameraSensor master, CameraSensor slave){
 
-    if (original.inchSize() != "") && (original.resolution() > 0){
-        CameraSensor temp = createCameraSensorFromInchSize(original.name(), original.inchSize(), original.resolution(), original.format());
+
+
+}
+
+CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
+    if ((original.resolution() > 0) && (original.resolution() < 1000000)){
+        original.setResolution(original.resolution()*1000000);
     }
-    if (original.horizontalPixels() > 0 && original.pixelSize() > 0)
-        CameraSensor temp2 = createCameraSensorFromPixels(original.name(), original.horizontalPixels(), original.pixelSize(), original.format()) ;
+    CameraSensor temp, temp2;
+    if ((original.inchSize() != " ") && (original.resolution() > 0)){
+        temp = createCameraSensorFromInchSize(original.name(), original.inchSize(), original.resolution(), original.format());
     }
+    if ((original.horizontalPixels() > 0) && (original.pixelSize() > 0)){
+        temp2 = createCameraSensorFromPixels(original.name(), original.horizontalPixels(), original.pixelSize(), original.format());
+    }
+    if ((temp.other() == "filledByInchSize") && (temp2.other() == "filledByPixelSize")) {
+        if (!compareValueDeviation(temp.sensorArea(), temp2.sensorArea())){
+            QMessageBox::warning(nullptr, "Fehler", "Die berechneten Werte stimmen nicht überein. Die Abweichung beträgt mehr als 5%.");
+            //überlegen was hier valid ist
+            return original;
+        } else {
+            //valid
+            //überschreiben von original was fehlt
+            return takeover(original,temp);
+        }
+    }
+    if (temp.other() == "filledByInchSize") {
+        return takeOver(temp,original);//überschreiben von temp vom original
+    }
+    if (temp2.other() == "filledByPixelSize") {
+        return takeOver(temp2,original);
+        //überschreiben von temp2 vom original
+    }
+    return original;
 }
 
 QJsonObject CameraSensor::toJson() const {
