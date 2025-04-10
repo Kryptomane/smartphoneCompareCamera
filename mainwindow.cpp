@@ -111,21 +111,13 @@ void MainWindow::addLens() {
 }
 
 void MainWindow::addSmartphone() {
-    // Dialog erzeugen
     AddSmartphoneDialog dialog(this);
-
-    // Sensor- und Linsen-Widgets übergeben
     dialog.setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
-
-    // Dialog anzeigen und bei Bestätigung Smartphone übernehmen
     if (dialog.exec() == QDialog::Accepted) {
         Smartphone newSmartphone = dialog.getSmartphone();
-        smartphones.append(newSmartphone);
-        comparatorWidget->setSmartphones(smartphones);
-        comparatorWidget->updateComparisonTable();
+        comparatorWidget->addSmartphones(newSmartphone);
     }
 }
-
 
 LensTableWidget* MainWindow::getLensesWidget() {
     return lensTableWidget;

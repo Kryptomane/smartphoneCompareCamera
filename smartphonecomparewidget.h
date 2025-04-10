@@ -19,10 +19,9 @@ class SmartphoneComparatorWidget : public QWidget {
 public:
     explicit SmartphoneComparatorWidget(QWidget* parent = nullptr);
 
-    void setSmartphones(const QList<Smartphone>& phones);
+    void addSmartphone(Smartphone phone);
     void fillTable();
     void updateComparisonTable();
-
 private slots:
     void onCellClicked(int row, int column);
 
@@ -32,7 +31,6 @@ private:
     QList<QComboBox*> comboBoxes;
     QVector<int> standardFocalLengths = {15, 24, 35, 65, 90, 120, 240};
     QLabel* detailLabel;
-
     void setupUI();
 };
 

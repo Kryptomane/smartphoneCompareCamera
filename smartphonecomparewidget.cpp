@@ -42,18 +42,6 @@ void SmartphoneComparatorWidget::setupUI() {
     mainLayout->addWidget(detailLabel);
 }
 
-void SmartphoneComparatorWidget::setSmartphones(const QList<Smartphone>& phones) {
-    smartphones = phones;
-
-    for (auto* combo : comboBoxes) {
-        combo->clear();
-        for (const Smartphone& phone : smartphones)
-            combo->addItem(phone.name());
-    }
-
-    fillTable();
-}
-
 void SmartphoneComparatorWidget::fillTable() {
     comparisonTable->clearContents();
 
@@ -128,6 +116,11 @@ void SmartphoneComparatorWidget::fillTable() {
             }
         }
     }
+}
+
+void SmartphoneComparatorWidget::addSmartphone(Smartphone phone){
+    smartphones.append(phone);
+    updateComparisonTable();
 }
 
 void SmartphoneComparatorWidget::onCellClicked(int row, int column) {

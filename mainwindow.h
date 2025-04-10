@@ -27,15 +27,12 @@ private slots:
     void addSmartphone();
 
 private:
-    SmartphoneComparatorWidget* comparatorWidget;
-    QList<Smartphone> smartphones;
-    QListWidget* sensorListWidget;
-    QListWidget* lensListWidget;
     AddLensDialog* lensDialog;
-    AddSensorDialog* sensorDialog;
-    AddSmartphoneDialog* smartphoneDialog;
-    CameraSensorTableWidget* cameraSensorTableWidget;
     LensTableWidget* lensTableWidget;
+    AddSensorDialog* sensorDialog;
+    CameraSensorTableWidget* cameraSensorTableWidget;
+    AddSmartphoneDialog* smartphoneDialog;
+    SmartphoneComparatorWidget* comparatorWidget;
 
     void loadDataFromJson();
     void saveDataToJson();
