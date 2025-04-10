@@ -98,10 +98,6 @@ void MainWindow::addSensor() {
     if (sensorDialog->exec() == QDialog::Accepted) {
         CameraSensor newSensor = sensorDialog->getSensor(); // Sensor aus Dialog holen
         // Sensor zu einem Smartphone hinzufügen, hier ein Beispiel
-        if (!smartphones.isEmpty()) {
-            smartphones.first().addSensorLensPair(newSensor, Lens()); // Beispiel für Hinzufügen
-        }
-        comparatorWidget->updateComparisonTable(); // Tabelle aktualisieren
         cameraSensorTableWidget->addCameraSensor(newSensor);
     }
 }
@@ -110,11 +106,6 @@ void MainWindow::addLens() {
     // Öffne den Dialog zum Hinzufügen einer Linse
     if (lensDialog->exec() == QDialog::Accepted) {
         Lens newLens = lensDialog->getLens(); // Linse aus Dialog holen
-        // Linse zu einem Smartphone hinzufügen, hier ein Beispiel
-        if (!smartphones.isEmpty()) {
-            smartphones.first().addSensorLensPair(CameraSensor(), newLens); // Beispiel für Hinzufügen
-        }
-        comparatorWidget->updateComparisonTable(); // Tabelle aktualisieren
         lensTableWidget->addLens(newLens);
     }
 }
@@ -138,25 +129,6 @@ void MainWindow::addSmartphone() {
 
 LensTableWidget* MainWindow::getLensesWidget() {
     return lensTableWidget;
-}
-
-void MainWindow::updateSensorAndLensLists() {
-    sensorListWidget->clear();
-    lensListWidget->clear();
-
-    // Iterieren durch die Smartphones und alle Sensoren und Linsen sammeln
-    for (const Smartphone& phone : smartphones) {
-        for (const auto& pair : phone.getSensorLensPairs()) {
-            const CameraSensor& sensor = pair.first;
-            const Lens& lens = pair.second;
-
-            // Kamera-Sensor in die Liste einfügen
-            sensorListWidget->addItem(sensor.name() + " - " + QString::number(sensor.resolution() / 1e6) + "MP");
-
-            // Linse in die Liste einfügen
-            lensListWidget->addItem(lens.id() + " - " + QString::number(lens.focalLengthMin()) + "mm");
-        }
-    }
 }
 
 void MainWindow::loadLensData()
@@ -244,11 +216,12 @@ void MainWindow::loadSmartPhones()
     }
 
     QJsonArray smartphoneArray = document.array();  // JSON-Array der Linsen
-
+    /*
     // Liste von Linsen einlesen
     for (const QJsonValue& value : smartphoneArray) {
         QJsonObject sensorObject = value.toObject();
         Smartphone sensor = Smartphone::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
         comparatorWidget->ad
     }
+    */
 }

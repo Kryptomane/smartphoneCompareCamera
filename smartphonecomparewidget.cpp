@@ -48,7 +48,7 @@ void SmartphoneComparatorWidget::setSmartphones(const QList<Smartphone>& phones)
     for (auto* combo : comboBoxes) {
         combo->clear();
         for (const Smartphone& phone : smartphones)
-            combo->addItem(phone.getName());
+            combo->addItem(phone.name());
     }
 
     fillTable();
@@ -129,9 +129,6 @@ void SmartphoneComparatorWidget::fillTable() {
         }
     }
 }
-
-
-
 
 void SmartphoneComparatorWidget::onCellClicked(int row, int column) {
     QTableWidgetItem* item = comparisonTable->item(row, column);

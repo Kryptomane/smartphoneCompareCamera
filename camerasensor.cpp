@@ -167,10 +167,10 @@ CameraSensor CameraSensor::takeOver(CameraSensor master, CameraSensor slave){
     if (master.manufacture() == "") {
         master.setManufacture(slave.manufacture());
     }
-    if (compareValueDeviation(slave.verticalPixels(), master.verticalPixels()) || master.verticalPixels() == 0) {
+    if (master.verticalPixels() == 0 || master.verticalPixels() < 1000 || master.verticalPixels() > 15000) { //invalid
         master.setVerticalPixels(slave.verticalPixels());
     }
-    if (compareValueDeviation(slave.horizontalPixels(), master.horizontalPixels()) || master.horizontalPixels() == 0) {
+    if (master.horizontalPixels() == 0 || master.horizontalPixels() < 1000 || master.horizontalPixels() > 20000) { //invalid
         master.setHorizontalPixels(slave.horizontalPixels());
     }
     if ((master.horizontalPixels() != 0) && (master.verticalPixels() != 0) && master.resolution() != 0){
@@ -180,28 +180,28 @@ CameraSensor CameraSensor::takeOver(CameraSensor master, CameraSensor slave){
     } else {
         master.setResolution(slave.resolution());
     }
-    if (compareValueDeviation(slave.pixelSize(), master.pixelSize()) || master.pixelSize() == 0) {
+    if (master.pixelSize() == 0 || master.pixelSize() < 0.4 || master.pixelSize() > 4) {
         master.setPixelSize(slave.pixelSize());
     }
-    if (compareValueDeviation(slave.sensorArea(), master.sensorArea()) || master.sensorArea() == 0) {
+    if (master.sensorArea() == 0 || master.sensorArea() < 1 || master.sensorArea() > 445) {
         master.setSensorArea(slave.sensorArea());
     }
-    if (compareValueDeviation(slave.diagonal(), master.diagonal()) || master.diagonal() == 0) {
-        master.setDiagonal(slave.sensorArea());
+    if (master.diagonal() == 0 || master.diagonal() < 0 || master.diagonal() > 100) {
+        master.setDiagonal(slave.diagonal());
     }
-    if (compareValueDeviation(slave.width(), master.width()) || master.width() == 0) {
+    if (master.width() == 0 || master.width() < 0 || master.width()>100) {
         master.setWidth(slave.width());
     }
-    if (compareValueDeviation(slave.height(), master.height()) || master.height() == 0) {
+    if (master.height() == 0 || master.height() < 0 || master.height() > 100) {
         master.setHeight(slave.height());
     }
-    if (compareValueDeviation(slave.cropFactor(), master.cropFactor()) || master.cropFactor() == 0) {
+    if (master.cropFactor() == 0 || master.cropFactor() < 1 || master.cropFactor() > 10) {
         master.setCropFactor(slave.cropFactor());
     }
-    if (master.releaseYear() == 2010 && slave.releaseYear() != 0){
+    if (master.releaseYear() <= 2011 || slave.releaseYear() >= 2030){
         master.setReleaseYear(slave.releaseYear());
     }
-    if (master.sensitivity() == 1.0 && slave.sensitivity() != 0){
+    if (master.sensitivity() < 0.1 || slave.sensitivity() >= 4){
         master.setSensitivity(slave.sensitivity());
     }
     if (master.other() == "filledByPixelSize" || master.other() == "filledByInchSize"){
@@ -235,10 +235,10 @@ CameraSensor CameraSensor::makePlausibelCameraSensor(CameraSensor original) {
         }
     }
     if (temp.other() == "filledByInchSize") {
-        return takeOver(temp,original);//überschreiben von temp vom original
+        return takeOver(original,temp);//überschreiben von temp vom original
     }
     if (temp2.other() == "filledByPixelSize") {
-        return takeOver(temp2,original);
+        return takeOver(original,temp2);
         //überschreiben von temp2 vom original
     }
     return original;

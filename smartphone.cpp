@@ -1,97 +1,69 @@
 #include "smartphone.h"
 
 Smartphone::Smartphone()
-    : releaseYear(0), displaySize(0.0), batteryCapacity(0) {}
+    : m_releaseYear(0), m_displaySize(0.0), m_batteryCapacity(0) {}
 
-void Smartphone::setName(const QString& n) { name = n; }
-void Smartphone::setManufacturer(const QString& m) { manufacturer = m; }
-void Smartphone::setReleaseYear(int y) { releaseYear = y; }
-void Smartphone::setDisplaySize(double d) { displaySize = d; }
-void Smartphone::setBatteryCapacity(int c) { batteryCapacity = c; }
-
-QString Smartphone::getName() const { return name; }
-QString Smartphone::getManufacturer() const { return manufacturer; }
-int Smartphone::getReleaseYear() const { return releaseYear; }
-double Smartphone::getDisplaySize() const { return displaySize; }
-int Smartphone::getBatteryCapacity() const { return batteryCapacity; }
-
-void Smartphone::addSensorLensPair(const CameraSensor& sensor, const Lens& lens) {
-    sensorLensPairs.append(qMakePair(sensor, lens));
+void Smartphone::addMainCam(const SensorLensPair& pair) {
+    m_mainCams.append(pair);
 }
 
-QList<QPair<CameraSensor, Lens>> Smartphone::getSensorLensPairs() const {
-    return sensorLensPairs;
+void Smartphone::addSelfieCam(const SensorLensPair& pair) {
+    m_selfieCams.append(pair);
 }
 
-void Smartphone::addFieldOfView(double fov) {
-    fieldOfViews.append(fov);
+QList<SensorLensPair> Smartphone::getMainCams() const {
+    return m_mainCams;
 }
 
-void Smartphone::addAngularResolution(double pixelsPerDegree) {
-    angularResolutions.append(pixelsPerDegree);
-}
-
-QList<double> Smartphone::getFieldOfViews() const {
-    return fieldOfViews;
-}
-
-QList<double> Smartphone::getAngularResolutions() const {
-    return angularResolutions;
+QList<SensorLensPair> Smartphone::getSelfieCams() const {
+    return m_selfieCams;
 }
 
 QJsonObject Smartphone::toJson() const {
-    QJsonObject obj;
-    obj["name"] = name;
-    obj["manufacturer"] = manufacturer;
-    obj["releaseYear"] = releaseYear;
-    obj["displaySize"] = displaySize;
-    obj["batteryCapacity"] = batteryCapacity;
+    QJsonObject jsonObject;
 
-    QJsonArray pairArray;
-    for (const auto& pair : sensorLensPairs) {
-        QJsonObject item;
-        item["sensor"] = pair.first.toJson();
-        item["lens"] = pair.second.toJson();
-        pairArray.append(item);
+    // Hinzufügen der zusätzlichen Felder
+    jsonObject["name"] = m_name;
+    jsonObject["manufacture"] = m_manufacture;
+    jsonObject["releaseYear"] = m_releaseYear;
+    jsonObject["displaySize"] = m_displaySize;
+    jsonObject["batteryCapacity"] = m_batteryCapacity;
+
+    // Serialisierung der m_mainCams (QList<SensorLensPair>)
+    QJsonArray mainCamsArray;
+    for (const SensorLensPair& pair : m_mainCams) {
+        mainCamsArray.append(pair.toJson());
     }
-    obj["sensorLensPairs"] = pairArray;
+    jsonObject["mainCams"] = mainCamsArray;
 
-    QJsonArray fovArray;
-    for (double fov : fieldOfViews)
-        fovArray.append(fov);
-    obj["fieldOfViews"] = fovArray;
-
-    QJsonArray resolutionArray;
-    for (double r : angularResolutions)
-        resolutionArray.append(r);
-    obj["angularResolutions"] = resolutionArray;
-
-    return obj;
+    // Serialisierung von m_selfieCams (QPair<SensorLensPair>)
+    QJsonArray selfieCamsArray;
+    for (const SensorLensPair& pair : m_selfieCams) {
+        selfieCamsArray.append(pair.toJson());
+    }
+    jsonObject["selfieCams"] = selfieCamsArray;
+    return jsonObject;
 }
 
-Smartphone Smartphone::fromJson(const QJsonObject& obj) {
-    Smartphone phone;
-    phone.name = obj["name"].toString();
-    phone.manufacturer = obj["manufacturer"].toString();
-    phone.releaseYear = obj["releaseYear"].toInt();
-    phone.displaySize = obj["displaySize"].toDouble();
-    phone.batteryCapacity = obj["batteryCapacity"].toInt();
 
-    QJsonArray pairArray = obj["sensorLensPairs"].toArray();
-    for (const auto& value : pairArray) {
-        QJsonObject item = value.toObject();
-        CameraSensor sensor = CameraSensor::fromJson(item["sensor"].toObject());
-        Lens lens = Lens::fromJson(item["lens"].toObject());
-        phone.addSensorLensPair(sensor, lens);
+Smartphone Smartphone::fromJson(const QJsonObject& jsonObject) {
+    Smartphone phone;
+    phone.m_name = jsonObject["name"].toString();
+    phone.m_manufacture = jsonObject["manufacture"].toString();
+    phone.m_releaseYear = jsonObject["releaseYear"].toInt();
+    phone.m_displaySize = jsonObject["displaySize"].toDouble();
+    phone.m_batteryCapacity = jsonObject["batteryCapacity"].toInt();
+
+    // Deserialisierung der m_mainCams (QList<SensorLensPair>)
+    QJsonArray mainCamsArray = jsonObject["mainCams"].toArray();
+    for (const QJsonValue& value : mainCamsArray) {
+        phone.m_mainCams.append(SensorLensPair::fromJson(value.toObject()));
     }
 
-    QJsonArray fovArray = obj["fieldOfViews"].toArray();
-    for (const auto& value : fovArray)
-        phone.fieldOfViews.append(value.toDouble());
-
-    QJsonArray resolutionArray = obj["angularResolutions"].toArray();
-    for (const auto& value : resolutionArray)
-        phone.angularResolutions.append(value.toDouble());
-
+    // Deserialisierung von m_selfieCams (QList<SensorLensPair>)
+    QJsonArray selfieCamsArray = jsonObject["selfieCams"].toArray();
+    for (const QJsonValue& value : selfieCamsArray) {
+        phone.m_selfieCams.append(SensorLensPair::fromJson(value.toObject()));
+    }
     return phone;
 }

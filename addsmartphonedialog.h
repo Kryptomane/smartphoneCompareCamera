@@ -26,7 +26,8 @@ public:
     void reset();  // Felder zurücksetzen
 
 private slots:
-    void addSensorLensPair();
+    void addMainCam();
+    void addSelfieCam();
     void accept() override;
 
 private:
@@ -40,14 +41,14 @@ private:
     QComboBox* lensComboBox;
     QListWidget* selectedSensorLensList;
 
-    QList<QPair<CameraSensor, Lens>> sensorLensPairs;
+    QList<SensorLensPair> mainCams;
+    QList<SensorLensPair> selfieCams;
 
     CameraSensorTableWidget* cameraSensorTableWidget = nullptr;
     LensTableWidget* lensTableWidget = nullptr;
 
     void updateSelectedPairs();
-    double calculateFieldOfView(double sensorWidthMM, double focalLengthMM) const;
-    double calculateAngularResolution(double resolutionWidth, double fovDegrees) const;
+    double calculateFieldOfView(double sensorDiagonalMM, double cropFactor, double equivalentFocalLengthMM);
 };
 
 #endif // ADDSMARTPHONEDIALOG_H
