@@ -32,14 +32,13 @@ private:
     AddSensorDialog* sensorDialog;
     CameraSensorTableWidget* cameraSensorTableWidget;
     AddSmartphoneDialog* smartphoneDialog;
-    SmartphoneComparatorWidget* comparatorWidget;
+    phoneCompareWidget* comparatorWidget;
 
-    void loadDataFromJson();
-    void saveDataToJson();
     void loadLensData();
     void loadCameraSensors();
     void loadSmartPhones();
     void updateSensorAndLensLists();
+    void exportAllDataToJson();
 };
 
 #endif // MAINWINDOW_H

@@ -3,12 +3,12 @@
 #include <QLabel>
 #include <QGridLayout>
 
-SmartphoneComparatorWidget::SmartphoneComparatorWidget(QWidget* parent)
+phoneCompareWidget::phoneCompareWidget(QWidget* parent)
     : QWidget(parent), comparisonTable(new QTableWidget(this)) {
     setupUI();
 }
 
-void SmartphoneComparatorWidget::setupUI() {
+void phoneCompareWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
     QHBoxLayout* comboLayout = new QHBoxLayout;
@@ -16,7 +16,7 @@ void SmartphoneComparatorWidget::setupUI() {
         QComboBox* combo = new QComboBox;
         comboBoxes.append(combo);
         comboLayout->addWidget(combo);
-        connect(combo, &QComboBox::currentTextChanged, this, &SmartphoneComparatorWidget::fillTable);
+        connect(combo, &QComboBox::currentTextChanged, this, &phoneCompareWidget::fillTable);
     }
 
     mainLayout->addLayout(comboLayout);
@@ -32,7 +32,7 @@ void SmartphoneComparatorWidget::setupUI() {
     comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    connect(comparisonTable, &QTableWidget::cellClicked, this, &SmartphoneComparatorWidget::onCellClicked);
+    connect(comparisonTable, &QTableWidget::cellClicked, this, &phoneCompareWidget::onCellClicked);
 
     mainLayout->addWidget(comparisonTable);
 
@@ -42,7 +42,8 @@ void SmartphoneComparatorWidget::setupUI() {
     mainLayout->addWidget(detailLabel);
 }
 
-void SmartphoneComparatorWidget::fillTable() {
+void phoneCompareWidget::fillTable() {
+    /*
     comparisonTable->clearContents();
 
     for (int col = 0; col < comboBoxes.size(); ++col) {
@@ -116,14 +117,21 @@ void SmartphoneComparatorWidget::fillTable() {
             }
         }
     }
+*/
 }
 
-void SmartphoneComparatorWidget::addSmartphone(Smartphone phone){
+void phoneCompareWidget::addSmartphone(Smartphone phone){
     smartphones.append(phone);
     updateComparisonTable();
 }
 
-void SmartphoneComparatorWidget::onCellClicked(int row, int column) {
+QList<Smartphone> phoneCompareWidget::getSmartphones()
+{
+    return smartphones;  // Gibt die interne Liste der Linsen zurück
+}
+
+void phoneCompareWidget::onCellClicked(int row, int column) {
+    /*
     QTableWidgetItem* item = comparisonTable->item(row, column);
     if (!item)
         return;
@@ -163,9 +171,11 @@ void SmartphoneComparatorWidget::onCellClicked(int row, int column) {
             return;
         }
     }
+    */
 }
 
-void SmartphoneComparatorWidget::updateComparisonTable() {
+void phoneCompareWidget::updateComparisonTable() {
+    /*
     // Clear previous table contents
     comparisonTable->clearContents();
 
@@ -196,4 +206,5 @@ void SmartphoneComparatorWidget::updateComparisonTable() {
             }
         }
     }
+*/
 }

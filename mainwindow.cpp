@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(tabWidget);
 
     // Compare Tab
-    comparatorWidget = new SmartphoneComparatorWidget(this);
+    comparatorWidget = new phoneCompareWidget(this);
     // Smartphone hinzufügen Button
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
     // Layout des comparatorWidgets erweitern
@@ -52,45 +52,58 @@ MainWindow::MainWindow(QWidget* parent)
     //loadData
     loadLensData();
     loadCameraSensors();
+    loadSmartPhones();
 }
 
 // Destruktor
 MainWindow::~MainWindow() {
-    saveDataToJson();
+    //saveDataToJson();
+    exportAllDataToJson();
+
 }
 
-void MainWindow::saveDataToJson() {
-    // Smartphones speichern
-    QJsonArray smartphonesJsonArray;
-    for (const Smartphone& smartphone : smartphones) {
-        smartphonesJsonArray.append(smartphone.toJson());
+void MainWindow::exportAllDataToJson() {
+    // === 1. Camera Sensors exportieren ===
+    QJsonArray sensorsArray;
+    for (const CameraSensor& sensor : cameraSensorTableWidget->getCameraSensors()) {
+        sensorsArray.append(sensor.toJson());
+    }
+    QJsonDocument sensorsDoc(sensorsArray);
+    QFile sensorsFile("camera_sensors.json");
+    if (sensorsFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        sensorsFile.write(sensorsDoc.toJson(QJsonDocument::Indented));
+        sensorsFile.close();
+    } else {
+        qWarning() << "Konnte camera_sensors.json nicht schreiben.";
     }
 
+    // === 2. Lenses exportieren ===
+    QJsonArray lensesArray;
+    for (const Lens& lens : lensTableWidget->getLenses()) {
+        lensesArray.append(lens.toJson());
+    }
+    QJsonDocument lensesDoc(lensesArray);
+    QFile lensesFile("lenses.json");
+    if (lensesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        lensesFile.write(lensesDoc.toJson(QJsonDocument::Indented));
+        lensesFile.close();
+    } else {
+        qWarning() << "Konnte lenses.json nicht schreiben.";
+    }
+
+    // === 3. Smartphones exportieren ===
+    QJsonArray smartphonesArray;
+    for (const Smartphone& phone : comparatorWidget->getSmartphones()) {
+        smartphonesArray.append(phone.toJson());
+    }
+    QJsonDocument smartphonesDoc(smartphonesArray);
     QFile smartphonesFile("smartphones.json");
-    if (smartphonesFile.open(QIODevice::WriteOnly)) {
-        smartphonesFile.write(QJsonDocument(smartphonesJsonArray).toJson());
+    if (smartphonesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        smartphonesFile.write(smartphonesDoc.toJson(QJsonDocument::Indented));
         smartphonesFile.close();
+    } else {
+        qWarning() << "Konnte smartphones.json nicht schreiben.";
     }
-
-    // Sensoren und Linsen separat speichern, wenn du zentrale Listen hast
-    // (Alternativ: Sensoren/Linsen könnten auch aus den Smartphones rekonstruiert werden)
-}
-
-void MainWindow::loadDataFromJson() {
-    QFile file("smartphones.json");
-    if (!file.open(QIODevice::ReadOnly)) return;
-
-    QByteArray data = file.readAll();
-    file.close();
-
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    smartphones.clear();
-
-    for (const QJsonValue& val : doc.array()) {
-        smartphones.append(Smartphone::fromJson(val.toObject()));
-    }
-
-    // Anschließend ggf. GUI aktualisieren
 }
 
 void MainWindow::addSensor() {
@@ -115,7 +128,7 @@ void MainWindow::addSmartphone() {
     dialog.setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
     if (dialog.exec() == QDialog::Accepted) {
         Smartphone newSmartphone = dialog.getSmartphone();
-        comparatorWidget->addSmartphones(newSmartphone);
+        comparatorWidget->addSmartphone(newSmartphone);
     }
 }
 
@@ -208,12 +221,11 @@ void MainWindow::loadSmartPhones()
     }
 
     QJsonArray smartphoneArray = document.array();  // JSON-Array der Linsen
-    /*
+
     // Liste von Linsen einlesen
     for (const QJsonValue& value : smartphoneArray) {
-        QJsonObject sensorObject = value.toObject();
-        Smartphone sensor = Smartphone::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
-        comparatorWidget->ad
+        QJsonObject phoneObject = value.toObject();
+        Smartphone phone = Smartphone::fromJson(phoneObject);  // Hier wird angenommen, dass fromJson() existiert
+        comparatorWidget->addSmartphone(phone);
     }
-    */
 }

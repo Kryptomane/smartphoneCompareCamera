@@ -48,7 +48,7 @@ private:
     LensTableWidget* lensTableWidget = nullptr;
 
     void updateSelectedPairs();
-    double calculateFieldOfView(double sensorDiagonalMM, double cropFactor, double equivalentFocalLengthMM);
+    double calculateFieldOfView(double sensorDiagonal, double cropFactor, double kbFocalLength);
 };
 
 #endif // ADDSMARTPHONEDIALOG_H

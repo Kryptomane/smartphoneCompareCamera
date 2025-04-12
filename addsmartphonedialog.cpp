@@ -169,10 +169,10 @@ void AddSmartphoneDialog::reset() {
 }
 
 // Berechnet den Öffnungswinkel (Field of View) anhand der Sensordiagonale, des Crop-Faktors und der KB-äquivalenten Brennweite
-double AddSmartphoneDialog::calculateFieldOfView(double sensorDiagonalMM, double cropFactor, double equivalentFocalLengthMM) {
+double AddSmartphoneDialog::calculateFieldOfView(double sensorDiagonal, double cropFactor, double kbFocalLength) {
     // Umrechnung der KB-äquivalenten Brennweite in die tatsächliche Brennweite des Sensors
-    double actualFocalLengthMM = equivalentFocalLengthMM / cropFactor;
+    double fl = kbFocalLength / cropFactor;
     // Berechnung des horizontalen Sichtfelds (FOV) in Grad mit der Formel:
     // FOV = 2 * atan(sensorDiagonal / (2 * Brennweite))
-    return 2.0 * qRadiansToDegrees(qAtan(sensorDiagonalMM / (2.0 * actualFocalLengthMM)));
+    return 2.0 * qRadiansToDegrees(qAtan(sensorDiagonal / (2.0 * fl)));
 }
