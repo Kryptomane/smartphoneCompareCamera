@@ -86,7 +86,7 @@ void AddSmartphoneDialog::addMainCam() {
     const CameraSensor& sensor = cameraSensorTableWidget->getCameraSensors().at(sensorIndex);
     const Lens& lens = lensTableWidget->getLenses().at(lensIndex);
 
-    SensorLensPair pair(sensor.name(),lens.id(),calculateFieldOfView(sensor.diagonal(), sensor.cropFactor(), lens.apertureMin()));
+    SensorLensPair pair(sensor.name(),lens.id(),calculateFieldOfView(sensor.diagonal(), sensor.cropFactor(), lens.focalLengthMin()));
 
     mainCams.append(pair);
     updateSelectedPairs();

@@ -31,19 +31,27 @@ void phoneCompareWidget::setupUI() {
     }
     mainLayout->addLayout(comboLayout);
 
-    // Vergleichstabelle
-    comparisonTable->setRowCount(standardFocalLengths.size());
+    // Vergleichstabelle vorbereiten
+    int mainCameraRows = standardFocalLengths.size();
+    int totalRows = mainCameraRows + 1; // +1 für Selfie-Cam
+
+    comparisonTable->setRowCount(totalRows);
     comparisonTable->setColumnCount(4); // 4 Smartphones auswählbar
     comparisonTable->setHorizontalHeaderLabels(QStringList{"A", "B", "C", "D"});
+
     QStringList rowLabels;
     for (int focal : standardFocalLengths) {
         rowLabels << QString::number(focal) + " mm";
     }
+    rowLabels << "Selfie"; // letzte Zeile für Selfie-Cam
     comparisonTable->setVerticalHeaderLabels(rowLabels);
+
     comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     connect(comparisonTable, &QTableWidget::cellClicked,
             this, &phoneCompareWidget::onCellClicked);
+
     mainLayout->addWidget(comparisonTable);
 
     // Detailbereich unten
@@ -89,7 +97,7 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
         for (const SensorLensPair& pair : mainCams) {
             Lens temp = m_lensWidget->getLensById(pair.lensId);
 
-            double focal = temp.apertureMin();
+            double focal = temp.focalLengthMin();
             if (focal <= targetFocal && focal > bestFocal) {
                 bestFocal = focal;
                 bestPair = &pair;
