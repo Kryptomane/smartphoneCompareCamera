@@ -16,6 +16,7 @@ public:
     void setCameraSensors(const QList<CameraSensor>& sensors);  // Setzen der Liste von Kamera-Sensoren
     void updateTable();  // Die Tabelle aktualisieren
     QList<CameraSensor> getCameraSensors() const;  // Getter für die Liste der Kamera-Sensoren
+    CameraSensor getCameraByName(const QString& cameraName) const;
     void addCameraSensor(const CameraSensor& sensor);  // Kamera-Sensor hinzufügen
 
 private:

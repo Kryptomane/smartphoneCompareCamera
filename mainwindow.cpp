@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     // Compare Tab
     comparatorWidget = new phoneCompareWidget(this);
+
     // Smartphone hinzufügen Button
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
     // Layout des comparatorWidgets erweitern
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget* parent)
     QVBoxLayout* tableLayout = new QVBoxLayout(tableTab);
     cameraSensorTableWidget = new CameraSensorTableWidget(this);
     lensTableWidget = new LensTableWidget(this);
+    comparatorWidget->setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
 
     // Buttons für das Hinzufügen von Sensoren und Linsen
     QPushButton* addSensorButton = new QPushButton("Sensor hinzufügen", this);
@@ -52,7 +54,7 @@ MainWindow::MainWindow(QWidget* parent)
     //loadData
     loadLensData();
     loadCameraSensors();
-    loadSmartPhones();
+    //loadSmartPhones();
 }
 
 // Destruktor

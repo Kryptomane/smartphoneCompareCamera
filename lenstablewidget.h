@@ -16,6 +16,7 @@ public:
     void setLenses(const QList<Lens>& lenses);  // Setzen der Liste von Linsen
     void updateTable();  // Die Tabelle aktualisieren
     QList<Lens> getLenses() const;  // Getter für die Liste der Linsen
+    Lens getLensById(const QString& lensId);
     void addLens(Lens temp);
 
 private:

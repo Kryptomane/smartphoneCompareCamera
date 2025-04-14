@@ -46,6 +46,17 @@ QList<CameraSensor> CameraSensorTableWidget::getCameraSensors() const
     return cameraSensorsList;  // Gibt die interne Liste der Kamera-Sensoren zurück
 }
 
+CameraSensor CameraSensorTableWidget::getCameraByName(const QString& cameraName) const {
+    for (const CameraSensor& sens : cameraSensorsList) {
+        if (sens.name() == cameraName) {
+            return sens;
+        }
+    }
+    // Optional: Fehlerbehandlung oder Dummy-Lens zurückgeben
+    qWarning() << "CameraSensor with Name" << cameraName << "not found!";
+    return CameraSensor(); // Leere/dummy Lens zurückgeben
+}
+
 void CameraSensorTableWidget::addCameraSensor(const CameraSensor& sensor)
 {
     cameraSensorsList.append(sensor);  // Füge den neuen Kamera-Sensor zur Liste hinzu

@@ -43,6 +43,17 @@ QList<Lens> LensTableWidget::getLenses() const
     return lensesList;  // Gibt die interne Liste der Linsen zurück
 }
 
+Lens LensTableWidget::getLensById(const QString& lensId) {
+    for (const Lens& lens : lensesList) {
+        if (lens.id() == lensId) {
+            return lens;
+        }
+    }
+    // Optional: Fehlerbehandlung oder Dummy-Lens zurückgeben
+    qWarning() << "Lens with ID" << lensId << "not found!";
+    return Lens(); // Leere/dummy Lens zurückgeben
+}
+
 void LensTableWidget::addLens(Lens temp){
     lensesList.append(temp);
     updateTable();
