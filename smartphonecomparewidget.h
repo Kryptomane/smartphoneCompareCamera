@@ -26,7 +26,7 @@ public:
     void updateComparisonTable();
     QList<Smartphone> getSmartphones();
     void addSmartphone(Smartphone phone);
-    QString calculateLightValue(SensorLensPair pair);
+    QString calculateLightValue(SensorLensPair pair, int targetFocal);
 private slots:
     void onCellClicked(int row, int column);
 

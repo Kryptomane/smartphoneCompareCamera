@@ -131,7 +131,7 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
             }
 
             if (hasMatch) {
-                QString lightValue = calculateLightValue(bestPair);
+                QString lightValue = calculateLightValue(bestPair,requestedFocal);
                 QTableWidgetItem* item = new QTableWidgetItem(lightValue);
                 comparisonTable->setItem(row, col, item);
             }
@@ -146,56 +146,43 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
         }
 
         if (hasSelfie) {
-            QString lightValue = calculateLightValue(selfiePair);
+            QString lightValue = calculateLightValue(selfiePair,24);
             QTableWidgetItem* item = new QTableWidgetItem(lightValue);
             comparisonTable->setItem(selfieRow, col, item);
         }
     }
 }
 
-/*
-void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
-    int rowCount = standardFocalLengths.size();
-    if (comparisonTable->rowCount() < rowCount)
-        comparisonTable->setRowCount(rowCount);
+QString phoneCompareWidget::calculateLightValue(const SensorLensPair pair, int targetFocal) {
+    CameraSensor sensor = m_sensorWidget->getCameraByName(pair.sensorName);
+    Lens lens = m_lensWidget->getLensById(pair.lensId);
 
-    const QList<SensorLensPair>& mainCams = phone.getMainCams();
+    double focalLength = lens.focalLengthMin();
+    double aperture = lens.apertureMin();
+    double sensorWidth = sensor.width();
+    double sensorHeight = sensor.height();
 
-    for (int row = 0; row < rowCount; ++row) {
-        int targetFocal = standardFocalLengths[row];
-        const SensorLensPair* bestPair = nullptr;
-        double bestFocal = -1;
+    double effectiveArea = sensorWidth * sensorHeight;
+    bool cropped = false;
 
-        // Suche nach der besten Kamera ≤ targetFocal
-        for (const SensorLensPair& pair : mainCams) {
-            Lens temp = m_lensWidget->getLensById(pair.lensId);
-
-            double focal = temp.focalLengthMin();
-            if (focal <= targetFocal && focal > bestFocal) {
-                bestFocal = focal;
-                bestPair = &pair;
-            }
-        }
-
-        if (bestPair) {
-            QString value = calculateLightValue(*bestPair); // <-- muss existieren
-            QTableWidgetItem* item = new QTableWidgetItem(value);
-            comparisonTable->setItem(row, column, item);
-        } else {
-            QTableWidgetItem* emptyItem = new QTableWidgetItem("-");
-            comparisonTable->setItem(row, column, emptyItem);
-        }
-
-        // Zeilenbeschriftung (optional, falls nicht bereits gesetzt)
-        comparisonTable->setVerticalHeaderItem(row,
-                                               new QTableWidgetItem(QString("%1 mm").arg(targetFocal)));
+    if (targetFocal > 0 && focalLength < targetFocal) {
+        double cropFactor = static_cast<double>(targetFocal) / focalLength;
+        double croppedWidth = sensorWidth / cropFactor;
+        double croppedHeight = sensorHeight / cropFactor;
+        effectiveArea = croppedWidth * croppedHeight;
+        cropped = true;
     }
-}
-*/
 
-QString phoneCompareWidget::calculateLightValue(SensorLensPair pair){
-    QString temp = QString("%1-%2").arg(pair.sensorName).arg(pair.lensId);
-    return temp;
+    if (aperture <= 0 || effectiveArea <= 0)
+        return "N/A";
+
+    // Lichtaufnahme-Index: Fläche geteilt durch quadratische Blendenwirkung
+    double lightScore = effectiveArea / (aperture * aperture);
+
+    QString result = QString("%1").arg(lightScore, 0, 'f', 1);
+    if (cropped)
+        result += " (crop)";
+    return result;
 }
 
 QList<Smartphone> phoneCompareWidget::getSmartphones()
@@ -204,48 +191,66 @@ QList<Smartphone> phoneCompareWidget::getSmartphones()
 }
 
 void phoneCompareWidget::onCellClicked(int row, int column) {
-    /*
-    QTableWidgetItem* item = comparisonTable->item(row, column);
-    if (!item)
+    // Erste Zeile (ComboBox) oder erste Spalte (Focal) ignorieren
+    if (row == 0 || column == 0)
         return;
 
-    int phoneIndex = comboBoxes[column]->currentIndex();
+    int phoneIndex = comboBoxes[column - 1]->currentIndex(); // column-1 wegen ComboBoxes
     if (phoneIndex < 0 || phoneIndex >= smartphones.size())
         return;
 
     const Smartphone& phone = smartphones[phoneIndex];
-    const auto& pairs = phone.getSensorLensPairs();
-    const auto& fovs = phone.getFieldOfViews();
-    const auto& resolutions = phone.getAngularResolutions();
+    const QList<SensorLensPair>& camList = (row == comparisonTable->rowCount() - 1)
+                                               ? phone.getSelfieCams()
+                                               : phone.getMainCams();
 
-    double focal = standardFocalLengths[row];
+    int requestedFocal = (row == comparisonTable->rowCount() - 1)
+                             ? -1 // Selfie-Zeile → keine Focal-Vorgabe
+                             : standardFocalLengths[row - 1];
 
-    for (int i = 0; i < pairs.size(); ++i) {
-        if (qFuzzyCompare(pairs[i].second.focalLengthMin(), focal)) {
-            const CameraSensor& sensor = pairs[i].first;
-            const Lens& lens = pairs[i].second;
+    const SensorLensPair* bestPair = nullptr;
+    int bestFocal = -1;
 
-            QString detailText = QString(
-                                     "<b>Brennweite:</b> %1 mm<br>"
-                                     "<b>Blende:</b> f/%2<br>"
-                                     "<b>Sensorgröße:</b> %3 mm x %4 mm<br>"
-                                     "<b>Auflösung:</b> %5 MP<br>"
-                                     "<b>Winkelauflösung:</b> %6 px/Grad<br>"
-                                     "<b>Bildwinkel:</b> %7 °")
-                                     .arg(lens.focalLengthMin())
-                                     .arg(lens.apertureMin())
-                                     .arg(sensor.width())
-                                     .arg(sensor.height())
-                                     .arg(sensor.resolution())
-                                     .arg(resolutions.value(i, 0.0), 0, 'f', 2)
-                                     .arg(fovs.value(i, 0.0), 0, 'f', 2);
-
-            detailLabel->setText(detailText);
-            return;
+    for (const SensorLensPair& pair : camList) {
+        Lens lens = m_lensWidget->getLensById(pair.lensId);
+        int focal = lens.focalLengthMin();
+        if (requestedFocal == -1 || (focal <= requestedFocal && focal > bestFocal)) {
+            bestFocal = focal;
+            bestPair = &pair;
         }
     }
-    */
+
+    if (!bestPair)
+        return;
+
+    CameraSensor sensor = m_sensorWidget->getCameraByName(bestPair->sensorName);
+    Lens lens = m_lensWidget->getLensById(bestPair->lensId);
+
+    double angle = bestPair->fieldOfView;
+    double pxd = 100;
+
+    QString detailText = QString(
+                             "<b>Smartphone:</b> %1<br>"
+                             "<b>Kameratyp:</b> %2<br>"
+                             "<b>Brennweite:</b> %3 mm<br>"
+                             "<b>Blende:</b> f/%4<br>"
+                             "<b>Sensorgröße:</b> %5 mm × %6 mm<br>"
+                             "<b>Auflösung:</b> %7 MP<br>"
+                             "<b>Bildwinkel:</b> %8°<br>"
+                             "<b>Winkelauflösung:</b> %9 px/°")
+                             .arg(phone.name())
+                             .arg((row == comparisonTable->rowCount() - 1) ? "Selfie" : "Main")
+                             .arg(lens.focalLengthMin())
+                             .arg(lens.apertureMin())
+                             .arg(sensor.width())
+                             .arg(sensor.height())
+                             .arg(sensor.resolution())
+                             .arg(angle, 0, 'f', 2)
+                             .arg(pxd, 0, 'f', 2);
+
+    m_detailLabel->setText(detailText);
 }
+
 
 void phoneCompareWidget::updateComparisonTable() {
     /*
