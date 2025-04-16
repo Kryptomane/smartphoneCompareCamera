@@ -54,14 +54,12 @@ MainWindow::MainWindow(QWidget* parent)
     //loadData
     loadLensData();
     loadCameraSensors();
-    //loadSmartPhones();
+    loadSmartPhones();
 }
 
 // Destruktor
 MainWindow::~MainWindow() {
-    //saveDataToJson();
     exportAllDataToJson();
-
 }
 
 void MainWindow::exportAllDataToJson() {

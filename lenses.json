@@ -1,0 +1,386 @@
+[
+    {
+        "apertureMax": 1.7,
+        "apertureMin": 1.7,
+        "focalLengthMax": 12,
+        "focalLengthMin": 12,
+        "id": "lens_001",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 12,
+        "focalLengthMin": 12,
+        "id": "lens_002",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 12,
+        "focalLengthMin": 12,
+        "id": "lens_003",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 13,
+        "focalLengthMin": 13,
+        "id": "lens_004",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 13,
+        "focalLengthMin": 13,
+        "id": "lens_005",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.9,
+        "apertureMin": 1.9,
+        "focalLengthMax": 14,
+        "focalLengthMin": 14,
+        "id": "lens_006",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 14,
+        "focalLengthMin": 14,
+        "id": "lens_007",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 14,
+        "focalLengthMin": 14,
+        "id": "lens_008",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 15,
+        "focalLengthMin": 15,
+        "id": "lens_009",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 16,
+        "focalLengthMin": 16,
+        "id": "lens_010",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 17,
+        "focalLengthMin": 17,
+        "id": "lens_011",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 20,
+        "focalLengthMin": 20,
+        "id": "lens_012",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.9,
+        "apertureMin": 1.9,
+        "focalLengthMax": 21,
+        "focalLengthMin": 21,
+        "id": "lens_013",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 21,
+        "focalLengthMin": 21,
+        "id": "lens_014",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.4,
+        "apertureMin": 2.4,
+        "focalLengthMax": 21,
+        "focalLengthMin": 21,
+        "id": "lens_015",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.57,
+        "apertureMin": 1.57,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_016",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.6,
+        "apertureMin": 1.6,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_017",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 4,
+        "apertureMin": 1.6,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_018",
+        "type": "Zoomobjektiv"
+    },
+    {
+        "apertureMax": 1.75,
+        "apertureMin": 1.75,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_019",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.8,
+        "apertureMin": 1.8,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_020",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.9,
+        "apertureMin": 1.9,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_021",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 1.4,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_022",
+        "type": "Zoomobjektiv"
+    },
+    {
+        "apertureMax": 1.7,
+        "apertureMin": 1.7,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_023",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.8,
+        "apertureMin": 1.8,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_024",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.9,
+        "apertureMin": 1.9,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_025",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.95,
+        "apertureMin": 1.95,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_026",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2,
+        "apertureMin": 2,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_027",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.45,
+        "apertureMin": 2.45,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_028",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.5,
+        "apertureMin": 2.5,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_029",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.7,
+        "apertureMin": 1.7,
+        "focalLengthMax": 25,
+        "focalLengthMin": 25,
+        "id": "lens_030",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 26,
+        "focalLengthMin": 26,
+        "id": "lens_031",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.3,
+        "apertureMin": 2.3,
+        "focalLengthMax": 27,
+        "focalLengthMin": 27,
+        "id": "lens_032",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 4,
+        "apertureMin": 1.6,
+        "focalLengthMax": 35,
+        "focalLengthMin": 35,
+        "id": "lens_033",
+        "type": "Zoomobjektiv"
+    },
+    {
+        "apertureMax": 2.6,
+        "apertureMin": 2.6,
+        "focalLengthMax": 65,
+        "focalLengthMin": 65,
+        "id": "lens_034",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.4,
+        "apertureMin": 2.4,
+        "focalLengthMax": 67,
+        "focalLengthMin": 67,
+        "id": "lens_035",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.8,
+        "apertureMin": 1.8,
+        "focalLengthMax": 70,
+        "focalLengthMin": 70,
+        "id": "lens_036",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.1,
+        "apertureMin": 2.1,
+        "focalLengthMax": 70,
+        "focalLengthMin": 70,
+        "id": "lens_037",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.48,
+        "apertureMin": 2.48,
+        "focalLengthMax": 70,
+        "focalLengthMin": 70,
+        "id": "lens_038",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.4,
+        "apertureMin": 2.4,
+        "focalLengthMax": 72,
+        "focalLengthMin": 72,
+        "id": "lens_039",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.6,
+        "apertureMin": 2.6,
+        "focalLengthMax": 72,
+        "focalLengthMin": 72,
+        "id": "lens_040",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.6,
+        "apertureMin": 2.6,
+        "focalLengthMax": 73,
+        "focalLengthMin": 73,
+        "id": "lens_041",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.27,
+        "apertureMin": 2.27,
+        "focalLengthMax": 85,
+        "focalLengthMin": 85,
+        "id": "lens_042",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 3.5,
+        "apertureMin": 2.3,
+        "focalLengthMax": 170,
+        "focalLengthMin": 85,
+        "id": "lens_043",
+        "type": "Zoomobjektiv"
+    },
+    {
+        "apertureMax": 2.6,
+        "apertureMin": 2.6,
+        "focalLengthMax": 85,
+        "focalLengthMin": 85,
+        "id": "lens_044",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.1,
+        "apertureMin": 2.1,
+        "focalLengthMax": 90,
+        "focalLengthMin": 90,
+        "id": "lens_045",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.8,
+        "apertureMin": 2.8,
+        "focalLengthMax": 113,
+        "focalLengthMin": 113,
+        "id": "lens_046",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.8,
+        "apertureMin": 2.8,
+        "focalLengthMax": 120,
+        "focalLengthMin": 120,
+        "id": "lens_047",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 4.1,
+        "apertureMin": 4.1,
+        "focalLengthMax": 120,
+        "focalLengthMin": 120,
+        "id": "lens_048",
+        "type": "Festbrennweite"
+    }
+]

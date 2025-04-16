@@ -19,32 +19,41 @@ void phoneCompareWidget::setSensorAndLensWidgets(CameraSensorTableWidget* sensor
 void phoneCompareWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-    // Obere Combobox-Reihe
-    QHBoxLayout* comboLayout = new QHBoxLayout;
-    for (int i = 0; i < 4; ++i) {
+    int mainCameraRows = standardFocalLengths.size();
+    int totalRows = mainCameraRows + 1 + 1; // +1 Selfie, +1 ComboBox-Zeile
+
+    // Vergleichstabelle initialisieren
+    comparisonTable->setColumnCount(5); // 1x Focal + 4 Smartphones
+    comparisonTable->setRowCount(standardFocalLengths.size() + 2); // +1 für ComboBox-Zeile, +1 für Selfie
+
+    for (int col = 1; col <= 4; ++col) {
         QComboBox* combo = new QComboBox(this);
-        combo->addItem(""); // leeres Element
+        combo->addItem("");
+        for (const Smartphone& phone : smartphones)
+            combo->addItem(phone.name());
+
         comboBoxes.append(combo);
-        comboLayout->addWidget(combo);
+        comparisonTable->setCellWidget(0, col, combo);
+
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
                 this, &phoneCompareWidget::onSmartphoneSelected);
     }
-    mainLayout->addLayout(comboLayout);
 
-    // Vergleichstabelle vorbereiten
-    int mainCameraRows = standardFocalLengths.size();
-    int totalRows = mainCameraRows + 1; // +1 für Selfie-Cam
+    // Spaltenüberschriften
+    QStringList colHeaders;
+    colHeaders << "Focal"; // Spalte 0
+    for (int i = 0; i < 4; ++i)
+        colHeaders << ""; // Spalten 1–4: leer für ComboBoxen
+    comparisonTable->setHorizontalHeaderLabels(colHeaders);
 
-    comparisonTable->setRowCount(totalRows);
-    comparisonTable->setColumnCount(4); // 4 Smartphones auswählbar
-    comparisonTable->setHorizontalHeaderLabels(QStringList{"A", "B", "C", "D"});
-
+    // Zeilenbeschriftung (inkl. ComboBox-Zeile + Selfie)
     QStringList rowLabels;
-    for (int focal : standardFocalLengths) {
+    rowLabels << ""; // Zeile 0 = ComboBox-Zeile
+    for (int focal : standardFocalLengths)
         rowLabels << QString::number(focal) + " mm";
-    }
-    rowLabels << "Selfie"; // letzte Zeile für Selfie-Cam
+    rowLabels << "Selfie";
     comparisonTable->setVerticalHeaderLabels(rowLabels);
+
 
     comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -59,6 +68,7 @@ void phoneCompareWidget::setupUI() {
     m_detailLabel->setWordWrap(true);
     mainLayout->addWidget(m_detailLabel);
 }
+
 
 void phoneCompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
@@ -81,6 +91,69 @@ void phoneCompareWidget::onSmartphoneSelected(int index) {
     fillTable(column, selectedPhone);
 }
 
+void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
+    int comboRow = 0;
+    int selfieRow = comparisonTable->rowCount() - 1;
+
+    // Leere alle Zellen ab Zeile 1
+    for (int row = 1; row < comparisonTable->rowCount(); ++row) {
+        for (int col = 1; col <= 4; ++col) {
+            comparisonTable->setItem(row, col, new QTableWidgetItem(""));
+        }
+    }
+
+    for (int col = 1; col <= 4; ++col) {
+        QComboBox* combo = comboBoxes[col - 1];
+        int index = combo->currentIndex() - 1; // -1 weil leeres Element an erster Stelle
+
+        if (index < 0 || index >= smartphones.size())
+            continue;
+
+        const Smartphone& phone = smartphones[index];
+
+        // MainCam-Zeilen (Zeile 1 bis N-2)
+        for (int row = 1; row <= standardFocalLengths.size(); ++row) {
+            int requestedFocal = standardFocalLengths[row - 1];
+
+            SensorLensPair bestPair("dummy", "dummy", 100);
+            int bestFocal = -1;
+            bool hasMatch = false;
+
+            for (const SensorLensPair& pair : phone.getMainCams()) {
+                Lens temp = m_lensWidget->getLensById(pair.lensId);
+                int focal = temp.focalLengthMin();
+
+                if (focal <= requestedFocal && focal > bestFocal) {
+                    bestFocal = focal;
+                    bestPair = pair;
+                    hasMatch = true;
+                }
+            }
+
+            if (hasMatch) {
+                QString lightValue = calculateLightValue(bestPair);
+                QTableWidgetItem* item = new QTableWidgetItem(lightValue);
+                comparisonTable->setItem(row, col, item);
+            }
+        }
+
+        SensorLensPair selfiePair("SelfDummy", "SelfDummy",1000);
+        bool hasSelfie = false;
+
+        if (!phone.getSelfieCams().isEmpty()) {
+            selfiePair = phone.getSelfieCams().first();
+            hasSelfie = true;
+        }
+
+        if (hasSelfie) {
+            QString lightValue = calculateLightValue(selfiePair);
+            QTableWidgetItem* item = new QTableWidgetItem(lightValue);
+            comparisonTable->setItem(selfieRow, col, item);
+        }
+    }
+}
+
+/*
 void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
     int rowCount = standardFocalLengths.size();
     if (comparisonTable->rowCount() < rowCount)
@@ -118,9 +191,10 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
                                                new QTableWidgetItem(QString("%1 mm").arg(targetFocal)));
     }
 }
+*/
 
 QString phoneCompareWidget::calculateLightValue(SensorLensPair pair){
-    QString temp = QString("%1%2").arg(pair.sensorName).arg(pair.lensId);
+    QString temp = QString("%1-%2").arg(pair.sensorName).arg(pair.lensId);
     return temp;
 }
 
