@@ -297,5 +297,67 @@
                 "sensorName": "IMX858"
             }
         ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.81,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_003",
+                "sensorName": "IMX586"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_026",
+                "sensorName": "GN2"
+            },
+            {
+                "fieldOfView": 20.45419212767901,
+                "lensId": "lens_048",
+                "sensorName": "IMX586"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "Mi 11 Ultra",
+        "releaseYear": 2021,
+        "selfieCams": [
+            {
+                "fieldOfView": 77.4488939341854,
+                "lensId": "lens_032",
+                "sensorName": "3LU"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.5,
+        "mainCams": [
+            {
+                "fieldOfView": 0,
+                "lensId": "lens_010",
+                "sensorName": "IMX563"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_025",
+                "sensorName": "IMX888"
+            },
+            {
+                "fieldOfView": 28.579455823525446,
+                "lensId": "lens_043",
+                "sensorName": "IMX650"
+            }
+        ],
+        "manufacture": "Sony",
+        "name": "Xperia 1 VI",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_027",
+                "sensorName": "IMX663"
+            }
+        ]
     }
 ]
