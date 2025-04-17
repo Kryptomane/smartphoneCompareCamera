@@ -20,23 +20,24 @@ MainWindow::MainWindow(QWidget* parent)
 
     // Compare Tab
     comparatorWidget = new phoneCompareWidget(this);
-    SmartphoneDetailsWidget* smartphoneDetailsWidget = new SmartphoneDetailsWidget(this);
-
+    comparatorWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    phoneDetailWidget* smartphoneDetailsWidget = new phoneDetailWidget(this);
+    smartphoneDetailsWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     // Beide Widgets nebeneinander in ein horizontales Layout
     QWidget* compareContainer = new QWidget(this);
     QHBoxLayout* hLayout = new QHBoxLayout(compareContainer);
-
+    hLayout->setContentsMargins(0, 0, 0, 0);
+    hLayout->setSpacing(10); // Optional
     // Linke Seite: comparatorWidget + Add-Button
     QVBoxLayout* compareLayout = new QVBoxLayout;
-    compareLayout->addWidget(comparatorWidget);
+    compareLayout->addWidget(comparatorWidget,0);
 
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
     compareLayout->addWidget(addSmartphoneButton);
     connect(addSmartphoneButton, &QPushButton::clicked, this, &MainWindow::addSmartphone);
 
-    smartphoneDetailsWidget->setSmartphones(comparatorWidget->getSmartphones());
     hLayout->addLayout(compareLayout, 3);  // linke Seite – Gewichtung 3
-    hLayout->addWidget(smartphoneDetailsWidget, 2); // rechte Seite – Gewichtung 2
+    hLayout->addWidget(smartphoneDetailsWidget, 1); // rechte Seite – Gewichtung 2
 
     tabWidget->addTab(compareContainer, "Smartphone Compare");
 
@@ -68,6 +69,8 @@ MainWindow::MainWindow(QWidget* parent)
     connect(this, &MainWindow::printMessage, comparatorWidget, &phoneCompareWidget::printInfoMessage);
 
     loadDatabases();
+
+    smartphoneDetailsWidget->setSmartphones(comparatorWidget->getSmartphones());
 }
 
 // Destruktor

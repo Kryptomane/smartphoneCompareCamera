@@ -1,4 +1,4 @@
-#include "smartphonecomparewidget.h"
+#include "phonecomparewidget.h"
 #include <QHeaderView>
 #include <QLabel>
 #include <QGridLayout>
@@ -25,6 +25,16 @@ void phoneCompareWidget::setupUI() {
     // Vergleichstabelle initialisieren
     comparisonTable->setColumnCount(5); // 1x Focal + 4 Smartphones
     comparisonTable->setRowCount(standardFocalLengths.size() + 2); // +1 für ComboBox-Zeile, +1 für Selfie
+
+    int columnWidth = 150;  // z.B. 150px pro Spalte
+    int rowHeight = 40;     // z.B. 40px pro Zeile
+    int numCols = 5;        // Focal + 4 Smartphones
+    int numRows = standardFocalLengths.size() + 2; // ComboBox + Brennweiten + Selfie
+
+    int tableWidth = columnWidth * numCols;
+    int tableHeight = rowHeight * numRows;
+
+    this->setFixedSize(tableWidth, tableHeight + 150); // + etwas extra für DetailLabel
 
     for (int col = 1; col <= 4; ++col) {
         QComboBox* combo = new QComboBox(this);

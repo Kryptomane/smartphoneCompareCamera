@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "smartphonecomparewidget.h"
+#include "phonecomparewidget.h"
 #include "smartphone.h"
 #include "lens.h"
 #include "camerasensor.h"
@@ -37,7 +37,7 @@ private:
     CameraSensorTableWidget* cameraSensorTableWidget;
     AddSmartphoneDialog* smartphoneDialog;
     phoneCompareWidget* comparatorWidget;
-    SmartphoneDetailsWidget* smartphoneDetailsWidget;
+    phoneDetailWidget* smartphoneDetailsWidget;
 
     QString getDatabasePath(const QString& fileName);
     QJsonArray getJson(QString filePath);

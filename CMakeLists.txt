@@ -16,7 +16,7 @@ qt_add_executable(camera_calculator
     addlensdialog.h addlensdialog.cpp
     smartphone.h smartphone.cpp
     addsmartphonedialog.h addsmartphonedialog.cpp
-    smartphonecomparewidget.h smartphonecomparewidget.cpp
+    phonecomparewidget.h phonecomparewidget.cpp
     lenstablewidget.h lenstablewidget.cpp
     camerasensortablewidget.h camerasensortablewidget.cpp
     phonedetailwidget.h phonedetailwidget.cpp

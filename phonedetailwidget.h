@@ -6,11 +6,11 @@
 #include <QLabel>
 #include "smartphone.h"
 
-class SmartphoneDetailsWidget : public QWidget {
+class phoneDetailWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit SmartphoneDetailsWidget(QWidget* parent = nullptr);
+    explicit phoneDetailWidget(QWidget* parent = nullptr);
     void setSmartphones(const QList<Smartphone>& phones);
 
 private slots:

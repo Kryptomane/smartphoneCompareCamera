@@ -1,7 +1,7 @@
 #include "phonedetailwidget.h"
 #include <QVBoxLayout>
 
-SmartphoneDetailsWidget::SmartphoneDetailsWidget(QWidget* parent)
+phoneDetailWidget::phoneDetailWidget(QWidget* parent)
     : QWidget(parent), phoneSelector(new QComboBox(this)), phoneDetailsLabel(new QLabel(this)) {
 
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -10,10 +10,10 @@ SmartphoneDetailsWidget::SmartphoneDetailsWidget(QWidget* parent)
 
     phoneDetailsLabel->setWordWrap(true);
     connect(phoneSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &SmartphoneDetailsWidget::onSmartphoneSelected);
+            this, &phoneDetailWidget::onSmartphoneSelected);
 }
 
-void SmartphoneDetailsWidget::setSmartphones(const QList<Smartphone>& phones) {
+void phoneDetailWidget::setSmartphones(const QList<Smartphone>& phones) {
     smartphones = phones;
     phoneSelector->clear();
     for (const Smartphone& phone : smartphones) {
@@ -21,7 +21,7 @@ void SmartphoneDetailsWidget::setSmartphones(const QList<Smartphone>& phones) {
     }
 }
 
-void SmartphoneDetailsWidget::onSmartphoneSelected(int index) {
+void phoneDetailWidget::onSmartphoneSelected(int index) {
     if (index < 0 || index >= smartphones.size())
         return;
 
