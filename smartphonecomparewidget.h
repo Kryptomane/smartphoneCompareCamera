@@ -26,8 +26,13 @@ public:
     QList<Smartphone> getSmartphones();
     void addSmartphone(Smartphone phone);
     QString calculateLightValue(SensorLensPair pair, int targetFocal);
+
+public slots:
+    void printInfoMessage(const QString &s);
+
 private slots:
     void onCellClicked(int row, int column);
+
 
 private:
     LensTableWidget* m_lensWidget;

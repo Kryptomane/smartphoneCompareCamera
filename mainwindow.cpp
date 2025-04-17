@@ -7,6 +7,8 @@
 #include "lens.h"
 #include "camerasensor.h"
 #include <QMessageBox>
+#include <qcoreapplication.h>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -51,15 +53,26 @@ MainWindow::MainWindow(QWidget* parent)
     // Buttons verbinden
     connect(addSensorButton, &QPushButton::clicked, this, &MainWindow::addSensor);
     connect(addLensButton, &QPushButton::clicked, this, &MainWindow::addLens);
-    //loadData
-    loadLensData();
-    loadCameraSensors();
-    loadSmartPhones();
+    connect(this, &MainWindow::printMessage, comparatorWidget, &phoneCompareWidget::printInfoMessage);
+
+    loadDatabases();
 }
 
 // Destruktor
 MainWindow::~MainWindow() {
     exportAllDataToJson();
+}
+
+QString MainWindow::getDatabasePath(const QString& fileName) {
+    QDir dir(QCoreApplication::applicationDirPath());
+    dir.cdUp(); // raus aus build/Debug
+    dir.cdUp(); // raus aus build
+    QString path = dir.filePath("databases/" + fileName);
+    if (!QFile::exists(path)) {
+        qInfo() << "Datei nicht gefunden:" << path;
+    } else {
+        return path;
+    }
 }
 
 void MainWindow::exportAllDataToJson() {
@@ -136,15 +149,11 @@ LensTableWidget* MainWindow::getLensesWidget() {
     return lensTableWidget;
 }
 
-void MainWindow::loadLensData()
-{
-    // Pfad zur JSON-Datei
-    QString filePath = "lens.json";  // Ersetze durch den tatsächlichen Pfad
-
+QJsonArray MainWindow::getJson(QString filePath){
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
         QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
-        return;
+        return QJsonArray();
     }
 
     QByteArray fileData = file.readAll();
@@ -154,75 +163,33 @@ void MainWindow::loadLensData()
     QJsonDocument document = QJsonDocument::fromJson(fileData);
     if (document.isNull()) {
         QMessageBox::warning(this, "Fehler", "Ungültiges JSON-Format.");
-        return;
+        return QJsonArray();
     }
 
-    QJsonArray lensArray = document.array();  // JSON-Array der Linsen
+    QJsonArray Array = document.array();  // JSON-Array der Linsen
+    return Array;
+}
 
+void MainWindow::loadDatabases(){
+    QString lensPath = getDatabasePath("lenses.json");
+    QJsonArray lensArray = getJson(lensPath);
     // Liste von Linsen einlesen
     for (const QJsonValue& value : lensArray) {
         QJsonObject lensObject = value.toObject();
         Lens lens = Lens::fromJson(lensObject);  // Hier wird angenommen, dass fromJson() existiert
         lensTableWidget->addLens(lens);
     }
-}
-
-void MainWindow::loadCameraSensors()
-{
-    // Pfad zur JSON-Datei
-    QString filePath = "camerasensors.json";  // Ersetze durch den tatsächlichen Pfad
-
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
-        return;
-    }
-
-    QByteArray fileData = file.readAll();
-    file.close();
-
-    // JSON-Dokument erstellen
-    QJsonDocument document = QJsonDocument::fromJson(fileData);
-    if (document.isNull()) {
-        QMessageBox::warning(this, "Fehler", "Ungültiges JSON-Format.");
-        return;
-    }
-
-    QJsonArray sensorArray = document.array();  // JSON-Array der Linsen
-
-    // Liste von Linsen einlesen
+    QString sensorPath = getDatabasePath("camera_sensors.json");
+    QJsonArray sensorArray = getJson(sensorPath);
     for (const QJsonValue& value : sensorArray) {
         QJsonObject sensorObject = value.toObject();
         CameraSensor sensor = CameraSensor::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
         sensor = CameraSensor::makePlausibelCameraSensor(sensor);
         cameraSensorTableWidget->addCameraSensor(sensor);
     }
-}
 
-void MainWindow::loadSmartPhones()
-{
-    // Pfad zur JSON-Datei
-    QString filePath = "smartphones.json";  // Ersetze durch den tatsächlichen Pfad
-
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
-        return;
-    }
-
-    QByteArray fileData = file.readAll();
-    file.close();
-
-    // JSON-Dokument erstellen
-    QJsonDocument document = QJsonDocument::fromJson(fileData);
-    if (document.isNull()) {
-        QMessageBox::warning(this, "Fehler", "Ungültiges JSON-Format.");
-        return;
-    }
-
-    QJsonArray smartphoneArray = document.array();  // JSON-Array der Linsen
-
-    // Liste von Linsen einlesen
+    QString phonePath = getDatabasePath("smartphones.json");
+    QJsonArray smartphoneArray = getJson(sensorPath);
     for (const QJsonValue& value : smartphoneArray) {
         QJsonObject phoneObject = value.toObject();
         Smartphone phone = Smartphone::fromJson(phoneObject);  // Hier wird angenommen, dass fromJson() existiert

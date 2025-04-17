@@ -59,13 +59,13 @@ QJsonObject Lens::toJson() const {
 
 Lens Lens::fromJson(const QJsonObject& obj) {
     QString id = obj["id"].toString();  // ID der Linse
-    double apertureMin = obj["apertureMin"].toString().replace(",", ".").toDouble();  // Minimale Blende
+    double apertureMin = obj["apertureMin"].toDouble();  // Minimale Blende
     int focalLengthMin = obj["focalLengthMin"].toInt();  // Minimale Brennweite
 
     // Überprüfen, ob focalLengthMax oder apertureMax vorhanden sind
     if (obj.contains("focalLengthMax") && obj.contains("apertureMax")) {
         int focalLengthMax = obj["focalLengthMax"].toInt();  // Maximale Brennweite
-        double apertureMax = obj["apertureMax"].toString().replace(",", ".").toDouble();  // Maximale Blende
+        double apertureMax = obj["apertureMax"].toDouble();  // Maximale Blende
         return Lens(id, focalLengthMin, focalLengthMax, apertureMin, apertureMax); // Konstruktor für variable Brennweite und Blende
     }
     // Wenn nur focalLengthMax fehlt, kopiere den Wert von focalLengthMin
@@ -75,7 +75,7 @@ Lens Lens::fromJson(const QJsonObject& obj) {
     }
     // Wenn nur apertureMax fehlt, kopiere den Wert von apertureMin
     else if (obj.contains("apertureMax")) {
-        double apertureMax = obj["apertureMax"].toString().replace(",", ".").toDouble();
+        double apertureMax = obj["apertureMax"].toDouble();
         return Lens(id, focalLengthMin, focalLengthMin, apertureMin, apertureMax); // Kopiere focalLengthMin
     }
     // Wenn weder focalLengthMax noch apertureMax vorhanden sind, verwende den Festbrennweiten-Konstruktor

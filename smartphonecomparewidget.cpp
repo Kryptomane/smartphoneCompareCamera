@@ -208,6 +208,10 @@ QList<Smartphone> phoneCompareWidget::getSmartphones()
     return smartphones;  // Gibt die interne Liste der Linsen zurück
 }
 
+void phoneCompareWidget::printInfoMessage(const QString &s){
+    m_detailLabel->setText(s);
+}
+
 void phoneCompareWidget::onCellClicked(int row, int column) {
     // Erste Zeile (ComboBox) oder erste Spalte (Focal) ignorieren
     if (row == 0 || column == 0)

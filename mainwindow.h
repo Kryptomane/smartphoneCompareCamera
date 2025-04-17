@@ -26,6 +26,9 @@ private slots:
     void addLens();
     void addSmartphone();
 
+signals:
+    void printMessage(const QString &s);
+
 private:
     AddLensDialog* lensDialog;
     LensTableWidget* lensTableWidget;
@@ -34,9 +37,9 @@ private:
     AddSmartphoneDialog* smartphoneDialog;
     phoneCompareWidget* comparatorWidget;
 
-    void loadLensData();
-    void loadCameraSensors();
-    void loadSmartPhones();
+    QString getDatabasePath(const QString& fileName);
+    QJsonArray getJson(QString filePath);
+    void loadDatabases();
     void updateSensorAndLensLists();
     void exportAllDataToJson();
 };

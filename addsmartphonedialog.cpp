@@ -132,7 +132,7 @@ Smartphone AddSmartphoneDialog::getSmartphone() const {
     phone.setName(nameLineEdit->text());
     phone.setManufacturer(manufacturerLineEdit->text());
     phone.setReleaseYear(releaseYearLineEdit->text().toInt());
-    phone.setDisplaySize(displaySizeLineEdit->text().toDouble());
+    phone.setDisplaySize(displaySizeLineEdit->text().replace(",", ".").toDouble());
     phone.setBatteryCapacity(batterySizeLineEdit->text().toInt());
 
     // Sensor-Linsen-Paare aus mainCams hinzufügen
