@@ -23,7 +23,6 @@ public:
     void setSensorAndLensWidgets(CameraSensorTableWidget* sensorWidget, LensTableWidget* lensWidget);
     void fillTable(int column, const Smartphone& phone);
     void onSmartphoneSelected(int index);
-    void updateComparisonTable();
     QList<Smartphone> getSmartphones();
     void addSmartphone(Smartphone phone);
     QString calculateLightValue(SensorLensPair pair, int targetFocal);

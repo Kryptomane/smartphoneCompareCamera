@@ -38,7 +38,9 @@ void phoneCompareWidget::setupUI() {
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
                 this, &phoneCompareWidget::onSmartphoneSelected);
     }
-
+    comparisonTable->horizontalHeader()->setVisible(false);
+    comparisonTable->verticalHeader()->setVisible(false);
+    /*
     // Spaltenüberschriften
     QStringList colHeaders;
     colHeaders << "Focal"; // Spalte 0
@@ -53,11 +55,16 @@ void phoneCompareWidget::setupUI() {
         rowLabels << QString::number(focal) + " mm";
     rowLabels << "Selfie";
     comparisonTable->setVerticalHeaderLabels(rowLabels);
-
-
     comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
+    */
+    // Leere alle Zellen ab Zeile 1
+    comparisonTable->setItem(0, 0, new QTableWidgetItem("Focal"));
+    for (int i=1; i<=standardFocalLengths.size();i++){
+        QString value = QString::number(standardFocalLengths[i-1])+"mm";
+        comparisonTable->setItem(i, 0, new QTableWidgetItem(value));
+    }
+    comparisonTable->setItem(standardFocalLengths.size() + 1, 0, new QTableWidgetItem("Selfie"));
     connect(comparisonTable, &QTableWidget::cellClicked,
             this, &phoneCompareWidget::onCellClicked);
 
@@ -129,10 +136,20 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
                     hasMatch = true;
                 }
             }
-
             if (hasMatch) {
-                QString lightValue = calculateLightValue(bestPair,requestedFocal);
+                QString lightValue = calculateLightValue(bestPair, requestedFocal);
                 QTableWidgetItem* item = new QTableWidgetItem(lightValue);
+
+                // Brennweite der gefundenen Linse
+                Lens lens = m_lensWidget->getLensById(bestPair.lensId);
+                int lensFocal = lens.focalLengthMin();
+
+                // Farbliche Markierung: ±3 mm → grün, sonst orange
+                if (qAbs(lensFocal - requestedFocal) <= 3) {
+                    item->setBackground(QBrush(QColor(180, 255, 180)));  // hellgrün
+                } else {
+                    item->setBackground(QBrush(QColor(255, 220, 180)));  // leicht orange
+                }
                 comparisonTable->setItem(row, col, item);
             }
         }
@@ -148,6 +165,7 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
         if (hasSelfie) {
             QString lightValue = calculateLightValue(selfiePair,24);
             QTableWidgetItem* item = new QTableWidgetItem(lightValue);
+            item->setBackground(QBrush(QColor(180, 255, 180)));  // hellgrün
             comparisonTable->setItem(selfieRow, col, item);
         }
     }
@@ -195,7 +213,7 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
     if (row == 0 || column == 0)
         return;
 
-    int phoneIndex = comboBoxes[column - 1]->currentIndex(); // column-1 wegen ComboBoxes
+    int phoneIndex = comboBoxes[column]->currentIndex(); // column-1 wegen ComboBoxes
     if (phoneIndex < 0 || phoneIndex >= smartphones.size())
         return;
 
@@ -249,40 +267,4 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
                              .arg(pxd, 0, 'f', 2);
 
     m_detailLabel->setText(detailText);
-}
-
-
-void phoneCompareWidget::updateComparisonTable() {
-    /*
-    // Clear previous table contents
-    comparisonTable->clearContents();
-
-    // Loop over each combo box and fill in the corresponding column of the table
-    for (int col = 0; col < comboBoxes.size(); ++col) {
-        int phoneIndex = comboBoxes[col]->currentIndex();
-        if (phoneIndex < 0 || phoneIndex >= smartphones.size()) {
-            continue;
-        }
-
-        const Smartphone& phone = smartphones[phoneIndex];
-        const auto& pairs = phone.getSensorLensPairs(); // Get lens-sensor pairs
-
-        // Loop through standard focal lengths
-        for (const auto& pair : pairs) {
-            double focal = pair.second.focalLengthMin(); // Focal length of the lens
-            double aperture = pair.second.apertureMin(); // Aperture of the lens
-            double area = pair.first.width() * pair.first.height(); // Sensor area
-            double performance = area * (1.0 / (aperture * aperture)); // Performance value
-
-            int row = standardFocalLengths.indexOf(static_cast<int>(focal)); // Find the matching focal length row
-            if (row >= 0) {
-                // Create a table item and set the performance value with a green background
-                QTableWidgetItem* item = new QTableWidgetItem(QString::number(performance, 'f', 1));
-                item->setBackground(Qt::green);
-                item->setData(Qt::UserRole, QVariant::fromValue(pair)); // Store the lens-sensor pair for reference
-                comparisonTable->setItem(row, col, item); // Add the item to the table
-            }
-        }
-    }
-*/
 }
