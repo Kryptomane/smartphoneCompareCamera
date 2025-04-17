@@ -19,6 +19,7 @@ qt_add_executable(camera_calculator
     smartphonecomparewidget.h smartphonecomparewidget.cpp
     lenstablewidget.h lenstablewidget.cpp
     camerasensortablewidget.h camerasensortablewidget.cpp
+    phonedetailwidget.h phonedetailwidget.cpp
 )
 
 target_link_libraries(camera_calculator

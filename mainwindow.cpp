@@ -20,16 +20,28 @@ MainWindow::MainWindow(QWidget* parent)
 
     // Compare Tab
     comparatorWidget = new phoneCompareWidget(this);
+    SmartphoneDetailsWidget* smartphoneDetailsWidget = new SmartphoneDetailsWidget(this);
 
-    // Smartphone hinzufügen Button
+    // Beide Widgets nebeneinander in ein horizontales Layout
+    QWidget* compareContainer = new QWidget(this);
+    QHBoxLayout* hLayout = new QHBoxLayout(compareContainer);
+
+    // Linke Seite: comparatorWidget + Add-Button
+    QVBoxLayout* compareLayout = new QVBoxLayout;
+    compareLayout->addWidget(comparatorWidget);
+
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
-    // Layout des comparatorWidgets erweitern
-    QVBoxLayout* compareLayout = qobject_cast<QVBoxLayout*>(comparatorWidget->layout());
-    if (compareLayout) {
-        compareLayout->addWidget(addSmartphoneButton);
-    }
+    compareLayout->addWidget(addSmartphoneButton);
     connect(addSmartphoneButton, &QPushButton::clicked, this, &MainWindow::addSmartphone);
-    tabWidget->addTab(comparatorWidget, "Smartphone Compare");
+
+    smartphoneDetailsWidget->setSmartphones(comparatorWidget->getSmartphones());
+    hLayout->addLayout(compareLayout, 3);  // linke Seite – Gewichtung 3
+    hLayout->addWidget(smartphoneDetailsWidget, 2); // rechte Seite – Gewichtung 2
+
+    tabWidget->addTab(compareContainer, "Smartphone Compare");
+
+    // Nach dem Laden der Smartphones:
+
 
     // Table Tab
     QWidget* tableTab = new QWidget(this);

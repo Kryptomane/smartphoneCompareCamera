@@ -194,5 +194,108 @@
                 "sensorName": "S5KJN1"
             }
         ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825445,
+                "lensId": "lens_007",
+                "sensorName": "LYT-600 (IMX882)"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_020",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 36.84345140605826,
+                "lensId": "lens_034",
+                "sensorName": "IMX890"
+            },
+            {
+                "fieldOfView": 63.47950220900379,
+                "lensId": "lens_051",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Oppo",
+        "name": "Find X7 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "LYT-506"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6100,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_020",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 34.37218244477068,
+                "lensId": "lens_037",
+                "sensorName": "LYT-700"
+            },
+            {
+                "fieldOfView": 18.221933389413515,
+                "lensId": "lens_050",
+                "sensorName": "LYT-600 (IMX882)"
+            }
+        ],
+        "manufacture": "Oppo",
+        "name": "Find X8 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "IMX809"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 4700,
+        "displaySize": 6.3,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_001",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 81.7851258149127,
+                "lensId": "lens_030",
+                "sensorName": "GNK"
+            },
+            {
+                "fieldOfView": 21.69205788910098,
+                "lensId": "lens_046",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Google",
+        "name": "Pixel 9 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 103.72061871531946,
+                "lensId": "lens_011",
+                "sensorName": "IMX858"
+            }
+        ]
     }
 ]

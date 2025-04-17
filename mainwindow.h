@@ -11,6 +11,7 @@
 #include "addsmartphonedialog.h"
 #include "camerasensortablewidget.h"
 #include "lenstablewidget.h"
+#include "phonedetailwidget.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -36,6 +37,7 @@ private:
     CameraSensorTableWidget* cameraSensorTableWidget;
     AddSmartphoneDialog* smartphoneDialog;
     phoneCompareWidget* comparatorWidget;
+    SmartphoneDetailsWidget* smartphoneDetailsWidget;
 
     QString getDatabasePath(const QString& fileName);
     QJsonArray getJson(QString filePath);

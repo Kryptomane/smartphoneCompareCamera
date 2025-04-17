@@ -402,8 +402,8 @@
     {
         "apertureMax": 4.3,
         "apertureMin": 4.3,
-        "focalLengthMax": 35,
-        "focalLengthMin": 35,
+        "focalLengthMax": 135,
+        "focalLengthMin": 135,
         "id": "lens_051",
         "type": "Festbrennweite"
     },
