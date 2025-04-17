@@ -132,5 +132,67 @@
                 "sensorName": "JD1"
             }
         ]
+    },
+    {
+        "batteryCapacity": 6000,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_007",
+                "sensorName": "LYT-818"
+            },
+            {
+                "fieldOfView": 63.47950220900379,
+                "lensId": "lens_049",
+                "sensorName": "LYT-818"
+            },
+            {
+                "fieldOfView": 28.579455823525453,
+                "lensId": "lens_042",
+                "sensorName": "S5KHP9"
+            }
+        ],
+        "manufacture": "Vivo",
+        "name": "X200 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_029",
+                "sensorName": "S5KJN5"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5500,
+        "displaySize": 6.78,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825445,
+                "lensId": "lens_008",
+                "sensorName": "LYT-600 (IMX882)"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_019",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 28.579455823525453,
+                "lensId": "lens_044",
+                "sensorName": "S5KHP9"
+            }
+        ],
+        "manufacture": "Vivo",
+        "name": "X100 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_028",
+                "sensorName": "S5KJN1"
+            }
+        ]
     }
 ]
