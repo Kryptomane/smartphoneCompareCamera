@@ -40,25 +40,7 @@ void phoneCompareWidget::setupUI() {
     }
     comparisonTable->horizontalHeader()->setVisible(false);
     comparisonTable->verticalHeader()->setVisible(false);
-    /*
-    // Spaltenüberschriften
-    QStringList colHeaders;
-    colHeaders << "Focal"; // Spalte 0
-    for (int i = 0; i < 4; ++i)
-        colHeaders << ""; // Spalten 1–4: leer für ComboBoxen
-    comparisonTable->setHorizontalHeaderLabels(colHeaders);
 
-    // Zeilenbeschriftung (inkl. ComboBox-Zeile + Selfie)
-    QStringList rowLabels;
-    rowLabels << ""; // Zeile 0 = ComboBox-Zeile
-    for (int focal : standardFocalLengths)
-        rowLabels << QString::number(focal) + " mm";
-    rowLabels << "Selfie";
-    comparisonTable->setVerticalHeaderLabels(rowLabels);
-    comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    */
-    // Leere alle Zellen ab Zeile 1
     comparisonTable->setItem(0, 0, new QTableWidgetItem("Focal"));
     for (int i=1; i<=standardFocalLengths.size();i++){
         QString value = QString::number(standardFocalLengths[i-1])+"mm";
@@ -75,7 +57,6 @@ void phoneCompareWidget::setupUI() {
     m_detailLabel->setWordWrap(true);
     mainLayout->addWidget(m_detailLabel);
 }
-
 
 void phoneCompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
@@ -217,7 +198,7 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
     if (row == 0 || column == 0)
         return;
 
-    int phoneIndex = comboBoxes[column]->currentIndex(); // column-1 wegen ComboBoxes
+    int phoneIndex = comboBoxes[column-1]->currentIndex()-1; // column-1 wegen ComboBoxes und -1 wegen erster Eintrag ist --
     if (phoneIndex < 0 || phoneIndex >= smartphones.size())
         return;
 
