@@ -192,7 +192,7 @@ void MainWindow::loadDatabases(){
     }
 
     QString phonePath = getDatabasePath("smartphones.json");
-    QJsonArray smartphoneArray = getJson(sensorPath);
+    QJsonArray smartphoneArray = getJson(phonePath);
     for (const QJsonValue& value : smartphoneArray) {
         QJsonObject phoneObject = value.toObject();
         Smartphone phone = Smartphone::fromJson(phoneObject);  // Hier wird angenommen, dass fromJson() existiert

@@ -1,0 +1,69 @@
+[
+    {
+        "batteryCapacity": 6000,
+        "displaySize": 0,
+        "mainCams": [
+            {
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN1"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_016",
+                "sensorName": "LYT-818"
+            },
+            {
+                "fieldOfView": 28.579455823525453,
+                "lensId": "lens_044",
+                "sensorName": "S5KHP9"
+            }
+        ],
+        "manufacture": "Vivo",
+        "name": "X200 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 94.53726896689291,
+                "lensId": "lens_012",
+                "sensorName": "KD1"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 0,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825445,
+                "lensId": "lens_006",
+                "sensorName": "JN3"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_023",
+                "sensorName": "S5KHP2"
+            },
+            {
+                "fieldOfView": 35.81485134814052,
+                "lensId": "lens_035",
+                "sensorName": "IMX754"
+            },
+            {
+                "fieldOfView": 21.692057889100983,
+                "lensId": "lens_046",
+                "sensorName": "IMX854"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S25 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "3LU"
+            }
+        ]
+    }
+]

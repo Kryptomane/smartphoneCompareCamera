@@ -11,6 +11,9 @@ Lens::Lens(QString id, int focalLengthMin, int focalLengthMax,
     m_apertureMin(apertureMin),
     m_apertureMax(apertureMax)
 {
+    if ((focalLengthMin == focalLengthMax) && (apertureMin == apertureMax)){
+        m_type = "Festbrennweite";
+    }
 }
 
 // Festbrennweite-Konstruktor
