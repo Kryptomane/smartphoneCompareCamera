@@ -1,7 +1,7 @@
 [
     {
         "batteryCapacity": 6000,
-        "displaySize": 0,
+        "displaySize": 6.7,
         "mainCams": [
             {
                 "fieldOfView": 110.5684185153671,
@@ -32,7 +32,7 @@
     },
     {
         "batteryCapacity": 5000,
-        "displaySize": 0,
+        "displaySize": 6.9,
         "mainCams": [
             {
                 "fieldOfView": 114.22243960825445,
@@ -51,7 +51,7 @@
             },
             {
                 "fieldOfView": 21.692057889100983,
-                "lensId": "lens_046",
+                "lensId": "lens_052",
                 "sensorName": "IMX854"
             }
         ],

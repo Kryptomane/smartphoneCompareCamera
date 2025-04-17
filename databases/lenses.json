@@ -382,5 +382,45 @@
         "focalLengthMin": 120,
         "id": "lens_048",
         "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.69,
+        "apertureMin": 1.69,
+        "focalLengthMax": 35,
+        "focalLengthMin": 35,
+        "id": "lens_049",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 3.1,
+        "apertureMin": 3.1,
+        "focalLengthMax": 135,
+        "focalLengthMin": 135,
+        "id": "lens_050",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 4.3,
+        "apertureMin": 4.3,
+        "focalLengthMax": 35,
+        "focalLengthMin": 35,
+        "id": "lens_051",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 3.4,
+        "apertureMin": 3.4,
+        "focalLengthMax": 111,
+        "focalLengthMin": 111,
+        "id": "lens_052",
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.6,
+        "apertureMin": 2.6,
+        "focalLengthMax": 100,
+        "focalLengthMin": 100,
+        "id": "lens_053",
+        "type": "Festbrennweite"
     }
 ]
