@@ -1339,24 +1339,24 @@
         "verticalPixels": 3464,
         "width": 5.142897638114135
     },
-	{
+    {
         "bitDepth": 0,
-        "cropFactor": 0,
-        "diagonal": 0,
+        "cropFactor": 6.591170322834646,
+        "diagonal": 6.569394793211487,
         "format": "4:3",
-        "height": 0,
+        "height": 3.941636875926892,
         "horizontalPixels": 6531,
         "inchSize": "1/2,74",
         "manufacture": "Sony",
         "name": "IMX809",
         "other": "",
         "pattern": "",
-        "pixelSize": 0.80,
+        "pixelSize": 0.8,
         "releaseYear": 2010,
-        "resolution": 32000000,
+        "resolution": 31988838,
         "sensitivity": 1,
         "sensorArea": 20.71533501555561,
         "verticalPixels": 4898,
-        "width": 0
+        "width": 5.255515834569189
     }
 ]

@@ -65,5 +65,72 @@
                 "sensorName": "3LU"
             }
         ]
+    },
+    {
+        "batteryCapacity": 3582,
+        "displaySize": 6.3,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX972"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_024",
+                "sensorName": "IMX903"
+            },
+            {
+                "fieldOfView": 20.45419212767901,
+                "lensId": "lens_047",
+                "sensorName": "IMX913"
+            }
+        ],
+        "manufacture": "Apple",
+        "name": "iPhone 16 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_021",
+                "sensorName": "IMX714"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6000,
+        "displaySize": 6.73,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_008",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_017",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_036",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 24.43200250020976,
+                "lensId": "lens_053",
+                "sensorName": "S5KHP9"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "15 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_014",
+                "sensorName": "JD1"
+            }
+        ]
     }
 ]
