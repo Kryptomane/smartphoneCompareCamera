@@ -82,7 +82,8 @@ void MainWindow::exportAllDataToJson() {
         sensorsArray.append(sensor.toJson());
     }
     QJsonDocument sensorsDoc(sensorsArray);
-    QFile sensorsFile("camera_sensors.json");
+    QString sensorPath = getDatabasePath("camera_sensors.json");
+    QFile sensorsFile(sensorPath);
     if (sensorsFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
         sensorsFile.write(sensorsDoc.toJson(QJsonDocument::Indented));
         sensorsFile.close();
@@ -96,7 +97,8 @@ void MainWindow::exportAllDataToJson() {
         lensesArray.append(lens.toJson());
     }
     QJsonDocument lensesDoc(lensesArray);
-    QFile lensesFile("lenses.json");
+    QString lensesPath = getDatabasePath("lenses.json");
+    QFile lensesFile(lensesPath);
     if (lensesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
         lensesFile.write(lensesDoc.toJson(QJsonDocument::Indented));
         lensesFile.close();
@@ -110,7 +112,8 @@ void MainWindow::exportAllDataToJson() {
         smartphonesArray.append(phone.toJson());
     }
     QJsonDocument smartphonesDoc(smartphonesArray);
-    QFile smartphonesFile("smartphones.json");
+    QString phonePath = getDatabasePath("smartphones.json");
+    QFile smartphonesFile(phonePath);
     if (smartphonesFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
         smartphonesFile.write(smartphonesDoc.toJson(QJsonDocument::Indented));
         smartphonesFile.close();
