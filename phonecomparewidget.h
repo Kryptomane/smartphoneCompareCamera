@@ -15,6 +15,15 @@
 #include "camerasensortablewidget.h"
 #include "lenstablewidget.h"
 
+struct LightStruct{
+    double lightvalue;
+    double cropfactor;
+    double effectiveArea;
+    double effectiveAperture;
+    double maxLight;
+    QColor cellcolor;
+};
+
 class phoneCompareWidget : public QWidget {
     Q_OBJECT
 
@@ -25,7 +34,8 @@ public:
     void onSmartphoneSelected(int index);
     QList<Smartphone> getSmartphones();
     void addSmartphone(Smartphone phone);
-    QString calculateLightValue(SensorLensPair pair, int targetFocal);
+    LightStruct calculateLightValue(SensorLensPair pair, int targetFocal);
+    QLabel* createLightInfoItem(LightStruct result);
 
 public slots:
     void printInfoMessage(const QString &s);
