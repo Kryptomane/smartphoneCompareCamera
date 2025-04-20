@@ -140,7 +140,7 @@
         "focalLengthMax": 23,
         "focalLengthMin": 23,
         "id": "lens_016",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -149,7 +149,7 @@
         "focalLengthMax": 23,
         "focalLengthMin": 23,
         "id": "lens_017",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -158,7 +158,7 @@
         "focalLengthMax": 23,
         "focalLengthMin": 23,
         "id": "lens_018",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Zoomobjektiv"
     },
     {
@@ -167,7 +167,7 @@
         "focalLengthMax": 23,
         "focalLengthMin": 23,
         "id": "lens_019",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -176,7 +176,7 @@
         "focalLengthMax": 23,
         "focalLengthMin": 23,
         "id": "lens_020",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -194,7 +194,7 @@
         "focalLengthMax": 24,
         "focalLengthMin": 24,
         "id": "lens_022",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Zoomobjektiv"
     },
     {
@@ -203,7 +203,7 @@
         "focalLengthMax": 24,
         "focalLengthMin": 24,
         "id": "lens_023",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -212,7 +212,7 @@
         "focalLengthMax": 24,
         "focalLengthMin": 24,
         "id": "lens_024",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -221,7 +221,7 @@
         "focalLengthMax": 24,
         "focalLengthMin": 24,
         "id": "lens_025",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -230,7 +230,7 @@
         "focalLengthMax": 24,
         "focalLengthMin": 24,
         "id": "lens_026",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -266,7 +266,7 @@
         "focalLengthMax": 25,
         "focalLengthMin": 25,
         "id": "lens_030",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -293,7 +293,7 @@
         "focalLengthMax": 35,
         "focalLengthMin": 35,
         "id": "lens_033",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Zoomobjektiv"
     },
     {
@@ -302,7 +302,7 @@
         "focalLengthMax": 65,
         "focalLengthMin": 65,
         "id": "lens_034",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -311,7 +311,7 @@
         "focalLengthMax": 67,
         "focalLengthMin": 67,
         "id": "lens_035",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -320,7 +320,7 @@
         "focalLengthMax": 70,
         "focalLengthMin": 70,
         "id": "lens_036",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -329,7 +329,7 @@
         "focalLengthMax": 70,
         "focalLengthMin": 70,
         "id": "lens_037",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -338,7 +338,7 @@
         "focalLengthMax": 70,
         "focalLengthMin": 70,
         "id": "lens_038",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -347,7 +347,7 @@
         "focalLengthMax": 72,
         "focalLengthMin": 72,
         "id": "lens_039",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -356,7 +356,7 @@
         "focalLengthMax": 72,
         "focalLengthMin": 72,
         "id": "lens_040",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -365,7 +365,7 @@
         "focalLengthMax": 73,
         "focalLengthMin": 73,
         "id": "lens_041",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -374,7 +374,7 @@
         "focalLengthMax": 85,
         "focalLengthMin": 85,
         "id": "lens_042",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -383,7 +383,7 @@
         "focalLengthMax": 170,
         "focalLengthMin": 85,
         "id": "lens_043",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Zoomobjektiv"
     },
     {
@@ -392,7 +392,7 @@
         "focalLengthMax": 85,
         "focalLengthMin": 85,
         "id": "lens_044",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -401,7 +401,7 @@
         "focalLengthMax": 90,
         "focalLengthMin": 90,
         "id": "lens_045",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -410,7 +410,7 @@
         "focalLengthMax": 113,
         "focalLengthMin": 113,
         "id": "lens_046",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -419,7 +419,7 @@
         "focalLengthMax": 120,
         "focalLengthMin": 120,
         "id": "lens_047",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -428,7 +428,7 @@
         "focalLengthMax": 120,
         "focalLengthMin": 120,
         "id": "lens_048",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -437,7 +437,7 @@
         "focalLengthMax": 35,
         "focalLengthMin": 35,
         "id": "lens_049",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -446,7 +446,7 @@
         "focalLengthMax": 135,
         "focalLengthMin": 135,
         "id": "lens_050",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -455,7 +455,7 @@
         "focalLengthMax": 135,
         "focalLengthMin": 135,
         "id": "lens_051",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -464,7 +464,7 @@
         "focalLengthMax": 111,
         "focalLengthMin": 111,
         "id": "lens_052",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
     {
@@ -473,16 +473,16 @@
         "focalLengthMax": 100,
         "focalLengthMin": 100,
         "id": "lens_053",
-        "stabilization": 0,
+        "stabilization": 1,
         "type": "Festbrennweite"
     },
-    {
-        "apertureMax": 0,
-        "apertureMin": 0,
-        "focalLengthMax": 0,
-        "focalLengthMin": 0,
-        "id": "",
-        "stabilization": 0,
+	{
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 14,
+        "focalLengthMin": 14,
+        "id": "lens_054",
+        "stabilization": 1,
         "type": "Festbrennweite"
     }
 ]

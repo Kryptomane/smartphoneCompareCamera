@@ -229,6 +229,13 @@ QString phoneCompareWidget::calculateLightValue(const SensorLensPair pair, int t
 
     double lightValue = effectiveArea / (effectiveAperture * effectiveAperture);
 
+    if (lens.stabi() == StabilizationMethod::OIS){
+        lightValue*=1.6;
+    }
+    if (lens.stabi() == StabilizationMethod::Gimbal){
+        lightValue*=1.8;
+    }
+
     // --- Formatierung für Anzeige ---
     QString result = QString("LW: %1\nf/%2\n%3 mm²")
                          .arg(lightValue, 0, 'f', 2)
