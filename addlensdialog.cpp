@@ -3,6 +3,7 @@
 #include <QDialogButtonBox>
 #include <QIntValidator>
 #include <QDoubleValidator>
+#include <QComboBox>
 
 AddLensDialog::AddLensDialog(QWidget* parent)
     : QDialog(parent)
@@ -22,11 +23,17 @@ AddLensDialog::AddLensDialog(QWidget* parent)
     apertureMinEdit->setValidator(new QDoubleValidator(0.7, 32.0, 2, this));
     apertureMaxEdit->setValidator(new QDoubleValidator(0.7, 32.0, 2, this));
 
+    stabilizationCombo = new QComboBox(this);
+    stabilizationCombo->addItem("Keine", QVariant::fromValue(StabilizationMethod::NoStabilization));
+    stabilizationCombo->addItem("OIS", QVariant::fromValue(StabilizationMethod::OIS));
+    stabilizationCombo->addItem("Gimbal", QVariant::fromValue(StabilizationMethod::Gimbal));
+
     layout->addRow("Name", idEdit);
     layout->addRow("Brennweite min (mm):", focalMinEdit);
     layout->addRow("Brennweite max (mm):", focalMaxEdit);
     layout->addRow("Blende max (größte Öffnung):", apertureMinEdit);
     layout->addRow("Blende min (kleinste Öffnung):", apertureMaxEdit);
+    layout->addRow("Stabilisierung:", stabilizationCombo);
 
     auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     layout->addWidget(buttons);
@@ -37,12 +44,12 @@ AddLensDialog::AddLensDialog(QWidget* parent)
         int fMax = focalMaxEdit->text().toInt();
         double aMin = apertureMinEdit->text().replace(",", ".").toDouble();
         double aMax = apertureMaxEdit->text().replace(",", ".").toDouble();
+        StabilizationMethod stabi = static_cast<StabilizationMethod>(stabilizationCombo->currentData().toInt());
 
-        // Entscheide Typ je nach Eingabe
         if (fMin > 0 && fMax > 0 && fMin != fMax && aMin != aMax) {
-            createdLens = Lens(id, fMin, fMax, aMin, aMax); // Zoom
+            createdLens = Lens(id, fMin, fMax, aMin, aMax, stabi); // Zoom
         } else {
-            createdLens = Lens(id, fMin, aMin); // Festbrennweite
+            createdLens = Lens(id, fMin, aMin, stabi); // Festbrennweite
         }
 
         accept();

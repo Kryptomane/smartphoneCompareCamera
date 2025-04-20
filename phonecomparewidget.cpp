@@ -26,7 +26,7 @@ void phoneCompareWidget::setupUI() {
     comparisonTable->setColumnCount(5); // 1x Focal + 4 Smartphones
     comparisonTable->setRowCount(standardFocalLengths.size() + 2); // +1 für ComboBox-Zeile, +1 für Selfie
 
-    int columnWidth = 150;  // z.B. 150px pro Spalte
+    int columnWidth = 180;  // z.B. 150px pro Spalte
     int rowHeight = 40;     // z.B. 40px pro Zeile
     int numCols = 5;        // Focal + 4 Smartphones
     int numRows = standardFocalLengths.size() + 2; // ComboBox + Brennweiten + Selfie
@@ -136,7 +136,7 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
                 int lensFocal = lens.focalLengthMin();
 
                 // Farbliche Markierung: ±3 mm → grün, sonst orange
-                if (qAbs(lensFocal - requestedFocal) <= 3) {
+                if ((qAbs(lensFocal - requestedFocal) <= 3) || (lens.focalLengthMin()<requestedFocal && lens.focalLengthMax()>requestedFocal)){
                     item->setBackground(QBrush(QColor(180, 255, 180)));  // hellgrün
                 } else {
                     item->setBackground(QBrush(QColor(255, 220, 180)));  // leicht orange
@@ -162,37 +162,84 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
     }
 }
 
+/*
 QString phoneCompareWidget::calculateLightValue(const SensorLensPair pair, int targetFocal) {
     CameraSensor sensor = m_sensorWidget->getCameraByName(pair.sensorName);
     Lens lens = m_lensWidget->getLensById(pair.lensId);
 
-    double focalLength = lens.focalLengthMin();
-    double aperture = lens.apertureMin();
+    if (targetFocal > lens.focalLengthMax()){
+        double cropFactor = targetFocal / lens.focalLengthMin();
+        double effectiveArea = sensor.sensorArea() / (cropFactor * cropFactor);
+        double effectiveAperture = lens.apertureMin() * cropFactor;
+        double lightValue = effectiveArea / std::pow(effectiveAperture, 2);
+        QString result = QString("%1").arg(lightValue, 0, 'f', 1);
+        result += " (crop)";
+        return result;
+    } else {
+        double cropFactor = targetFocal / lens.focalLengthMin();
+        double apertureFactor = (lens.apertureMax()-lens.apertureMin())/cropFactor;
+        qInfo() << cropFactor << apertureFactor;
+        double effectiveAperture = lens.apertureMin() * apertureFactor;
+        double lightValue = sensor.sensorArea() / std::pow(effectiveAperture, 2);
+        QString result = QString("%1").arg(lightValue, 0, 'f', 1);
+        return result;
+    }
+}*/
+
+QString phoneCompareWidget::calculateLightValue(const SensorLensPair pair, int targetFocal) {
+    // --- Sensor laden ---
+    CameraSensor sensor = m_sensorWidget->getCameraByName(pair.sensorName);
     double sensorWidth = sensor.width();
     double sensorHeight = sensor.height();
+    double sensorArea = sensorWidth * sensorHeight;
 
-    double effectiveArea = sensorWidth * sensorHeight;
-    bool cropped = false;
+    // --- Linse laden ---
+    Lens lens = m_lensWidget->getLensById(pair.lensId);
+    double focalMin = lens.focalLengthMin();
+    double focalMax = lens.focalLengthMax();
+    double apertureMin = lens.apertureMin();
+    double apertureMax = lens.apertureMax();
 
-    if (targetFocal > 0 && focalLength < targetFocal) {
-        double cropFactor = static_cast<double>(targetFocal) / focalLength;
-        double croppedWidth = sensorWidth / cropFactor;
-        double croppedHeight = sensorHeight / cropFactor;
-        effectiveArea = croppedWidth * croppedHeight;
-        cropped = true;
+    // --- Brennweite bestimmen ---
+    double actualFocal = focalMin;
+    double aperture = apertureMin;
+
+    if (focalMin != focalMax) {
+        // Zoomlinse: Interpolieren je nach targetFocal
+        double t = 0.0;
+        if (targetFocal > focalMin && focalMax > focalMin)
+            t = qBound(0.0, (targetFocal - focalMin) / (focalMax - focalMin), 1.0);
+        actualFocal = focalMin + t * (focalMax - focalMin);
+        aperture = apertureMin + t * (apertureMax - apertureMin);
     }
 
-    if (aperture <= 0 || effectiveArea <= 0)
-        return "N/A";
+    // --- Crop berechnen ---
+    double cropFactor = 1.0;
+    if (actualFocal < targetFocal) {
+        cropFactor = static_cast<double>(targetFocal) / actualFocal;
+    }
 
-    // Lichtaufnahme-Index: Fläche geteilt durch quadratische Blendenwirkung
-    double lightScore = effectiveArea / (aperture * aperture);
+    // --- effektive Werte ---
+    double effectiveAperture = aperture * cropFactor;
+    double effectiveArea = sensorArea / (cropFactor * cropFactor);
 
-    QString result = QString("%1").arg(lightScore, 0, 'f', 1);
-    if (cropped)
-        result += " (crop)";
+    // --- Lichtwert berechnen ---
+    if (effectiveAperture <= 0.01) // Vermeide Division durch 0
+        return "n/a";
+
+    double lightValue = effectiveArea / (effectiveAperture * effectiveAperture);
+
+    // --- Formatierung für Anzeige ---
+    QString result = QString("LW: %1\nf/%2\n%3 mm²")
+                         .arg(lightValue, 0, 'f', 2)
+                         .arg(effectiveAperture, 0, 'f', 1)
+                         .arg(effectiveArea, 0, 'f', 1);
+
     return result;
 }
+
+
+
 
 QList<Smartphone> phoneCompareWidget::getSmartphones()
 {

@@ -19,6 +19,7 @@ private:
     QLineEdit* focalMaxEdit;
     QLineEdit* apertureMinEdit;
     QLineEdit* apertureMaxEdit;
+    QComboBox* stabilizationCombo;
 };
 
 #endif // ADDLENSDIALOG_H

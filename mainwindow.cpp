@@ -85,6 +85,7 @@ QString MainWindow::getDatabasePath(const QString& fileName) {
     QString path = dir.filePath("databases/" + fileName);
     if (!QFile::exists(path)) {
         qInfo() << "Datei nicht gefunden:" << path;
+        return "";
     } else {
         return path;
     }
