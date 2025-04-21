@@ -437,7 +437,7 @@
         "focalLengthMax": 35,
         "focalLengthMin": 35,
         "id": "lens_049",
-        "stabilization": 1,
+        "stabilization": 2,
         "type": "Festbrennweite"
     },
     {

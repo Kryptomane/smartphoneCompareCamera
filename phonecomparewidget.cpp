@@ -24,18 +24,19 @@ void phoneCompareWidget::setupUI() {
 
     // Vergleichstabelle initialisieren
     comparisonTable->setColumnCount(5); // 1x Focal + 4 Smartphones
-    comparisonTable->setRowCount(standardFocalLengths.size() + 2); // +1 für ComboBox-Zeile, +1 für Selfie
+    comparisonTable->setRowCount(totalRows); // ComboBox + Brennweiten + Selfie
 
-    int columnWidth = 250;  // z.B. 150px pro Spalte
-    int rowHeight = 40;     // z.B. 40px pro Zeile
-    int numCols = 5;        // Focal + 4 Smartphones
-    int numRows = standardFocalLengths.size() + 2; // ComboBox + Brennweiten + Selfie
+    int columnWidth = 160;
+    int rowHeight = 45;
+    int numCols = comparisonTable->columnCount();
+    int numRows = comparisonTable->rowCount();
 
     int tableWidth = columnWidth * numCols;
     int tableHeight = rowHeight * numRows;
 
-    this->setFixedSize(tableWidth, tableHeight + 150); // + etwas extra für DetailLabel
+    this->setFixedSize(tableWidth, tableHeight + 150); // + extra Platz für DetailLabel
 
+    // ComboBoxen hinzufügen
     for (int col = 1; col <= 4; ++col) {
         QComboBox* combo = new QComboBox(this);
         combo->addItem("");
@@ -48,18 +49,34 @@ void phoneCompareWidget::setupUI() {
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
                 this, &phoneCompareWidget::onSmartphoneSelected);
     }
+
+    // Tabellenheader ausblenden und Fix-Modus setzen
     comparisonTable->horizontalHeader()->setVisible(false);
     comparisonTable->verticalHeader()->setVisible(false);
+    comparisonTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
+    // Feste Spaltenbreiten und Zeilenhöhen setzen
+    comparisonTable->setColumnWidth(0,70);
+    for (int col = 1; col < numCols; ++col)
+        comparisonTable->setColumnWidth(col, columnWidth);
+    comparisonTable->setRowHeight(0, 25);
+    for (int row = 1; row < numRows; ++row)
+        comparisonTable->setRowHeight(row, rowHeight);
+
+    // Erste Spalte mit Brennweiten + Selfie-Kennzeichnung füllen
     comparisonTable->setItem(0, 0, new QTableWidgetItem("Focal"));
-    for (int i=1; i<=standardFocalLengths.size();i++){
-        QString value = QString::number(standardFocalLengths[i-1])+"mm";
-        comparisonTable->setItem(i, 0, new QTableWidgetItem(value));
+    for (int i = 0; i < standardFocalLengths.size(); ++i) {
+        QString value = QString::number(standardFocalLengths[i]) + "mm";
+        comparisonTable->setItem(i + 1, 0, new QTableWidgetItem(value));
     }
     comparisonTable->setItem(standardFocalLengths.size() + 1, 0, new QTableWidgetItem("Selfie"));
+
+    // Klick-Handling für Detailanzeige
     connect(comparisonTable, &QTableWidget::cellClicked,
             this, &phoneCompareWidget::onCellClicked);
 
+    // Vergleichstabelle zum Layout hinzufügen
     mainLayout->addWidget(comparisonTable);
 
     // Detailbereich unten
@@ -93,7 +110,7 @@ QLabel* phoneCompareWidget::createLightInfoItem(LightStruct result) {
     QString htmlText = QString(
                            "<div style='text-align:center;'>"
                            "<span style='font-size:14pt; font-weight:bold;'>L: %1</span><br>"
-                           "<span style='font-size:9pt;'>Crop:%2<br>maxL:%3</span>"
+                           "<span style='font-size:9pt;'>Crop:%2 - maxL:%3</span>"
                            "</div>")
                            .arg(result.lightvalue, 0, 'f', 2)
                            .arg(result.cropfactor, 0, 'f', 2)
@@ -113,7 +130,6 @@ QLabel* phoneCompareWidget::createLightInfoItem(LightStruct result) {
 
     return label;
 }
-
 
 void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
     int comboRow = 0;
@@ -241,9 +257,9 @@ LightStruct phoneCompareWidget::calculateLightValue(const SensorLensPair pair, i
 
     // Farbliche Markierung: ±3 mm → grün, sonst orange
     if ((qAbs(focalMin - targetFocal) <= 3) || (lens.focalLengthMin()<targetFocal && lens.focalLengthMax()>targetFocal)){
-        lightresult.cellcolor = QColor(180, 255, 180);  // hellgrün
+        lightresult.cellcolor = QColor(0, 100, 0);  // hellgrün
     } else {
-        lightresult.cellcolor = QColor(255, 220, 180);  // leicht orange
+        lightresult.cellcolor = QColor(255, 140, 0);  // leicht orange
     }
     return lightresult;
 }
