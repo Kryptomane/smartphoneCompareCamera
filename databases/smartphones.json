@@ -421,5 +421,36 @@
                 "sensorName": "IMX615"
             }
         ]
+    },
+    {
+        "batteryCapacity": 5910,
+        "displaySize": 6.78,
+        "mainCams": [
+            {
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_017",
+                "sensorName": "LYT-800"
+            },
+            {
+                "fieldOfView": 33.03811617647624,
+                "lensId": "lens_041",
+                "sensorName": "LYT-600 (IMX882)"
+            }
+        ],
+        "manufacture": "Oppo",
+        "name": "Find X8 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "IMX615"
+            }
+        ]
     }
 ]
