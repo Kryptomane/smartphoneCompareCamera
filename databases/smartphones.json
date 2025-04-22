@@ -26,7 +26,7 @@
             {
                 "fieldOfView": 94.53726896689291,
                 "lensId": "lens_012",
-                "sensorName": "KD1"
+                "sensorName": "S5KKD1"
             }
         ]
     },
@@ -37,7 +37,7 @@
             {
                 "fieldOfView": 114.22243960825445,
                 "lensId": "lens_006",
-                "sensorName": "JN3"
+                "sensorName": "S5KJN3"
             },
             {
                 "fieldOfView": 84.10618480366745,
@@ -62,7 +62,7 @@
             {
                 "fieldOfView": 79.56777735820835,
                 "lensId": "lens_031",
-                "sensorName": "3LU"
+                "sensorName": "S5K3LU"
             }
         ]
     },
@@ -129,7 +129,7 @@
             {
                 "fieldOfView": 91.74627778172767,
                 "lensId": "lens_014",
-                "sensorName": "JD1"
+                "sensorName": "S5KJD1"
             }
         ]
     },
@@ -279,7 +279,7 @@
             {
                 "fieldOfView": 81.7851258149127,
                 "lensId": "lens_030",
-                "sensorName": "GNK"
+                "sensorName": "S5KGNK"
             },
             {
                 "fieldOfView": 21.69205788910098,
@@ -310,7 +310,7 @@
             {
                 "fieldOfView": 84.10618480366745,
                 "lensId": "lens_026",
-                "sensorName": "GN2"
+                "sensorName": "S5KGN2"
             },
             {
                 "fieldOfView": 20.45419212767901,
@@ -325,7 +325,7 @@
             {
                 "fieldOfView": 77.4488939341854,
                 "lensId": "lens_032",
-                "sensorName": "3LU"
+                "sensorName": "S5K3LU"
             }
         ]
     },
@@ -372,7 +372,7 @@
             {
                 "fieldOfView": 84.10618480366745,
                 "lensId": "lens_024",
-                "sensorName": "GN3"
+                "sensorName": "S5KGN3"
             },
             {
                 "fieldOfView": 35.81485134814052,

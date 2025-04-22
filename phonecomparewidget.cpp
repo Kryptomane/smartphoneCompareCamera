@@ -104,7 +104,7 @@ void phoneCompareWidget::setupUI() {
 void phoneCompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
     for (QComboBox* combo : comboBoxes) {
-        combo->addItem(phone.name()); // Smartphone::getName() muss existieren
+        combo->addItem(phone.name());
     }
 }
 void phoneCompareWidget::onSmartphoneSelected(int index) {

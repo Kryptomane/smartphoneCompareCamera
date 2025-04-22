@@ -52,7 +52,7 @@ QList<Lens> LensTableWidget::getLenses() const
 }
 
 Lens LensTableWidget::getLensById(const QString& lensId) {
-    for (const Lens& lens : lensesList) {
+    for (const Lens& lens : std::as_const(lensesList)) {
         if (lens.id() == lensId) {
             return lens;
         }
