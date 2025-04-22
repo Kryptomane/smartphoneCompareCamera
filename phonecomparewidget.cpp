@@ -23,7 +23,7 @@ void phoneCompareWidget::setupUI() {
     int totalRows = standardFocalLengths.size() + 1 + 1; //Focals +1 Selfie, +1 ComboBox-Zeile
 
     // Vergleichstabelle initialisieren
-    comparisonTable->setColumnCount(numberPhonesToCompare+1); // 1x Header + 4 Smartphones
+    comparisonTable->setColumnCount(numberPhonesToCompare + 1); // 1x Header + Smartphones
     comparisonTable->setRowCount(totalRows); // ComboBox + Brennweiten + Selfie
 
     int columnWidth = 160;
@@ -34,19 +34,26 @@ void phoneCompareWidget::setupUI() {
     int numCols = comparisonTable->columnCount();
     int spacingWidth = 20;
 
-    int tableWidth = columnWidth * numberPhonesToCompare + columnHeaderWidth+spacingWidth;
-    int tableHeight = rowHeight * (totalRows-1) + rowHeaderHeight;
+    int tableWidth = columnWidth * numberPhonesToCompare + columnHeaderWidth + spacingWidth;
+    int tableHeight = rowHeight * (totalRows - 1) + rowHeaderHeight;
+
+    // Scrollbars deaktivieren
+    comparisonTable->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    comparisonTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    // Größe fixieren
+    comparisonTable->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    comparisonTable->setMinimumSize(tableWidth, tableHeight);
+    comparisonTable->setMaximumSize(tableWidth, tableHeight);
 
     // ComboBoxen hinzufügen
-    for (int col = 1; col <= 4; ++col) {
+    for (int col = 1; col <= numberPhonesToCompare; ++col) {
         QComboBox* combo = new QComboBox(this);
         combo->addItem("");
         for (const Smartphone& phone : smartphones)
             combo->addItem(phone.name());
-
         comboBoxes.append(combo);
         comparisonTable->setCellWidget(0, col, combo);
-
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
                 this, &phoneCompareWidget::onSmartphoneSelected);
     }
@@ -58,7 +65,7 @@ void phoneCompareWidget::setupUI() {
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     // Feste Spaltenbreiten und Zeilenhöhen setzen
-    comparisonTable->setColumnWidth(0,columnHeaderWidth);
+    comparisonTable->setColumnWidth(0, columnHeaderWidth);
     for (int col = 1; col < numCols; ++col)
         comparisonTable->setColumnWidth(col, columnWidth);
     comparisonTable->setRowHeight(0, rowHeaderHeight);
@@ -72,7 +79,6 @@ void phoneCompareWidget::setupUI() {
         comparisonTable->setItem(i + 1, 0, new QTableWidgetItem(value));
     }
     comparisonTable->setItem(standardFocalLengths.size() + 1, 0, new QTableWidgetItem("Selfie"));
-    this->setFixedSize(tableWidth, tableHeight+detailLabelHeight-50); // + extra Platz für DetailLabel
 
     // Klick-Handling für Detailanzeige
     connect(comparisonTable, &QTableWidget::cellClicked,
@@ -81,11 +87,19 @@ void phoneCompareWidget::setupUI() {
     // Vergleichstabelle zum Layout hinzufügen
     mainLayout->addWidget(comparisonTable);
 
-    // Detailbereich unten
+    // Detailbereich mit Label oben, Spacer unten
+    QVBoxLayout* detailLayout = new QVBoxLayout;
     m_detailLabel->setText("Details erscheinen hier...");
     m_detailLabel->setWordWrap(true);
-    mainLayout->addWidget(m_detailLabel);
+    detailLayout->addWidget(m_detailLabel);
+    detailLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    mainLayout->addLayout(detailLayout);
+
+    // Gesamtes Widget in fixer Größe halten
+    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    this->setFixedSize(tableWidth, tableHeight + detailLabelHeight);
 }
+
 
 void phoneCompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
