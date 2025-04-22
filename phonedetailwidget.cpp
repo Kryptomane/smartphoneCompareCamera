@@ -9,6 +9,10 @@ phoneDetailWidget::phoneDetailWidget(QWidget* parent)
     layout->addWidget(phoneDetailsLabel);
 
     phoneDetailsLabel->setWordWrap(true);
+
+    // Vertikalen Spacer hinzufügen (sorgt dafür, dass das Label oben bleibt)
+    layout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+
     connect(phoneSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &phoneDetailWidget::onSmartphoneSelected);
 }

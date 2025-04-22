@@ -308,9 +308,7 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
 
     CameraSensor sensor = m_sensorWidget->getCameraByName(bestPair->sensorName);
     Lens lens = m_lensWidget->getLensById(bestPair->lensId);
-
     double angle = bestPair->fieldOfView;
-    double pxd = 100;
 
     QString detailText = QString(
                              "<b>Smartphone:</b> %1<br>"
@@ -319,8 +317,7 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
                              "<b>Blende:</b> f/%4<br>"
                              "<b>Sensorgröße:</b> %5 mm × %6 mm<br>"
                              "<b>Auflösung:</b> %7 MP<br>"
-                             "<b>Bildwinkel:</b> %8°<br>"
-                             "<b>Winkelauflösung:</b> %9 px/°")
+                             "<b>Bildwinkel:</b> %8°<br>")
                              .arg(phone.name())
                              .arg((row == comparisonTable->rowCount() - 1) ? "Selfie" : "Main")
                              .arg(lens.focalLengthMin())
@@ -328,8 +325,6 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
                              .arg(sensor.width())
                              .arg(sensor.height())
                              .arg(sensor.resolution())
-                             .arg(angle, 0, 'f', 2)
-                             .arg(pxd, 0, 'f', 2);
-
+                             .arg(angle, 0, 'f', 2);
     m_detailLabel->setText(detailText);
 }

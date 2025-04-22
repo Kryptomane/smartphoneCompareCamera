@@ -22,7 +22,11 @@ MainWindow::MainWindow(QWidget* parent)
     comparatorWidget = new phoneCompareWidget(this);
     comparatorWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     phoneDetailWidget* smartphoneDetailsWidget = new phoneDetailWidget(this);
-    smartphoneDetailsWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    // Feste Breite setzen, z.B. 250 Pixel
+    smartphoneDetailsWidget->setFixedWidth(200);
+    // Optional: Höhe darf weiterhin flexibel sein
+    smartphoneDetailsWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
     // Beide Widgets nebeneinander in ein horizontales Layout
     QWidget* compareContainer = new QWidget(this);
     QHBoxLayout* hLayout = new QHBoxLayout(compareContainer);
