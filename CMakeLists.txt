@@ -20,6 +20,7 @@ qt_add_executable(camera_calculator
     lenstablewidget.h lenstablewidget.cpp
     camerasensortablewidget.h camerasensortablewidget.cpp
     phonedetailwidget.h phonedetailwidget.cpp
+    databases/camera_sensors.json databases/lenses.json databases/smartphones.json
 )
 
 target_link_libraries(camera_calculator
