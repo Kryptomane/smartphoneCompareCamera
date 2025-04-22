@@ -359,5 +359,67 @@
                 "sensorName": "IMX663"
             }
         ]
+    },
+    {
+        "batteryCapacity": 4000,
+        "displaySize": 6.2,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX564"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_024",
+                "sensorName": "GN3"
+            },
+            {
+                "fieldOfView": 35.81485134814052,
+                "lensId": "lens_035",
+                "sensorName": "S5K3K1"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S25",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "3LU"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6000,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_017",
+                "sensorName": "LYT-808"
+            },
+            {
+                "fieldOfView": 33.03811617647624,
+                "lensId": "lens_041",
+                "sensorName": "LYT-600 (IMX882)"
+            }
+        ],
+        "manufacture": "Oneplus",
+        "name": "13",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "IMX615"
+            }
+        ]
     }
 ]
