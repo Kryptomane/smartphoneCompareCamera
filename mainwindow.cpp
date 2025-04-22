@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent)
     // Linke Seite: comparatorWidget + Add-Button
     QVBoxLayout* compareLayout = new QVBoxLayout;
     compareLayout->addWidget(comparatorWidget,0);
-
+    compareLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     QPushButton* addSmartphoneButton = new QPushButton("Smartphone hinzufügen", this);
     compareLayout->addWidget(addSmartphoneButton);
     connect(addSmartphoneButton, &QPushButton::clicked, this, &MainWindow::addSmartphone);
@@ -44,9 +44,6 @@ MainWindow::MainWindow(QWidget* parent)
     hLayout->addWidget(smartphoneDetailsWidget, 1); // rechte Seite – Gewichtung 2
 
     tabWidget->addTab(compareContainer, "Smartphone Compare");
-
-    // Nach dem Laden der Smartphones:
-
 
     // Table Tab
     QWidget* tableTab = new QWidget(this);

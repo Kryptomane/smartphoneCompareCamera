@@ -19,22 +19,23 @@ void phoneCompareWidget::setSensorAndLensWidgets(CameraSensorTableWidget* sensor
 void phoneCompareWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
-    int mainCameraRows = standardFocalLengths.size();
-    int totalRows = mainCameraRows + 1 + 1; // +1 Selfie, +1 ComboBox-Zeile
+    int numberPhonesToCompare = 4;
+    int totalRows = standardFocalLengths.size() + 1 + 1; //Focals +1 Selfie, +1 ComboBox-Zeile
 
     // Vergleichstabelle initialisieren
-    comparisonTable->setColumnCount(5); // 1x Focal + 4 Smartphones
+    comparisonTable->setColumnCount(numberPhonesToCompare+1); // 1x Header + 4 Smartphones
     comparisonTable->setRowCount(totalRows); // ComboBox + Brennweiten + Selfie
 
     int columnWidth = 160;
     int rowHeight = 45;
+    int columnHeaderWidth = 70;
+    int rowHeaderHeight = 25;
+    int detailLabelHeight = 150;
     int numCols = comparisonTable->columnCount();
-    int numRows = comparisonTable->rowCount();
+    int spacingWidth = 20;
 
-    int tableWidth = columnWidth * numCols;
-    int tableHeight = rowHeight * numRows;
-
-    this->setFixedSize(tableWidth, tableHeight + 150); // + extra Platz für DetailLabel
+    int tableWidth = columnWidth * numberPhonesToCompare + columnHeaderWidth+spacingWidth;
+    int tableHeight = rowHeight * (totalRows-1) + rowHeaderHeight;
 
     // ComboBoxen hinzufügen
     for (int col = 1; col <= 4; ++col) {
@@ -57,11 +58,11 @@ void phoneCompareWidget::setupUI() {
     comparisonTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     // Feste Spaltenbreiten und Zeilenhöhen setzen
-    comparisonTable->setColumnWidth(0,70);
+    comparisonTable->setColumnWidth(0,columnHeaderWidth);
     for (int col = 1; col < numCols; ++col)
         comparisonTable->setColumnWidth(col, columnWidth);
-    comparisonTable->setRowHeight(0, 25);
-    for (int row = 1; row < numRows; ++row)
+    comparisonTable->setRowHeight(0, rowHeaderHeight);
+    for (int row = 1; row < totalRows; ++row)
         comparisonTable->setRowHeight(row, rowHeight);
 
     // Erste Spalte mit Brennweiten + Selfie-Kennzeichnung füllen
@@ -71,6 +72,7 @@ void phoneCompareWidget::setupUI() {
         comparisonTable->setItem(i + 1, 0, new QTableWidgetItem(value));
     }
     comparisonTable->setItem(standardFocalLengths.size() + 1, 0, new QTableWidgetItem("Selfie"));
+    this->setFixedSize(tableWidth, tableHeight+detailLabelHeight-50); // + extra Platz für DetailLabel
 
     // Klick-Handling für Detailanzeige
     connect(comparisonTable, &QTableWidget::cellClicked,
