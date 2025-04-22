@@ -484,5 +484,32 @@
         "id": "lens_054",
         "stabilization": 1,
         "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.8,
+        "apertureMin": 1.8,
+        "focalLengthMax": 12,
+        "focalLengthMin": 12,
+        "id": "lens_055",
+        "stabilization": 0,
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 2.5,
+        "apertureMin": 2.5,
+        "focalLengthMax": 120,
+        "focalLengthMin": 120,
+        "id": "lens_056",
+        "stabilization": 1,
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.8,
+        "apertureMin": 1.8,
+        "focalLengthMax": 75,
+        "focalLengthMin": 75,
+        "id": "lens_057",
+        "stabilization": 1,
+        "type": "Festbrennweite"
     }
 ]

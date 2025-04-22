@@ -387,7 +387,7 @@
             {
                 "fieldOfView": 79.56777735820835,
                 "lensId": "lens_031",
-                "sensorName": "3LU"
+                "sensorName": "S5K3LU"
             }
         ]
     },
@@ -450,6 +450,42 @@
                 "fieldOfView": 91.74627778172767,
                 "lensId": "lens_015",
                 "sensorName": "IMX615"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5300,
+        "displaySize": 6.73,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_055",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_018",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 32.20333179140816,
+                "lensId": "lens_057",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 20.454192127679008,
+                "lensId": "lens_056",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "14 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_014",
+                "sensorName": "OV32B"
             }
         ]
     }
