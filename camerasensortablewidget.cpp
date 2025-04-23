@@ -62,3 +62,8 @@ void CameraSensorTableWidget::addCameraSensor(const CameraSensor& sensor)
     cameraSensorsList.append(sensor);  // Füge den neuen Kamera-Sensor zur Liste hinzu
     updateTable();  // Aktualisiere die Tabelle
 }
+
+void CameraSensorTableWidget::reset(){
+    cameraSensorsList.clear();
+    updateTable();
+}

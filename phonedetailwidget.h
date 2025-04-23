@@ -12,6 +12,7 @@ class phoneDetailWidget : public QWidget {
 public:
     explicit phoneDetailWidget(QWidget* parent = nullptr);
     void setSmartphones(const QList<Smartphone>& phones);
+    void reset();
 
 private slots:
     void onSmartphoneSelected(int index);

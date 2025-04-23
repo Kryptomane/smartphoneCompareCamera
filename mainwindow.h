@@ -39,11 +39,16 @@ private:
     phoneCompareWidget* comparatorWidget;
     phoneDetailWidget* smartphoneDetailsWidget;
 
+    void setDatabaseDirectory(const QString& path);
     QString getDatabasePath(const QString& fileName);
     QJsonArray getJson(QString filePath);
     void loadDatabases();
     void updateSensorAndLensLists();
     void exportAllDataToJson();
+    void reset();
+
+    QLineEdit* dbPathLineEdit;
+    QString currentDatabaseDirectory;
 };
 
 #endif // MAINWINDOW_H

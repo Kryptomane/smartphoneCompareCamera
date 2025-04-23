@@ -18,6 +18,7 @@ public:
     QList<Lens> getLenses() const;  // Getter für die Liste der Linsen
     Lens getLensById(const QString& lensId);
     void addLens(Lens temp);
+    void reset();
 
 private:
     QTableWidget* lensTable;  // Tabelle zur Anzeige der Linsen

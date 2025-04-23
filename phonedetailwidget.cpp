@@ -49,3 +49,8 @@ void phoneDetailWidget::onSmartphoneSelected(int index) {
 
     phoneDetailsLabel->setText(detailText);
 }
+
+void phoneDetailWidget::reset(){
+    phoneDetailsLabel->setText("");
+    phoneSelector->clear();
+}

@@ -66,3 +66,8 @@ void LensTableWidget::addLens(Lens temp){
     lensesList.append(temp);
     updateTable();
 }
+
+void LensTableWidget::reset(){
+    lensesList.clear();
+    updateTable();
+}

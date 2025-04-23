@@ -18,6 +18,7 @@ public:
     QList<CameraSensor> getCameraSensors() const;  // Getter für die Liste der Kamera-Sensoren
     CameraSensor getCameraByName(const QString& cameraName) const;
     void addCameraSensor(const CameraSensor& sensor);  // Kamera-Sensor hinzufügen
+    void reset();
 
 private:
     QTableWidget* sensorTable;  // Tabelle zur Anzeige der Kamera-Sensoren

@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.qtproject.example.camera_calculator"
+    android:versionCode="@android_version_code@"
+    android:versionName="@android_version_name@">
+
+    <uses-sdk android:minSdkVersion="@android_min_sdk_version@" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+        <activity android:name="org.qtproject.qt.android.bindings.QtActivity"
+                  android:label="@string/app_name"
+                  android:configChanges="orientation|screenSize|keyboardHidden"
+                  android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

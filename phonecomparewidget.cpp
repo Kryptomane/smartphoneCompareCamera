@@ -344,3 +344,10 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
                              .arg(angle, 0, 'f', 2);
     m_detailLabel->setText(detailText);
 }
+
+void phoneCompareWidget::reset(){
+    smartphones.clear();
+    for (QComboBox* combo : comboBoxes) {
+        combo->clear();
+    }
+}

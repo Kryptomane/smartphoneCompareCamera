@@ -36,6 +36,7 @@ public:
     void addSmartphone(Smartphone phone);
     LightStruct calculateLightValue(SensorLensPair pair, int targetFocal);
     QLabel* createLightInfoItem(LightStruct result);
+    void reset();
 
 public slots:
     void printInfoMessage(const QString &s);
