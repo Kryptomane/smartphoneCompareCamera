@@ -1,0 +1,11 @@
+[
+    {
+        "apertureMax": 1.7,
+        "apertureMin": 1.7,
+        "focalLengthMax": 12,
+        "focalLengthMin": 12,
+        "id": "lens_001",
+        "stabilization": 0,
+        "type": "Festbrennweite"
+    }    
+]

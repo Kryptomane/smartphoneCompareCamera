@@ -1,0 +1,42 @@
+[
+    {
+        "bitDepth": 0,
+        "cropFactor": 6.639281055118109,
+        "diagonal": 6.521790483115753,
+        "format": "4:3",
+        "height": 3.93,
+        "horizontalPixels": 8192,
+        "inchSize": "1/2,76",
+        "manufacture": "Samsung",
+        "name": "S5KJN5",
+        "other": "Isocell Version 3.0",
+        "pattern": "",
+        "pixelSize": 0.64,
+        "releaseYear": 2024,
+        "resolution": 50331648,
+        "sensitivity": 1,
+        "sensorArea": 20.62,
+        "verticalPixels": 6144,
+        "width": 5.24
+    },
+    {
+        "bitDepth": 0,
+        "cropFactor": 4.22175,
+        "diagonal": 10.256410256410255,
+        "format": "4:3",
+        "height": 6.14,
+        "horizontalPixels": 8192,
+        "inchSize": "1/1,56",
+        "manufacture": "Samsung",
+        "name": "S5KGNJ",
+        "other": "Isocell Version 3.0",
+        "pattern": "",
+        "pixelSize": 1,
+        "releaseYear": 2024,
+        "resolution": 50331648,
+        "sensitivity": 1,
+        "sensorArea": 50.33,
+        "verticalPixels": 6144,
+        "width": 8.19
+    }
+]
