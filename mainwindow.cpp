@@ -90,8 +90,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     defaultDatabasePath();
     loadDatabases();
-
-    pPhoneInfoWidget->setSmartphones(pCompareWidget->getSmartphones());
 }
 
 // Destruktor
@@ -254,4 +252,6 @@ void MainWindow::loadDatabases(){
         Smartphone phone = Smartphone::fromJson(phoneObject);  // Hier wird angenommen, dass fromJson() existiert
         pCompareWidget->addSmartphone(phone);
     }
+
+    pPhoneInfoWidget->setSmartphones(pCompareWidget->getSmartphones());
 }

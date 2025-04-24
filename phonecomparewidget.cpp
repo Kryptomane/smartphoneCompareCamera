@@ -111,15 +111,28 @@ void CompareWidget::onSmartphoneSelected(int index) {
     QComboBox* senderCombo = qobject_cast<QComboBox*>(sender());
     if (!senderCombo) return;
 
-    int column = comboBoxes.indexOf(senderCombo);
-    if (column < 0 || index == 0) {
-        comparisonTable->clearContents();
+    int column = comboBoxes.indexOf(senderCombo)+1;
+
+    if (column < 0 || (index == 0 && column !=0) ) {
+        // Nur Zellen in Spalte `column` zurücksetzen (ohne Kopfzeile und ohne Spalte 0!)
+        for (int row = 1; row < comparisonTable->rowCount(); ++row) {
+            QWidget* widget = comparisonTable->cellWidget(row, column);
+            if (widget) {
+                comparisonTable->removeCellWidget(row, column);
+                delete widget;
+            }
+
+            QTableWidgetItem* item = comparisonTable->item(row, column);
+            if (item) {
+                delete item;
+            }
+            comparisonTable->setItem(row, column, nullptr);
+        }
         return;
     }
 
     // ✅ Absturz vermeiden bei leerer Liste oder falschem Index
     if (index - 1 < 0 || index - 1 >= smartphones.size()) {
-        qWarning() << "Ungültiger Index beim Smartphone-Zugriff:" << index - 1;
         return;
     }
 
@@ -354,5 +367,9 @@ void CompareWidget::reset(){
     smartphones.clear();
     for (QComboBox* combo : comboBoxes) {
         combo->clear();
+    }
+    for (int i =0; i<comboBoxes.length(); i++)
+    {
+        comboBoxes[i]->addItem("");
     }
 }
