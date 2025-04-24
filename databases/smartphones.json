@@ -488,5 +488,108 @@
                 "sensorName": "OV32B"
             }
         ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.8,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX564"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_023",
+                "sensorName": "S5KHP2"
+            },
+            {
+                "fieldOfView": 35.81485134814052,
+                "lensId": "lens_035",
+                "sensorName": "IMX754"
+            },
+            {
+                "fieldOfView": 22.07339065962173,
+                "lensId": "lens_052",
+                "sensorName": "IMX854"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S24 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5K3LU"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.8,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX564"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_023",
+                "sensorName": "S5KHP2"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_58",
+                "sensorName": "IMX754"
+            },
+            {
+                "fieldOfView": 10.754863353148359,
+                "lensId": "lens_59",
+                "sensorName": "IMX754"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S23 Ultra",
+        "releaseYear": 2023,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5K3LU"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6150,
+        "displaySize": 6.85,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_004",
+                "sensorName": "OV50D40"
+            },
+            {
+                "fieldOfView": 63.479502209003776,
+                "lensId": "lens_033",
+                "sensorName": "IMX906"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_038",
+                "sensorName": "OV64B"
+            }
+        ],
+        "manufacture": "Nubia",
+        "name": "Z70 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_029",
+                "sensorName": "OV16E1Q"
+            }
+        ]
     }
 ]

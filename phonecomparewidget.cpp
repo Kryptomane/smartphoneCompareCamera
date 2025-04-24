@@ -104,7 +104,7 @@ void CompareWidget::setupUI() {
 void CompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
     for (QComboBox* combo : comboBoxes) {
-        combo->addItem(phone.name());
+        combo->addItem(phone.manufacturer() + " " + phone.name());
     }
 }
 void CompareWidget::onSmartphoneSelected(int index) {

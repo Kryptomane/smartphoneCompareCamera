@@ -21,7 +21,7 @@ void PhoneInfoWidget::setSmartphones(const QList<Smartphone>& phones) {
     smartphones = phones;
     phoneSelector->clear();
     for (const Smartphone& phone : smartphones) {
-        phoneSelector->addItem(phone.name());
+        phoneSelector->addItem(phone.manufacturer() + " " + phone.name());
     }
 }
 
