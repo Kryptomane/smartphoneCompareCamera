@@ -21,7 +21,7 @@ void myMessageHandler(QtMsgType type, const QMessageLogContext &, const QString 
         break;
     case QtFatalMsg:
         txt = QString("Fatal: %1").arg(msg);
-        abort();
+        break;
     case QtInfoMsg:
         txt = QString("%1").arg(msg);
         if(window) {
@@ -29,7 +29,6 @@ void myMessageHandler(QtMsgType type, const QMessageLogContext &, const QString 
         }
         break;
     }
-
     QApplication::processEvents();
 }
 
