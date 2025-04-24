@@ -52,7 +52,7 @@ AddSmartphoneDialog::AddSmartphoneDialog(QWidget* parent)
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-void AddSmartphoneDialog::setSensorAndLensWidgets(CameraSensorTableWidget* sensorWidget, LensTableWidget* lensWidget) {
+void AddSmartphoneDialog::setSensorAndLensWidgets(SensorWidget* sensorWidget, LensWidget* lensWidget) {
     cameraSensorTableWidget = sensorWidget;
     lensTableWidget = lensWidget;
 

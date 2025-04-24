@@ -24,12 +24,12 @@ struct LightStruct{
     QColor cellcolor;
 };
 
-class phoneCompareWidget : public QWidget {
+class CompareWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit phoneCompareWidget(QWidget* parent = nullptr);
-    void setSensorAndLensWidgets(CameraSensorTableWidget* sensorWidget, LensTableWidget* lensWidget);
+    explicit CompareWidget(QWidget* parent = nullptr);
+    void setSensorAndLensWidgets(SensorWidget* sensorWidget, LensWidget* lensWidget);
     void fillTable(int column, const Smartphone& phone);
     void onSmartphoneSelected(int index);
     QList<Smartphone> getSmartphones();
@@ -46,8 +46,8 @@ private slots:
 
 
 private:
-    LensTableWidget* m_lensWidget;
-    CameraSensorTableWidget* m_sensorWidget;
+    LensWidget* m_lensWidget;
+    SensorWidget* m_sensorWidget;
     QTableWidget* comparisonTable;
     QList<Smartphone> smartphones;
     QList<QComboBox*> comboBoxes;

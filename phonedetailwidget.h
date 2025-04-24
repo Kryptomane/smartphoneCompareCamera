@@ -6,11 +6,11 @@
 #include <QLabel>
 #include "smartphone.h"
 
-class phoneDetailWidget : public QWidget {
+class PhoneInfoWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit phoneDetailWidget(QWidget* parent = nullptr);
+    explicit PhoneInfoWidget(QWidget* parent = nullptr);
     void setSmartphones(const QList<Smartphone>& phones);
     void reset();
 

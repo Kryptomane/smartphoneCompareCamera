@@ -22,7 +22,7 @@ public:
     explicit AddSmartphoneDialog(QWidget* parent = nullptr);
 
     Smartphone getSmartphone() const;
-    void setSensorAndLensWidgets(CameraSensorTableWidget* sensorWidget, LensTableWidget* lensWidget);
+    void setSensorAndLensWidgets(SensorWidget* sensorWidget, LensWidget* lensWidget);
     void reset();  // Felder zurücksetzen
 
 private slots:
@@ -44,8 +44,8 @@ private:
     QList<SensorLensPair> mainCams;
     QList<SensorLensPair> selfieCams;
 
-    CameraSensorTableWidget* cameraSensorTableWidget = nullptr;
-    LensTableWidget* lensTableWidget = nullptr;
+    SensorWidget* cameraSensorTableWidget = nullptr;
+    LensWidget* lensTableWidget = nullptr;
 
     void updateSelectedPairs();
     double calculateFieldOfView(double sensorDiagonal, double cropFactor, double kbFocalLength);

@@ -3,7 +3,7 @@
 #include <QHeaderView>
 #include <QBrush>
 
-CameraSensorTableWidget::CameraSensorTableWidget(QWidget *parent)
+SensorWidget::SensorWidget(QWidget *parent)
     : QWidget(parent),
     sensorTable(new QTableWidget(this))
 {
@@ -15,13 +15,13 @@ CameraSensorTableWidget::CameraSensorTableWidget(QWidget *parent)
     sensorTable->horizontalHeader()->setStretchLastSection(true);
 }
 
-void CameraSensorTableWidget::setCameraSensors(const QList<CameraSensor>& sensors)
+void SensorWidget::setCameraSensors(const QList<CameraSensor>& sensors)
 {
     cameraSensorsList = sensors;
     updateTable();
 }
 
-void CameraSensorTableWidget::updateTable()
+void SensorWidget::updateTable()
 {
     sensorTable->setRowCount(cameraSensorsList.size());  // Anzahl der Zeilen entspricht der Anzahl der Kamera-Sensoren
 
@@ -41,12 +41,12 @@ void CameraSensorTableWidget::updateTable()
     }
 }
 
-QList<CameraSensor> CameraSensorTableWidget::getCameraSensors() const
+QList<CameraSensor> SensorWidget::getCameraSensors() const
 {
     return cameraSensorsList;  // Gibt die interne Liste der Kamera-Sensoren zurück
 }
 
-CameraSensor CameraSensorTableWidget::getCameraByName(const QString& cameraName) const {
+CameraSensor SensorWidget::getCameraByName(const QString& cameraName) const {
     for (const CameraSensor& sens : cameraSensorsList) {
         if (sens.name() == cameraName) {
             return sens;
@@ -57,13 +57,13 @@ CameraSensor CameraSensorTableWidget::getCameraByName(const QString& cameraName)
     return CameraSensor(); // Leere/dummy Lens zurückgeben
 }
 
-void CameraSensorTableWidget::addCameraSensor(const CameraSensor& sensor)
+void SensorWidget::addCameraSensor(const CameraSensor& sensor)
 {
     cameraSensorsList.append(sensor);  // Füge den neuen Kamera-Sensor zur Liste hinzu
     updateTable();  // Aktualisiere die Tabelle
 }
 
-void CameraSensorTableWidget::reset(){
+void SensorWidget::reset(){
     cameraSensorsList.clear();
     updateTable();
 }

@@ -20,7 +20,7 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-    LensTableWidget* getLensesWidget();
+    LensWidget* getLensesWidget();
 
 private slots:
     void addSensor();
@@ -31,16 +31,17 @@ signals:
     void printMessage(const QString &s);
 
 private:
-    AddLensDialog* lensDialog;
-    LensTableWidget* lensTableWidget;
-    AddSensorDialog* sensorDialog;
-    CameraSensorTableWidget* cameraSensorTableWidget;
-    AddSmartphoneDialog* smartphoneDialog;
-    phoneCompareWidget* comparatorWidget;
-    phoneDetailWidget* smartphoneDetailsWidget;
+    AddLensDialog* pLensDialog;
+    LensWidget* pLensWidget;
+    AddSensorDialog* pSensorDialog;
+    SensorWidget* pSensorWidget;
+    AddSmartphoneDialog* pSmartphoneDialog;
+    CompareWidget* pCompareWidget;
+    PhoneInfoWidget* pPhoneInfoWidget;
 
     void setDatabaseDirectory(const QString& path);
     QString getDatabasePath(const QString& fileName);
+    void defaultDatabasePath();
     QJsonArray getJson(QString filePath);
     void loadDatabases();
     void updateSensorAndLensLists();

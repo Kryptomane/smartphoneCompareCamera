@@ -13,18 +13,18 @@
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
-    lensDialog(new AddLensDialog(this)), // LensDialog initialisieren
-    sensorDialog(new AddSensorDialog(this)) // SensorDialog initialisieren
+    pLensDialog(new AddLensDialog(this)), // LensDialog initialisieren
+    pSensorDialog(new AddSensorDialog(this)) // SensorDialog initialisieren
 {
     QTabWidget* tabWidget = new QTabWidget(this);
     setCentralWidget(tabWidget);
 
     // Compare Tab
-    comparatorWidget = new phoneCompareWidget(this);
-    comparatorWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    phoneDetailWidget* smartphoneDetailsWidget = new phoneDetailWidget(this);
-    smartphoneDetailsWidget->setFixedWidth(200);
-    smartphoneDetailsWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    pCompareWidget = new CompareWidget(this);
+    pCompareWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    pPhoneInfoWidget = new PhoneInfoWidget(this);
+    pPhoneInfoWidget->setFixedWidth(200);
+    pPhoneInfoWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     // Beide Widgets nebeneinander in ein horizontales Layout
     QWidget* compareTab = new QWidget(this);
@@ -33,13 +33,13 @@ MainWindow::MainWindow(QWidget* parent)
     hLayout->setSpacing(10); // Optional
     // Linke Seite: comparatorWidget + Add-Button
     QVBoxLayout* compareLayout = new QVBoxLayout;
-    compareLayout->addWidget(comparatorWidget,0);
+    compareLayout->addWidget(pCompareWidget,0);
     compareLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     QPushButton* addSmartphoneButton = new QPushButton("Add Smartphone", this);
     compareLayout->addWidget(addSmartphoneButton);
     connect(addSmartphoneButton, &QPushButton::clicked, this, &MainWindow::addSmartphone);
     hLayout->addLayout(compareLayout, 3);  // linke Seite – Gewichtung 3
-    hLayout->addWidget(smartphoneDetailsWidget, 1);
+    hLayout->addWidget(pPhoneInfoWidget, 1);
     //ADD Tab
     tabWidget->addTab(compareTab, "Smartphone Compare");
 
@@ -47,21 +47,21 @@ MainWindow::MainWindow(QWidget* parent)
     QWidget* tableTab = new QWidget(this);
     // Layout für den Table-Tab
     QVBoxLayout* tableLayout = new QVBoxLayout(tableTab);
-    cameraSensorTableWidget = new CameraSensorTableWidget(this);
-    lensTableWidget = new LensTableWidget(this);
-    comparatorWidget->setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
+    pSensorWidget = new SensorWidget(this);
+    pLensWidget = new LensWidget(this);
+    pCompareWidget->setSensorAndLensWidgets(pSensorWidget, pLensWidget);
     // Buttons für das Hinzufügen von Sensoren und Linsen
     QPushButton* addSensorButton = new QPushButton("Add CameraSensor", this);
     QPushButton* addLensButton = new QPushButton("Add Lens", this);
     //Elemente
-    tableLayout->addWidget(cameraSensorTableWidget);
-    tableLayout->addWidget(lensTableWidget);
+    tableLayout->addWidget(pSensorWidget);
+    tableLayout->addWidget(pLensWidget);
     tableLayout->addWidget(addSensorButton);
     tableLayout->addWidget(addLensButton);
     // Buttons verbinden
     connect(addSensorButton, &QPushButton::clicked, this, &MainWindow::addSensor);
     connect(addLensButton, &QPushButton::clicked, this, &MainWindow::addLens);
-    connect(this, &MainWindow::printMessage, comparatorWidget, &phoneCompareWidget::printInfoMessage);
+    connect(this, &MainWindow::printMessage, pCompareWidget, &CompareWidget::printInfoMessage);
     //ADD Tab
     tabWidget->addTab(tableTab, "Camera and Lens");
 
@@ -88,9 +88,10 @@ MainWindow::MainWindow(QWidget* parent)
         }
     });
 
+    defaultDatabasePath();
     loadDatabases();
 
-    smartphoneDetailsWidget->setSmartphones(comparatorWidget->getSmartphones());
+    pPhoneInfoWidget->setSmartphones(pCompareWidget->getSmartphones());
 }
 
 // Destruktor
@@ -100,32 +101,32 @@ MainWindow::~MainWindow() {
 
 void MainWindow::addSensor() {
     // Öffne den Dialog zum Hinzufügen eines Sensors
-    if (sensorDialog->exec() == QDialog::Accepted) {
-        CameraSensor newSensor = sensorDialog->getSensor(); // Sensor aus Dialog holen
+    if (pSensorDialog->exec() == QDialog::Accepted) {
+        CameraSensor newSensor = pSensorDialog->getSensor(); // Sensor aus Dialog holen
         // Sensor zu einem Smartphone hinzufügen, hier ein Beispiel
-        cameraSensorTableWidget->addCameraSensor(newSensor);
+        pSensorWidget->addCameraSensor(newSensor);
     }
 }
 
 void MainWindow::addLens() {
     // Öffne den Dialog zum Hinzufügen einer Linse
-    if (lensDialog->exec() == QDialog::Accepted) {
-        Lens newLens = lensDialog->getLens(); // Linse aus Dialog holen
-        lensTableWidget->addLens(newLens);
+    if (pLensDialog->exec() == QDialog::Accepted) {
+        Lens newLens = pLensDialog->getLens(); // Linse aus Dialog holen
+        pLensWidget->addLens(newLens);
     }
 }
 
 void MainWindow::addSmartphone() {
     AddSmartphoneDialog dialog(this);
-    dialog.setSensorAndLensWidgets(cameraSensorTableWidget, lensTableWidget);
+    dialog.setSensorAndLensWidgets(pSensorWidget, pLensWidget);
     if (dialog.exec() == QDialog::Accepted) {
         Smartphone newSmartphone = dialog.getSmartphone();
-        comparatorWidget->addSmartphone(newSmartphone);
+        pCompareWidget->addSmartphone(newSmartphone);
     }
 }
 
-LensTableWidget* MainWindow::getLensesWidget() {
-    return lensTableWidget;
+LensWidget* MainWindow::getLensesWidget() {
+    return pLensWidget;
 }
 
 void MainWindow::setDatabaseDirectory(const QString& path) {
@@ -136,33 +137,26 @@ void MainWindow::setDatabaseDirectory(const QString& path) {
 }
 
 void MainWindow::reset(){
-    lensTableWidget->reset();
-    cameraSensorTableWidget->reset();
-    comparatorWidget->reset();
-    smartphoneDetailsWidget->reset();
+    pLensWidget->reset();
+    pSensorWidget->reset();
+    pCompareWidget->reset();
+    pPhoneInfoWidget->reset();
 }
 
-QString MainWindow::getDatabasePath(const QString& fileName) {
+void MainWindow::defaultDatabasePath() {
     QDir dir(QCoreApplication::applicationDirPath());
     dir.cdUp(); // raus aus build/Debug
     dir.cdUp(); // raus aus build
-    QString path = dir.filePath("databases/" + fileName);
-    QFileInfo info(path);
+    currentDatabaseDirectory = dir.filePath("databases/");
+    dbPathLineEdit->setPlaceholderText(currentDatabaseDirectory);
+}
+
+QString MainWindow::getDatabasePath(const QString& fileName) {
+    QString path = QDir(currentDatabaseDirectory).filePath(fileName);
     if (!QFile::exists(path)) {
-        if (currentDatabaseDirectory.isEmpty()) {
-            qWarning() << "Datenbankpfad ist nicht gesetzt.";
-            return "";
-        }
-        QString path2 = QDir(currentDatabaseDirectory).filePath(fileName);
-        if (!QFile::exists(path)) {
-            qInfo() << "Datei nicht gefunden:" << path;
-            return "";
-        } else {
-            return path2;
-        }
+        qInfo() << "Datei nicht gefunden:" << path;
+        return "";
     } else {
-        currentDatabaseDirectory = info.absolutePath();
-        dbPathLineEdit->setPlaceholderText(currentDatabaseDirectory);
         return path;
     }
 }
@@ -170,7 +164,7 @@ QString MainWindow::getDatabasePath(const QString& fileName) {
 void MainWindow::exportAllDataToJson() {
     // === 1. Camera Sensors exportieren ===
     QJsonArray sensorsArray;
-    for (const CameraSensor& sensor : cameraSensorTableWidget->getCameraSensors()) {
+    for (const CameraSensor& sensor : pSensorWidget->getCameraSensors()) {
         sensorsArray.append(sensor.toJson());
     }
     QJsonDocument sensorsDoc(sensorsArray);
@@ -185,7 +179,7 @@ void MainWindow::exportAllDataToJson() {
 
     // === 2. Lenses exportieren ===
     QJsonArray lensesArray;
-    for (const Lens& lens : lensTableWidget->getLenses()) {
+    for (const Lens& lens : pLensWidget->getLenses()) {
         lensesArray.append(lens.toJson());
     }
     QJsonDocument lensesDoc(lensesArray);
@@ -200,7 +194,7 @@ void MainWindow::exportAllDataToJson() {
 
     // === 3. Smartphones exportieren ===
     QJsonArray smartphonesArray;
-    for (const Smartphone& phone : comparatorWidget->getSmartphones()) {
+    for (const Smartphone& phone : pCompareWidget->getSmartphones()) {
         smartphonesArray.append(phone.toJson());
     }
     QJsonDocument smartphonesDoc(smartphonesArray);
@@ -242,7 +236,7 @@ void MainWindow::loadDatabases(){
     for (const QJsonValue& value : lensArray) {
         QJsonObject lensObject = value.toObject();
         Lens lens = Lens::fromJson(lensObject);  // Hier wird angenommen, dass fromJson() existiert
-        lensTableWidget->addLens(lens);
+        pLensWidget->addLens(lens);
     }
     QString sensorPath = getDatabasePath("camera_sensors.json");
     QJsonArray sensorArray = getJson(sensorPath);
@@ -250,7 +244,7 @@ void MainWindow::loadDatabases(){
         QJsonObject sensorObject = value.toObject();
         CameraSensor sensor = CameraSensor::fromJson(sensorObject);  // Hier wird angenommen, dass fromJson() existiert
         sensor = CameraSensor::makePlausibelCameraSensor(sensor);
-        cameraSensorTableWidget->addCameraSensor(sensor);
+        pSensorWidget->addCameraSensor(sensor);
     }
 
     QString phonePath = getDatabasePath("smartphones.json");
@@ -258,6 +252,6 @@ void MainWindow::loadDatabases(){
     for (const QJsonValue& value : smartphoneArray) {
         QJsonObject phoneObject = value.toObject();
         Smartphone phone = Smartphone::fromJson(phoneObject);  // Hier wird angenommen, dass fromJson() existiert
-        comparatorWidget->addSmartphone(phone);
+        pCompareWidget->addSmartphone(phone);
     }
 }

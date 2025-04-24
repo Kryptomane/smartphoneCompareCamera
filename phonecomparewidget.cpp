@@ -3,7 +3,7 @@
 #include <QLabel>
 #include <QGridLayout>
 
-phoneCompareWidget::phoneCompareWidget(QWidget* parent)
+CompareWidget::CompareWidget(QWidget* parent)
     : QWidget(parent),
     comparisonTable(new QTableWidget(this)),
     m_detailLabel(new QLabel(this))
@@ -11,12 +11,12 @@ phoneCompareWidget::phoneCompareWidget(QWidget* parent)
     setupUI();
 }
 
-void phoneCompareWidget::setSensorAndLensWidgets(CameraSensorTableWidget* sensorWidget, LensTableWidget* lensWidget) {
+void CompareWidget::setSensorAndLensWidgets(SensorWidget* sensorWidget, LensWidget* lensWidget) {
     m_sensorWidget = sensorWidget;
     m_lensWidget = lensWidget;
 }
 
-void phoneCompareWidget::setupUI() {
+void CompareWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
 
     int numberPhonesToCompare = 4;
@@ -55,7 +55,7 @@ void phoneCompareWidget::setupUI() {
         comboBoxes.append(combo);
         comparisonTable->setCellWidget(0, col, combo);
         connect(combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
-                this, &phoneCompareWidget::onSmartphoneSelected);
+                this, &CompareWidget::onSmartphoneSelected);
     }
 
     // Tabellenheader ausblenden und Fix-Modus setzen
@@ -82,7 +82,7 @@ void phoneCompareWidget::setupUI() {
 
     // Klick-Handling für Detailanzeige
     connect(comparisonTable, &QTableWidget::cellClicked,
-            this, &phoneCompareWidget::onCellClicked);
+            this, &CompareWidget::onCellClicked);
 
     // Vergleichstabelle zum Layout hinzufügen
     mainLayout->addWidget(comparisonTable);
@@ -101,28 +101,33 @@ void phoneCompareWidget::setupUI() {
 }
 
 
-void phoneCompareWidget::addSmartphone(Smartphone phone) {
+void CompareWidget::addSmartphone(Smartphone phone) {
     smartphones.append(phone);
     for (QComboBox* combo : comboBoxes) {
         combo->addItem(phone.name());
     }
 }
-void phoneCompareWidget::onSmartphoneSelected(int index) {
+void CompareWidget::onSmartphoneSelected(int index) {
     QComboBox* senderCombo = qobject_cast<QComboBox*>(sender());
     if (!senderCombo) return;
 
     int column = comboBoxes.indexOf(senderCombo);
     if (column < 0 || index == 0) {
-        // Leeres Feld gewählt → Spalte ggf. leeren
         comparisonTable->clearContents();
         return;
     }
 
-    Smartphone selectedPhone = smartphones.at(index - 1); // -1 wegen leerem Element
+    // ✅ Absturz vermeiden bei leerer Liste oder falschem Index
+    if (index - 1 < 0 || index - 1 >= smartphones.size()) {
+        qWarning() << "Ungültiger Index beim Smartphone-Zugriff:" << index - 1;
+        return;
+    }
+
+    Smartphone selectedPhone = smartphones.at(index - 1);
     fillTable(column, selectedPhone);
 }
 
-QLabel* phoneCompareWidget::createLightInfoItem(LightStruct result) {
+QLabel* CompareWidget::createLightInfoItem(LightStruct result) {
     QString htmlText = QString(
                            "<div style='text-align:center;'>"
                            "<span style='font-size:14pt; font-weight:bold;'>L: %1</span><br>"
@@ -147,7 +152,7 @@ QLabel* phoneCompareWidget::createLightInfoItem(LightStruct result) {
     return label;
 }
 
-void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
+void CompareWidget::fillTable(int column, const Smartphone& phone) {
     int comboRow = 0;
     int selfieRow = comparisonTable->rowCount() - 1;
 
@@ -209,7 +214,7 @@ void phoneCompareWidget::fillTable(int column, const Smartphone& phone) {
     }
 }
 
-LightStruct phoneCompareWidget::calculateLightValue(const SensorLensPair pair, int targetFocal) {
+LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int targetFocal) {
     LightStruct lightresult;
     // --- Sensor laden ---
     CameraSensor sensor = m_sensorWidget->getCameraByName(pair.sensorName);
@@ -280,16 +285,16 @@ LightStruct phoneCompareWidget::calculateLightValue(const SensorLensPair pair, i
     return lightresult;
 }
 
-QList<Smartphone> phoneCompareWidget::getSmartphones()
+QList<Smartphone> CompareWidget::getSmartphones()
 {
     return smartphones;  // Gibt die interne Liste der Linsen zurück
 }
 
-void phoneCompareWidget::printInfoMessage(const QString &s){
+void CompareWidget::printInfoMessage(const QString &s){
     m_detailLabel->setText(s);
 }
 
-void phoneCompareWidget::onCellClicked(int row, int column) {
+void CompareWidget::onCellClicked(int row, int column) {
     // Erste Zeile (ComboBox) oder erste Spalte (Focal) ignorieren
     if (row == 0 || column == 0)
         return;
@@ -345,7 +350,7 @@ void phoneCompareWidget::onCellClicked(int row, int column) {
     m_detailLabel->setText(detailText);
 }
 
-void phoneCompareWidget::reset(){
+void CompareWidget::reset(){
     smartphones.clear();
     for (QComboBox* combo : comboBoxes) {
         combo->clear();

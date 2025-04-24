@@ -1,7 +1,7 @@
 #include "phonedetailwidget.h"
 #include <QVBoxLayout>
 
-phoneDetailWidget::phoneDetailWidget(QWidget* parent)
+PhoneInfoWidget::PhoneInfoWidget(QWidget* parent)
     : QWidget(parent), phoneSelector(new QComboBox(this)), phoneDetailsLabel(new QLabel(this)) {
 
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -14,10 +14,10 @@ phoneDetailWidget::phoneDetailWidget(QWidget* parent)
     layout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     connect(phoneSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &phoneDetailWidget::onSmartphoneSelected);
+            this, &PhoneInfoWidget::onSmartphoneSelected);
 }
 
-void phoneDetailWidget::setSmartphones(const QList<Smartphone>& phones) {
+void PhoneInfoWidget::setSmartphones(const QList<Smartphone>& phones) {
     smartphones = phones;
     phoneSelector->clear();
     for (const Smartphone& phone : smartphones) {
@@ -25,7 +25,7 @@ void phoneDetailWidget::setSmartphones(const QList<Smartphone>& phones) {
     }
 }
 
-void phoneDetailWidget::onSmartphoneSelected(int index) {
+void PhoneInfoWidget::onSmartphoneSelected(int index) {
     if (index < 0 || index >= smartphones.size())
         return;
 
@@ -50,7 +50,7 @@ void phoneDetailWidget::onSmartphoneSelected(int index) {
     phoneDetailsLabel->setText(detailText);
 }
 
-void phoneDetailWidget::reset(){
+void PhoneInfoWidget::reset(){
     phoneDetailsLabel->setText("");
     phoneSelector->clear();
 }

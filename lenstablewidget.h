@@ -7,12 +7,12 @@
 #include <QList>
 #include "lens.h"  // Assuming that Lens class is already defined elsewhere
 
-class LensTableWidget : public QWidget
+class LensWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit LensTableWidget(QWidget *parent = nullptr);
+    explicit LensWidget(QWidget *parent = nullptr);
     void setLenses(const QList<Lens>& lenses);  // Setzen der Liste von Linsen
     void updateTable();  // Die Tabelle aktualisieren
     QList<Lens> getLenses() const;  // Getter für die Liste der Linsen

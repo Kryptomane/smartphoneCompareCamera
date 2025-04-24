@@ -3,7 +3,7 @@
 #include <QHeaderView>
 #include <QBrush>
 
-LensTableWidget::LensTableWidget(QWidget *parent)
+LensWidget::LensWidget(QWidget *parent)
     : QWidget(parent),
     lensTable(new QTableWidget(this))
 {
@@ -15,13 +15,13 @@ LensTableWidget::LensTableWidget(QWidget *parent)
     lensTable->horizontalHeader()->setStretchLastSection(true);
 }
 
-void LensTableWidget::setLenses(const QList<Lens>& lenses)
+void LensWidget::setLenses(const QList<Lens>& lenses)
 {
     lensesList = lenses;
     updateTable();
 }
 
-void LensTableWidget::updateTable()
+void LensWidget::updateTable()
 {
     lensTable->setRowCount(lensesList.size());  // Anzahl der Zeilen entspricht der Anzahl der Linsen
 
@@ -46,12 +46,12 @@ void LensTableWidget::updateTable()
     }
 }
 
-QList<Lens> LensTableWidget::getLenses() const
+QList<Lens> LensWidget::getLenses() const
 {
     return lensesList;  // Gibt die interne Liste der Linsen zurück
 }
 
-Lens LensTableWidget::getLensById(const QString& lensId) {
+Lens LensWidget::getLensById(const QString& lensId) {
     for (const Lens& lens : std::as_const(lensesList)) {
         if (lens.id() == lensId) {
             return lens;
@@ -62,12 +62,12 @@ Lens LensTableWidget::getLensById(const QString& lensId) {
     return Lens(); // Leere/dummy Lens zurückgeben
 }
 
-void LensTableWidget::addLens(Lens temp){
+void LensWidget::addLens(Lens temp){
     lensesList.append(temp);
     updateTable();
 }
 
-void LensTableWidget::reset(){
+void LensWidget::reset(){
     lensesList.clear();
     updateTable();
 }
