@@ -215,7 +215,7 @@
                 "sensorName": "IMX890"
             },
             {
-                "fieldOfView": 63.47950220900379,
+                "fieldOfView": 18.22193338941352,
                 "lensId": "lens_051",
                 "sensorName": "IMX858"
             }
@@ -566,7 +566,7 @@
         "displaySize": 6.8,
         "mainCams": [
             {
-                "fieldOfView": 118.0335763909898,
+                "fieldOfView": 0,
                 "lensId": "lens_005",
                 "sensorName": "IMX563"
             },
@@ -602,7 +602,7 @@
         "displaySize": 6.8,
         "mainCams": [
             {
-                "fieldOfView": 118.0335763909898,
+                "fieldOfView": 0,
                 "lensId": "lens_005",
                 "sensorName": "IMX563"
             },

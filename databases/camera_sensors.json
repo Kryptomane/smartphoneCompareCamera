@@ -1521,10 +1521,10 @@
     },
     {
         "bitDepth": 10,
-        "cropFactor": 0,
-        "diagonal": 0,
+        "cropFactor": 7.216609842519686,
+        "diagonal": 6.000047244466491,
         "format": "4:3",
-        "height": 0,
+        "height": 3.6000283466798946,
         "horizontalPixels": 3976,
         "inchSize": "1/3",
         "manufacture": "Samsung",
@@ -1535,8 +1535,8 @@
         "releaseYear": 2020,
         "resolution": 10878336,
         "sensitivity": 1,
-        "sensorArea": 0,
+        "sensorArea": 17.280272129198366,
         "verticalPixels": 2736,
-        "width": 0
+        "width": 4.800037795573193
     }
 ]
