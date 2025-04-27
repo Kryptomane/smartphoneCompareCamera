@@ -7,6 +7,8 @@
 #include <QJsonArray>
 #include "lens.h"
 #include "camerasensor.h"
+#include "camerasensortablewidget.h"
+#include "lenstablewidget.h"
 
 struct SensorLensPair {
     QString sensorName;    // Name des CameraSensors
@@ -31,8 +33,6 @@ struct SensorLensPair {
         QString sensorName = jsonObject["sensorName"].toString();
         QString lensId = jsonObject["lensId"].toString();
         double fieldOfView = jsonObject["fieldOfView"].toDouble();
-
-        // Rückgabe des erzeugten SensorLensPair-Objekts
         return SensorLensPair(sensorName, lensId, fieldOfView);
     }
 };
@@ -57,6 +57,7 @@ public:
     void addSelfieCam(const SensorLensPair& pair);
     QList<SensorLensPair> getMainCams() const;
     QList<SensorLensPair> getSelfieCams() const;
+    void setFOV(double i, double fov);
 
     QJsonObject toJson() const;
     static Smartphone fromJson(const QJsonObject& obj);

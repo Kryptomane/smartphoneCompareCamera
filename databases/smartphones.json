@@ -562,6 +562,78 @@
         ]
     },
     {
+        "batteryCapacity": 5000,
+        "displaySize": 6.8,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX563"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_020",
+                "sensorName": "S5KHM3"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_058",
+                "sensorName": "IMX754"
+            },
+            {
+                "fieldOfView": 10.754863353148359,
+                "lensId": "lens_059",
+                "sensorName": "IMX754"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S22 Ultra",
+        "releaseYear": 2022,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5KGH1"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.8,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX563"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_024",
+                "sensorName": "S5KHM3"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_039",
+                "sensorName": "S5K3J1"
+            },
+            {
+                "fieldOfView": 10.754863353148359,
+                "lensId": "lens_060",
+                "sensorName": "S5K3J1"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S21 Ultra",
+        "releaseYear": 2021,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5KGH1"
+            }
+        ]
+    },
+    {
         "batteryCapacity": 6150,
         "displaySize": 6.85,
         "mainCams": [

@@ -102,8 +102,22 @@ void CompareWidget::setupUI() {
 
 
 void CompareWidget::addSmartphone(Smartphone phone) {
+    QList<SensorLensPair> pairs = phone.getMainCams();
+    for (int i=0; i<pairs.size(); i++)
+    {
+        CameraSensor sensor = m_sensorWidget->getCameraByName(pairs[i].sensorName);
+        Lens lens = m_lensWidget->getLensById(pairs[i].lensId);
+        double fl = lens.focalLengthMin() / sensor.cropFactor();
+        double fov = 2.0 * qRadiansToDegrees(qAtan(sensor.diagonal() / (2.0 * fl)));
+
+        if (!CameraSensor::compareValueDeviation(fov,pairs[i].fieldOfView)){
+            qWarning() << "Neu berechnet fov" << fov << pairs[i].fieldOfView;
+            phone.setFOV(i,fov);
+        }
+    }
     smartphones.append(phone);
-    for (QComboBox* combo : comboBoxes) {
+    for (QComboBox* combo : comboBoxes)
+    {
         combo->addItem(phone.manufacturer() + " " + phone.name());
     }
 }

@@ -45,6 +45,9 @@ QJsonObject Smartphone::toJson() const {
     return jsonObject;
 }
 
+void Smartphone::setFOV(double i, double fov){
+    m_mainCams[i].fieldOfView = fov;
+}
 
 Smartphone Smartphone::fromJson(const QJsonObject& jsonObject) {
     Smartphone phone;
