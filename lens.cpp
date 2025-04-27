@@ -13,7 +13,7 @@ Lens::Lens(QString id, int focalLengthMin, int focalLengthMax,
     m_apertureMax(apertureMax),
     m_stabi(stabi)
 {
-    if ((focalLengthMin == focalLengthMax) && (apertureMin == apertureMax)) {
+    if (focalLengthMin == focalLengthMax) {
         m_type = "Festbrennweite";
     }
 }
@@ -40,7 +40,6 @@ Lens Lens::fromJson(const QJsonObject& obj) {
     if (obj.contains("stabilization")) {
         stabi = static_cast<StabilizationMethod>(obj["stabilization"].toInt());
     }
-
     if (obj.contains("focalLengthMax") && obj.contains("apertureMax")) {
         int focalLengthMax = obj["focalLengthMax"].toInt();
         double apertureMax = obj["apertureMax"].toDouble();

@@ -541,12 +541,12 @@
             },
             {
                 "fieldOfView": 34.37218244477069,
-                "lensId": "lens_58",
+                "lensId": "lens_058",
                 "sensorName": "IMX754"
             },
             {
                 "fieldOfView": 10.754863353148359,
-                "lensId": "lens_59",
+                "lensId": "lens_059",
                 "sensorName": "IMX754"
             }
         ],
