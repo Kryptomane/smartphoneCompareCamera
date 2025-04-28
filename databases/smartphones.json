@@ -334,7 +334,7 @@
         "displaySize": 6.5,
         "mainCams": [
             {
-                "fieldOfView": 0,
+                "fieldOfView": 107.06897271342605,
                 "lensId": "lens_010",
                 "sensorName": "IMX563"
             },
@@ -566,7 +566,7 @@
         "displaySize": 6.8,
         "mainCams": [
             {
-                "fieldOfView": 0,
+                "fieldOfView": 118.0335763909898,
                 "lensId": "lens_005",
                 "sensorName": "IMX563"
             },
@@ -602,7 +602,7 @@
         "displaySize": 6.8,
         "mainCams": [
             {
-                "fieldOfView": 0,
+                "fieldOfView": 118.0335763909898,
                 "lensId": "lens_005",
                 "sensorName": "IMX563"
             },
