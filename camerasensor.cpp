@@ -119,19 +119,17 @@ std::string CameraSensor::approximateSensorFormat(double diameter_mm) {
 }
 
 CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format){
-    // Seitenverhältnis bestimmen
     double aspectX = 4.0;
     double aspectY = 3.0;
 
-    if (format == "16:9") {
-        aspectX = 16.0;
-        aspectY = 9.0;
-    } else if (format == "3:2") {
-        aspectX = 3.0;
-        aspectY = 2.0;
-    } else if (format == "1:1") {
-        aspectX = 1.0;
-        aspectY = 1.0;
+    // Seitenverhältnis bestimmen
+    if (format != "4:3") {
+        QStringList parts = format.split(':');
+        if (parts.size() != 2) {
+            qWarning() << "Schmarn Format";
+        }
+        aspectX = parts[0].toDouble();
+        aspectY = parts[1].toDouble();
     }
 
     // Berechne vertikale Pixelanzahl aus horizontaler und Format
