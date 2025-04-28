@@ -10,6 +10,9 @@
 #include <qcoreapplication.h>
 #include <QDir>
 #include <QFileDialog>
+#ifdef Q_OS_ANDROID
+    #include <QtAndroid>
+#endif
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -129,9 +132,30 @@ LensWidget* MainWindow::getLensesWidget() {
     return pLensWidget;
 }
 
+#ifdef Q_OS_ANDROID
+bool MainWindow::requestExternalStoragePermission() {
+    auto result = QtAndroid::checkPermission("android.permission.READ_EXTERNAL_STORAGE");
+    if (result == QtAndroid::PermissionResult::Denied) {
+        auto resultHash = QtAndroid::requestPermissionsSync(QStringList() << "android.permission.READ_EXTERNAL_STORAGE");
+        if (resultHash["android.permission.READ_EXTERNAL_STORAGE"] == QtAndroid::PermissionResult::Denied) {
+            return false;
+        }
+    }
+    return true;
+}
+#endif
+
 void MainWindow::setDatabaseDirectory(const QString& path) {
+#ifdef Q_OS_ANDROID
+    if (!requestExternalStoragePermission()) {
+        QMessageBox::critical(this, "Fehler", "Berechtigung zum Lesen der Datenbank-Dateien fehlt.");
+        return;
+    }
+    currentDatabaseDirectory = "/storage/emulated/0/databases/";
+#else
     currentDatabaseDirectory = path;
     qDebug() << "Neuer Datenbank-Pfad gesetzt:" << currentDatabaseDirectory;
+#endif
     reset();
     loadDatabases();
 }
@@ -211,10 +235,9 @@ void MainWindow::exportAllDataToJson() {
 QJsonArray MainWindow::getJson(QString filePath){
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen.");
+        QMessageBox::warning(this, "Fehler", "Konnte die JSON-Datei nicht öffnen." + filePath);
         return QJsonArray();
     }
-
     QByteArray fileData = file.readAll();
     file.close();
 

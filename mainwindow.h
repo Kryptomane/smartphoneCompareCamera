@@ -38,6 +38,8 @@ private:
     AddSmartphoneDialog* pSmartphoneDialog;
     CompareWidget* pCompareWidget;
     PhoneInfoWidget* pPhoneInfoWidget;
+    QLineEdit* dbPathLineEdit;
+    QString currentDatabaseDirectory;
 
     void setDatabaseDirectory(const QString& path);
     QString getDatabasePath(const QString& fileName);
@@ -48,8 +50,9 @@ private:
     void exportAllDataToJson();
     void reset();
 
-    QLineEdit* dbPathLineEdit;
-    QString currentDatabaseDirectory;
+    #ifdef Q_OS_ANDROID
+        bool requestExternalStoragePermission();
+    #endif
 };
 
 #endif // MAINWINDOW_H

@@ -100,7 +100,7 @@ void PhoneInfoWidget::onSmartphoneSelected(int index) {
 }
 
 void PhoneInfoWidget::highlightCamera(int phoneIndex, SensorLensPair pair){
-    phoneSelector->setCurrentIndex(phoneIndex+1);
+    phoneSelector->setCurrentIndex(phoneIndex);
 }
 
 void PhoneInfoWidget::reset(){

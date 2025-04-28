@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QLineEdit>
+#include <QComboBox>
 #include "lens.h"
 
 class AddLensDialog : public QDialog {

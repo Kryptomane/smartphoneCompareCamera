@@ -338,7 +338,7 @@ void CompareWidget::onCellClicked(int row, int column) {
         }
     }
 
-    emit cameraSelected(phoneIndex-1, *bestPair);
+    emit cameraSelected(phoneIndex, *bestPair);
 
     if (!bestPair)
         return;

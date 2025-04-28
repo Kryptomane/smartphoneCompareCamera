@@ -5,6 +5,8 @@
 
     <uses-sdk android:minSdkVersion="@android_min_sdk_version@" />
     <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher">
