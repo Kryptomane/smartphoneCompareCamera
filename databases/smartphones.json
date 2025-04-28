@@ -1,72 +1,5 @@
 [
     {
-        "batteryCapacity": 6000,
-        "displaySize": 6.78,
-        "mainCams": [
-            {
-                "fieldOfView": 110.5684185153671,
-                "lensId": "lens_009",
-                "sensorName": "S5KJN1"
-            },
-            {
-                "fieldOfView": 86.53636079494296,
-                "lensId": "lens_016",
-                "sensorName": "LYT-818"
-            },
-            {
-                "fieldOfView": 28.579455823525453,
-                "lensId": "lens_044",
-                "sensorName": "S5KHP9"
-            }
-        ],
-        "manufacture": "Vivo",
-        "name": "X200 Pro",
-        "releaseYear": 2024,
-        "selfieCams": [
-            {
-                "fieldOfView": 94.53726896689291,
-                "lensId": "lens_012",
-                "sensorName": "S5KKD1"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 5000,
-        "displaySize": 6.9,
-        "mainCams": [
-            {
-                "fieldOfView": 114.22243960825445,
-                "lensId": "lens_006",
-                "sensorName": "S5KJN3"
-            },
-            {
-                "fieldOfView": 84.10618480366745,
-                "lensId": "lens_023",
-                "sensorName": "S5KHP2"
-            },
-            {
-                "fieldOfView": 35.81485134814052,
-                "lensId": "lens_035",
-                "sensorName": "IMX754"
-            },
-            {
-                "fieldOfView": 21.692057889100983,
-                "lensId": "lens_052",
-                "sensorName": "IMX854"
-            }
-        ],
-        "manufacture": "Samsung",
-        "name": "S25 Ultra",
-        "releaseYear": 2025,
-        "selfieCams": [
-            {
-                "fieldOfView": 79.56777735820835,
-                "lensId": "lens_031",
-                "sensorName": "S5K3LU"
-            }
-        ]
-    },
-    {
         "batteryCapacity": 3582,
         "displaySize": 6.3,
         "mainCams": [
@@ -97,43 +30,38 @@
             }
         ]
     },
-    {
+	{
         "batteryCapacity": 6000,
-        "displaySize": 6.73,
+        "displaySize": 6.78,
         "mainCams": [
             {
-                "fieldOfView": 114.22243960825446,
-                "lensId": "lens_008",
-                "sensorName": "S5KJN5"
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN1"
             },
             {
                 "fieldOfView": 86.53636079494296,
-                "lensId": "lens_017",
-                "sensorName": "LYT-900"
+                "lensId": "lens_016",
+                "sensorName": "LYT-818"
             },
             {
-                "fieldOfView": 34.37218244477069,
-                "lensId": "lens_036",
-                "sensorName": "IMX858"
-            },
-            {
-                "fieldOfView": 24.43200250020976,
-                "lensId": "lens_053",
+                "fieldOfView": 28.579455823525453,
+                "lensId": "lens_044",
                 "sensorName": "S5KHP9"
             }
         ],
-        "manufacture": "Xiaomi",
-        "name": "15 Ultra",
-        "releaseYear": 2025,
+        "manufacture": "Vivo",
+        "name": "X200 Pro",
+        "releaseYear": 2024,
         "selfieCams": [
             {
-                "fieldOfView": 91.74627778172767,
-                "lensId": "lens_014",
-                "sensorName": "S5KJD1"
+                "fieldOfView": 94.53726896689291,
+                "lensId": "lens_012",
+                "sensorName": "S5KKD1"
             }
         ]
     },
-    {
+	{
         "batteryCapacity": 6000,
         "displaySize": 6.82,
         "mainCams": [
@@ -196,6 +124,109 @@
         ]
     },
     {
+        "batteryCapacity": 6000,
+        "displaySize": 6.73,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_008",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_017",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_036",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 24.43200250020976,
+                "lensId": "lens_053",
+                "sensorName": "S5KHP9"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "15 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_014",
+                "sensorName": "S5KJD1"
+            }
+        ]
+    },
+	{
+        "batteryCapacity": 5300,
+        "displaySize": 6.73,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_055",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_018",
+                "sensorName": "LYT-900"
+            },
+            {
+                "fieldOfView": 32.20333179140816,
+                "lensId": "lens_057",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 20.454192127679008,
+                "lensId": "lens_056",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "14 Ultra",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_014",
+                "sensorName": "OV32B"
+            }
+        ]
+    },  
+	{
+        "batteryCapacity": 5000,
+        "displaySize": 6.81,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_003",
+                "sensorName": "IMX586"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_026",
+                "sensorName": "S5KGN2"
+            },
+            {
+                "fieldOfView": 20.45419212767901,
+                "lensId": "lens_048",
+                "sensorName": "IMX586"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "Mi 11 Ultra",
+        "releaseYear": 2021,
+        "selfieCams": [
+            {
+                "fieldOfView": 77.4488939341854,
+                "lensId": "lens_032",
+                "sensorName": "S5K3LU"
+            }
+        ]
+    },	
+    {
         "batteryCapacity": 5000,
         "displaySize": 6.82,
         "mainCams": [
@@ -228,6 +259,42 @@
                 "fieldOfView": 91.74627778172767,
                 "lensId": "lens_015",
                 "sensorName": "LYT-506"
+            }
+        ]
+    },
+	{
+        "batteryCapacity": 5910,
+        "displaySize": 6.78,
+        "mainCams": [
+            {
+                "fieldOfView": 110.5684185153671,
+                "lensId": "lens_009",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_017",
+                "sensorName": "LYT-800"
+            },
+            {
+                "fieldOfView": 33.03811617647624,
+                "lensId": "lens_041",
+                "sensorName": "LYT-600 (IMX882)"
+            },
+            {
+                "fieldOfView": 18.22193338941352,
+                "lensId": "lens_051",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Oppo",
+        "name": "Find X8 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "IMX615"
             }
         ]
     },
@@ -268,224 +335,38 @@
         ]
     },
     {
-        "batteryCapacity": 4700,
-        "displaySize": 6.3,
-        "mainCams": [
-            {
-                "fieldOfView": 122.00320255549393,
-                "lensId": "lens_001",
-                "sensorName": "IMX858"
-            },
-            {
-                "fieldOfView": 81.7851258149127,
-                "lensId": "lens_030",
-                "sensorName": "S5KGNK"
-            },
-            {
-                "fieldOfView": 21.69205788910098,
-                "lensId": "lens_046",
-                "sensorName": "IMX858"
-            }
-        ],
-        "manufacture": "Google",
-        "name": "Pixel 9 Pro",
-        "releaseYear": 2024,
-        "selfieCams": [
-            {
-                "fieldOfView": 103.72061871531946,
-                "lensId": "lens_011",
-                "sensorName": "IMX858"
-            }
-        ]
-    },
-    {
         "batteryCapacity": 5000,
-        "displaySize": 6.81,
+        "displaySize": 6.9,
         "mainCams": [
             {
-                "fieldOfView": 122.00320255549393,
-                "lensId": "lens_003",
-                "sensorName": "IMX586"
+                "fieldOfView": 114.22243960825445,
+                "lensId": "lens_006",
+                "sensorName": "S5KJN3"
             },
             {
                 "fieldOfView": 84.10618480366745,
-                "lensId": "lens_026",
-                "sensorName": "S5KGN2"
-            },
-            {
-                "fieldOfView": 20.45419212767901,
-                "lensId": "lens_048",
-                "sensorName": "IMX586"
-            }
-        ],
-        "manufacture": "Xiaomi",
-        "name": "Mi 11 Ultra",
-        "releaseYear": 2021,
-        "selfieCams": [
-            {
-                "fieldOfView": 77.4488939341854,
-                "lensId": "lens_032",
-                "sensorName": "S5K3LU"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 5000,
-        "displaySize": 6.5,
-        "mainCams": [
-            {
-                "fieldOfView": 107.06897271342605,
-                "lensId": "lens_010",
-                "sensorName": "IMX563"
-            },
-            {
-                "fieldOfView": 84.10618480366745,
-                "lensId": "lens_025",
-                "sensorName": "IMX888"
-            },
-            {
-                "fieldOfView": 28.579455823525446,
-                "lensId": "lens_043",
-                "sensorName": "IMX650"
-            }
-        ],
-        "manufacture": "Sony",
-        "name": "Xperia 1 VI",
-        "releaseYear": 2024,
-        "selfieCams": [
-            {
-                "fieldOfView": 84.10618480366745,
-                "lensId": "lens_027",
-                "sensorName": "IMX663"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 4000,
-        "displaySize": 6.2,
-        "mainCams": [
-            {
-                "fieldOfView": 118.0335763909898,
-                "lensId": "lens_005",
-                "sensorName": "IMX564"
-            },
-            {
-                "fieldOfView": 84.10618480366745,
-                "lensId": "lens_024",
-                "sensorName": "S5KGN3"
+                "lensId": "lens_023",
+                "sensorName": "S5KHP2"
             },
             {
                 "fieldOfView": 35.81485134814052,
                 "lensId": "lens_035",
-                "sensorName": "S5K3K1"
+                "sensorName": "IMX754"
+            },
+            {
+                "fieldOfView": 21.692057889100983,
+                "lensId": "lens_052",
+                "sensorName": "IMX854"
             }
         ],
         "manufacture": "Samsung",
-        "name": "S25",
+        "name": "S25 Ultra",
         "releaseYear": 2025,
         "selfieCams": [
             {
                 "fieldOfView": 79.56777735820835,
                 "lensId": "lens_031",
                 "sensorName": "S5K3LU"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 6000,
-        "displaySize": 6.82,
-        "mainCams": [
-            {
-                "fieldOfView": 110.5684185153671,
-                "lensId": "lens_009",
-                "sensorName": "S5KJN5"
-            },
-            {
-                "fieldOfView": 86.53636079494296,
-                "lensId": "lens_017",
-                "sensorName": "LYT-808"
-            },
-            {
-                "fieldOfView": 33.03811617647624,
-                "lensId": "lens_041",
-                "sensorName": "LYT-600 (IMX882)"
-            }
-        ],
-        "manufacture": "Oneplus",
-        "name": "13",
-        "releaseYear": 2025,
-        "selfieCams": [
-            {
-                "fieldOfView": 91.74627778172767,
-                "lensId": "lens_015",
-                "sensorName": "IMX615"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 5910,
-        "displaySize": 6.78,
-        "mainCams": [
-            {
-                "fieldOfView": 110.5684185153671,
-                "lensId": "lens_009",
-                "sensorName": "S5KJN5"
-            },
-            {
-                "fieldOfView": 86.53636079494296,
-                "lensId": "lens_017",
-                "sensorName": "LYT-800"
-            },
-            {
-                "fieldOfView": 33.03811617647624,
-                "lensId": "lens_041",
-                "sensorName": "LYT-600 (IMX882)"
-            }
-        ],
-        "manufacture": "Oppo",
-        "name": "Find X8 Pro",
-        "releaseYear": 2024,
-        "selfieCams": [
-            {
-                "fieldOfView": 91.74627778172767,
-                "lensId": "lens_015",
-                "sensorName": "IMX615"
-            }
-        ]
-    },
-    {
-        "batteryCapacity": 5300,
-        "displaySize": 6.73,
-        "mainCams": [
-            {
-                "fieldOfView": 122.00320255549393,
-                "lensId": "lens_055",
-                "sensorName": "IMX858"
-            },
-            {
-                "fieldOfView": 86.53636079494296,
-                "lensId": "lens_018",
-                "sensorName": "LYT-900"
-            },
-            {
-                "fieldOfView": 32.20333179140816,
-                "lensId": "lens_057",
-                "sensorName": "IMX858"
-            },
-            {
-                "fieldOfView": 20.454192127679008,
-                "lensId": "lens_056",
-                "sensorName": "IMX858"
-            }
-        ],
-        "manufacture": "Xiaomi",
-        "name": "14 Ultra",
-        "releaseYear": 2024,
-        "selfieCams": [
-            {
-                "fieldOfView": 91.74627778172767,
-                "lensId": "lens_014",
-                "sensorName": "OV32B"
             }
         ]
     },
@@ -633,6 +514,37 @@
             }
         ]
     },
+	{
+        "batteryCapacity": 4000,
+        "displaySize": 6.2,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX564"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_024",
+                "sensorName": "S5KGN3"
+            },
+            {
+                "fieldOfView": 35.81485134814052,
+                "lensId": "lens_035",
+                "sensorName": "S5K3K1"
+            }
+        ],
+        "manufacture": "Samsung",
+        "name": "S25",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5K3LU"
+            }
+        ]
+    },
     {
         "batteryCapacity": 6150,
         "displaySize": 6.85,
@@ -664,9 +576,71 @@
             }
         ]
     },
+	{
+        "batteryCapacity": 4700,
+        "displaySize": 6.3,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_001",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 81.7851258149127,
+                "lensId": "lens_030",
+                "sensorName": "S5KGNK"
+            },
+            {
+                "fieldOfView": 21.69205788910098,
+                "lensId": "lens_046",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Google",
+        "name": "Pixel 9 Pro",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 103.72061871531946,
+                "lensId": "lens_011",
+                "sensorName": "IMX858"
+            }
+        ]
+    },
     {
-        "batteryCapacity": 5910,
-        "displaySize": 6.78,
+        "batteryCapacity": 5000,
+        "displaySize": 6.5,
+        "mainCams": [
+            {
+                "fieldOfView": 107.06897271342605,
+                "lensId": "lens_010",
+                "sensorName": "IMX563"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_025",
+                "sensorName": "IMX888"
+            },
+            {
+                "fieldOfView": 28.579455823525446,
+                "lensId": "lens_043",
+                "sensorName": "IMX650"
+            }
+        ],
+        "manufacture": "Sony",
+        "name": "Xperia 1 VI",
+        "releaseYear": 2024,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_027",
+                "sensorName": "IMX663"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6000,
+        "displaySize": 6.82,
         "mainCams": [
             {
                 "fieldOfView": 110.5684185153671,
@@ -676,22 +650,17 @@
             {
                 "fieldOfView": 86.53636079494296,
                 "lensId": "lens_017",
-                "sensorName": "LYT-800"
+                "sensorName": "LYT-808"
             },
             {
                 "fieldOfView": 33.03811617647624,
                 "lensId": "lens_041",
                 "sensorName": "LYT-600 (IMX882)"
-            },
-            {
-                "fieldOfView": 18.22193338941352,
-                "lensId": "lens_051",
-                "sensorName": "IMX858"
             }
         ],
-        "manufacture": "Oppo",
-        "name": "Find X8 Pro",
-        "releaseYear": 2024,
+        "manufacture": "Oneplus",
+        "name": "13",
+        "releaseYear": 2025,
         "selfieCams": [
             {
                 "fieldOfView": 91.74627778172767,
