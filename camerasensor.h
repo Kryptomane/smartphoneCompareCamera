@@ -77,7 +77,7 @@ public:
     // (De-)Serialisierung (Deklaration – du kannst sie bei Bedarf noch inline definieren)
     QJsonObject toJson() const;
     static CameraSensor fromJson(const QJsonObject& obj);
-
+    static std::string approximateSensorFormat(double diameter_mm);
     static CameraSensor createCameraSensorFromInchSize(const QString& name, const QString& inchSize, int resolution, const QString& format = "4:3");
     static CameraSensor createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format = "4:3");
     static CameraSensor makePlausibelCameraSensor(CameraSensor original);

@@ -5,6 +5,8 @@
 #include <cmath>
 #include <QString>
 #include <QMessageBox>
+#include <sstream>
+#include <iomanip>
 
 CameraSensor::CameraSensor(const QString& name, const QString& inchSize, int resolution, const QString& format) {
     *this = createCameraSensorFromInchSize(name, inchSize, resolution, format);
@@ -90,6 +92,32 @@ CameraSensor CameraSensor::createCameraSensorFromInchSize(const QString& name, c
         );
 }
 
+std::string CameraSensor::approximateSensorFormat(double diameter_mm) {
+    double correctionFactor;
+
+    // Entscheidung, welchen Korrekturfaktor wir nehmen
+    if (diameter_mm >= 8.0) { // größere Sensoren ab ca. 1/2"
+        correctionFactor = 1.5875;
+    } else {
+        correctionFactor = 1.4111;
+    }
+
+    // Umrechnung: tatsächlicher "nominaler" Inch-Durchmesser
+    double inch_nominal = diameter_mm * correctionFactor / 25.4; // 1 inch = 25,4mm
+
+    // Jetzt die Umkehrung: Inch-Angabe als Bruch 1/x
+    double fraction = 1.0 / inch_nominal;
+
+    // Auf sinnvolle Werte runden (z.B. auf ganze 0.1 Schritte)
+    double rounded_fraction = std::round(fraction * 10.0) / 10.0;
+
+    // Formatieren als String
+    std::ostringstream oss;
+    oss << "1/" << std::fixed << std::setprecision(2) << rounded_fraction << "\"";
+
+    return oss.str();
+}
+
 CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int horizontalPixels, double pixelSize, const QString& format){
     // Seitenverhältnis bestimmen
     double aspectX = 4.0;
@@ -122,14 +150,7 @@ CameraSensor CameraSensor::createCameraSensorFromPixels(const QString& name, int
     // Auflösung insgesamt (Pixelanzahl)
     int resolution = horizontalPixels * verticalPixels;
 
-    // Berechne optisches Inch-Maß (zurückrechnen aus realer Diagonale)
-    double inchFactor = (diameter >= 8.0) ? 1.5875 : 1.4111;
-    double realInchSize = diameter * inchFactor / 2.54;
-
-    // Format als Bruch annähern
-    double num = std::round(realInchSize * 100.0);
-    double den = 100.0;
-    QString inchSizeStr = QString("%1/%2").arg(static_cast<int>(num), 1).arg(static_cast<int>(den));
+    QString inchSizeStr = QString::fromStdString(approximateSensorFormat(diameter));
 
     // Crop Factor relativ zu 43.3 mm Vollformat
     double cropFactor = 43.3 / diameter;
