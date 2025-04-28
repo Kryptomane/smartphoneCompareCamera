@@ -38,12 +38,11 @@ public:
     QLabel* createLightInfoItem(LightStruct result);
     void reset();
 
-public slots:
-    void printInfoMessage(const QString &s);
-
 private slots:
     void onCellClicked(int row, int column);
 
+signals:
+    void cameraSelected(int phoneIndex, SensorLensPair pair);
 
 private:
     LensWidget* m_lensWidget;
@@ -52,7 +51,6 @@ private:
     QList<Smartphone> smartphones;
     QList<QComboBox*> comboBoxes;
     QVector<int> standardFocalLengths = {15, 24, 35, 70, 85, 100, 135,240};
-    QLabel* m_detailLabel;
     void setupUI();
 };
 

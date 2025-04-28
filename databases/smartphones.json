@@ -30,7 +30,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 6000,
         "displaySize": 6.78,
         "mainCams": [
@@ -61,7 +61,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 6000,
         "displaySize": 6.82,
         "mainCams": [
@@ -159,7 +159,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 5300,
         "displaySize": 6.73,
         "mainCams": [
@@ -194,8 +194,8 @@
                 "sensorName": "OV32B"
             }
         ]
-    },  
-	{
+    },
+    {
         "batteryCapacity": 5000,
         "displaySize": 6.81,
         "mainCams": [
@@ -225,7 +225,7 @@
                 "sensorName": "S5K3LU"
             }
         ]
-    },	
+    },
     {
         "batteryCapacity": 5000,
         "displaySize": 6.82,
@@ -262,7 +262,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 5910,
         "displaySize": 6.78,
         "mainCams": [
@@ -514,7 +514,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 4000,
         "displaySize": 6.2,
         "mainCams": [
@@ -576,7 +576,7 @@
             }
         ]
     },
-	{
+    {
         "batteryCapacity": 4700,
         "displaySize": 6.3,
         "mainCams": [

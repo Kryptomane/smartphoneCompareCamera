@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget* parent)
     pCompareWidget = new CompareWidget(this);
     pCompareWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     pPhoneInfoWidget = new PhoneInfoWidget(this);
-    pPhoneInfoWidget->setFixedWidth(200);
+    pPhoneInfoWidget->setFixedWidth(230);
     pPhoneInfoWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     // Beide Widgets nebeneinander in ein horizontales Layout
@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget* parent)
     pSensorWidget = new SensorWidget(this);
     pLensWidget = new LensWidget(this);
     pCompareWidget->setSensorAndLensWidgets(pSensorWidget, pLensWidget);
+    pPhoneInfoWidget->setSensorAndLensWidgets(pSensorWidget, pLensWidget);
     // Buttons für das Hinzufügen von Sensoren und Linsen
     QPushButton* addSensorButton = new QPushButton("Add CameraSensor", this);
     QPushButton* addLensButton = new QPushButton("Add Lens", this);
@@ -61,7 +62,6 @@ MainWindow::MainWindow(QWidget* parent)
     // Buttons verbinden
     connect(addSensorButton, &QPushButton::clicked, this, &MainWindow::addSensor);
     connect(addLensButton, &QPushButton::clicked, this, &MainWindow::addLens);
-    connect(this, &MainWindow::printMessage, pCompareWidget, &CompareWidget::printInfoMessage);
     //ADD Tab
     tabWidget->addTab(tableTab, "Camera and Lens");
 
@@ -87,6 +87,8 @@ MainWindow::MainWindow(QWidget* parent)
             setDatabaseDirectory(dir);
         }
     });
+
+    connect(pCompareWidget, &CompareWidget::cameraSelected, pPhoneInfoWidget, &PhoneInfoWidget::highlightCamera);
 
     defaultDatabasePath();
     loadDatabases();

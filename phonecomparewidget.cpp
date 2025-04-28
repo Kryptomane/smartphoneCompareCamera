@@ -5,8 +5,7 @@
 
 CompareWidget::CompareWidget(QWidget* parent)
     : QWidget(parent),
-    comparisonTable(new QTableWidget(this)),
-    m_detailLabel(new QLabel(this))
+    comparisonTable(new QTableWidget(this))
 {
     setupUI();
 }
@@ -86,18 +85,10 @@ void CompareWidget::setupUI() {
 
     // Vergleichstabelle zum Layout hinzufügen
     mainLayout->addWidget(comparisonTable);
-
-    // Detailbereich mit Label oben, Spacer unten
-    QVBoxLayout* detailLayout = new QVBoxLayout;
-    m_detailLabel->setText("Details erscheinen hier...");
-    m_detailLabel->setWordWrap(true);
-    detailLayout->addWidget(m_detailLabel);
-    detailLayout->addSpacerItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding));
-    mainLayout->addLayout(detailLayout);
-
-    // Gesamtes Widget in fixer Größe halten
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    this->setFixedSize(tableWidth, tableHeight + detailLabelHeight);
+    this->setFixedSize(tableWidth, tableHeight+15);
+    // Vertikalen Spacer hinzufügen (sorgt dafür, dass das Label oben bleibt)
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 }
 
 
@@ -317,10 +308,6 @@ QList<Smartphone> CompareWidget::getSmartphones()
     return smartphones;  // Gibt die interne Liste der Linsen zurück
 }
 
-void CompareWidget::printInfoMessage(const QString &s){
-    m_detailLabel->setText(s);
-}
-
 void CompareWidget::onCellClicked(int row, int column) {
     // Erste Zeile (ComboBox) oder erste Spalte (Focal) ignorieren
     if (row == 0 || column == 0)
@@ -351,30 +338,10 @@ void CompareWidget::onCellClicked(int row, int column) {
         }
     }
 
+    emit cameraSelected(phoneIndex-1, *bestPair);
+
     if (!bestPair)
         return;
-
-    CameraSensor sensor = m_sensorWidget->getCameraByName(bestPair->sensorName);
-    Lens lens = m_lensWidget->getLensById(bestPair->lensId);
-    double angle = bestPair->fieldOfView;
-
-    QString detailText = QString(
-                             "<b>Smartphone:</b> %1<br>"
-                             "<b>Kameratyp:</b> %2<br>"
-                             "<b>Brennweite:</b> %3 mm<br>"
-                             "<b>Blende:</b> f/%4<br>"
-                             "<b>Sensorgröße:</b> %5 mm × %6 mm<br>"
-                             "<b>Auflösung:</b> %7 MP<br>"
-                             "<b>Bildwinkel:</b> %8°<br>")
-                             .arg(phone.name())
-                             .arg((row == comparisonTable->rowCount() - 1) ? "Selfie" : "Main")
-                             .arg(lens.focalLengthMin())
-                             .arg(lens.apertureMin())
-                             .arg(sensor.width())
-                             .arg(sensor.height())
-                             .arg(sensor.resolution())
-                             .arg(angle, 0, 'f', 2);
-    m_detailLabel->setText(detailText);
 }
 
 void CompareWidget::reset(){
