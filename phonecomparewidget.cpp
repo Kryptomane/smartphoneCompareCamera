@@ -267,14 +267,9 @@ LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int ta
     }
 
     // --- effektive Werte ---
-    double effectiveAperture = aperture * cropFactor;
     double effectiveArea = sensorArea / (cropFactor * cropFactor);
 
-    // --- Lichtwert berechnen ---
-    if (effectiveAperture <= 0.01) // Vermeide Division durch 0
-        return lightresult;
-
-    double lightValue = effectiveArea / (effectiveAperture * effectiveAperture);
+    double lightValue = effectiveArea / (aperture * aperture);
     double maxLight = sensorArea / (aperture * aperture);
 
     if (lens.stabi() == StabilizationMethod::OIS){
@@ -288,7 +283,6 @@ LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int ta
 
     lightresult.lightvalue = lightValue;
     lightresult.cropfactor = cropFactor;
-    lightresult.effectiveAperture = effectiveAperture;
     lightresult.effectiveArea = effectiveArea;
     lightresult.maxLight = maxLight;
 

@@ -19,7 +19,6 @@ struct LightStruct{
     double lightvalue;
     double cropfactor;
     double effectiveArea;
-    double effectiveAperture;
     double maxLight;
     QColor cellcolor;
 };
@@ -50,7 +49,7 @@ private:
     QTableWidget* comparisonTable;
     QList<Smartphone> smartphones;
     QList<QComboBox*> comboBoxes;
-    QVector<int> standardFocalLengths = {15, 24, 35, 70, 85, 100, 135,240};
+    QVector<int> standardFocalLengths = {15, 25, 35, 70, 85, 100, 135,240};
     void setupUI();
 };
 

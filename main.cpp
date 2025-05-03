@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(myMessageHandler);
     QCoreApplication::setOrganizationName("SilasManufactures");
     QCoreApplication::setApplicationName("CameraCompare");
-    QCoreApplication::setApplicationVersion("1.0 alpha");
+    QCoreApplication::setApplicationVersion("1.0 beta");
     QApplication a(argc, argv);
     MainWindow w;
     w.setWindowTitle(QString("%1 [%2]").arg(a.applicationName()).arg(a.applicationVersion()));
