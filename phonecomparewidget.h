@@ -21,6 +21,7 @@ struct LightStruct{
     double effectiveArea;
     double maxLight;
     QColor cellcolor;
+    double aperture;
 };
 
 class CompareWidget : public QWidget {

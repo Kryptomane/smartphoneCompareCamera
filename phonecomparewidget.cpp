@@ -149,11 +149,11 @@ QLabel* CompareWidget::createLightInfoItem(LightStruct result) {
     QString htmlText = QString(
                            "<div style='text-align:center;'>"
                            "<span style='font-size:14pt; font-weight:bold;'>L: %1</span><br>"
-                           "<span style='font-size:9pt;'>Crop:%2 - maxL:%3</span>"
+                           "<span style='font-size:9pt;'>Crop:%2 - f=%3</span>"
                            "</div>")
                            .arg(result.lightvalue, 0, 'f', 2)
                            .arg(result.cropfactor, 0, 'f', 2)
-                           .arg(result.maxLight, 0, 'f', 1);
+                           .arg(result.aperture, 0, 'f', 1);
 
     QLabel* label = new QLabel();
     label->setTextFormat(Qt::RichText);
@@ -165,7 +165,7 @@ QLabel* CompareWidget::createLightInfoItem(LightStruct result) {
     QPalette palette = label->palette();
     palette.setColor(QPalette::Window, result.cellcolor);
     label->setPalette(palette);
-    label->setBackgroundRole(QPalette::Window); // 🔑 Das sorgt dafür, dass der Hintergrund korrekt dargestellt wird
+    label->setBackgroundRole(QPalette::Window);
 
     return label;
 }
@@ -285,6 +285,7 @@ LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int ta
     lightresult.cropfactor = cropFactor;
     lightresult.effectiveArea = effectiveArea;
     lightresult.maxLight = maxLight;
+    lightresult.aperture = aperture;
 
     //Brennweite der gefundenen Linse
 
@@ -292,7 +293,13 @@ LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int ta
     if ((qAbs(focalMin - targetFocal) <= 3) || (lens.focalLengthMin()<targetFocal && lens.focalLengthMax()>targetFocal)){
         lightresult.cellcolor = QColor(0, 200, 0);  // hellgrün
     } else {
-        lightresult.cellcolor = QColor(255, 140, 0);  // leicht orange
+        if ((sensor.resolution() > 47000000) && (cropFactor <= 2.0) ||
+            (sensor.resolution() > 192000000) && (cropFactor <= 4.0)) {
+                lightresult.cellcolor = QColor(255, 140, 0);  // leicht orange
+        } else {
+            lightresult.cellcolor = QColor(200, 30, 0);  // leicht orange
+        }
+
     }
     return lightresult;
 }
