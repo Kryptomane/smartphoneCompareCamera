@@ -290,7 +290,7 @@ LightStruct CompareWidget::calculateLightValue(const SensorLensPair pair, int ta
 
     // Farbliche Markierung: ±3 mm → grün, sonst orange
     if ((qAbs(focalMin - targetFocal) <= 3) || (lens.focalLengthMin()<targetFocal && lens.focalLengthMax()>targetFocal)){
-        lightresult.cellcolor = QColor(0, 100, 0);  // hellgrün
+        lightresult.cellcolor = QColor(0, 200, 0);  // hellgrün
     } else {
         lightresult.cellcolor = QColor(255, 140, 0);  // leicht orange
     }
