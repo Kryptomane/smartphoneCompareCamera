@@ -7,6 +7,9 @@ If a smartphone does not have the required focal length, this is implemented usi
 if, for example, the digital zoom is more than a factor of 2 and the sensor actually installed on the cell phone has a 50 megapixel sensor, an in-sensor zoom is used up to a zoom factor of 2. 
 Higher zoom levels reduce the resolution and, of course, the image quality considerably.
 
+![grafik](https://github.com/user-attachments/assets/89a6afa2-c00b-4d61-98da-5e93257c1dab)
+
+
 # Install
 
 You will need QT 6.7 or later and an uptodate compiler. Check it out, run cmake, build Application
@@ -16,3 +19,5 @@ You will need QT 6.7 or later and an uptodate compiler. Check it out, run cmake,
 It is free to use, if you adapt it, please let me now. 
 It is not allowed to delete my name as author. 
 Developed by Silas : speedysilas@outlook.de 
+
+
