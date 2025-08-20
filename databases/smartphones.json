@@ -608,6 +608,37 @@
         ]
     },
     {
+        "batteryCapacity": 4870,
+        "displaySize": 6.3,
+        "mainCams": [
+            {
+                "fieldOfView": 122.00320255549393,
+                "lensId": "lens_001",
+                "sensorName": "IMX858"
+            },
+            {
+                "fieldOfView": 81.7851258149127,
+                "lensId": "lens_030",
+                "sensorName": "S5KGNK"
+            },
+            {
+                "fieldOfView": 21.69205788910098,
+                "lensId": "lens_046",
+                "sensorName": "IMX858"
+            }
+        ],
+        "manufacture": "Google",
+        "name": "Pixel 10 Pro",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 103.72061871531946,
+                "lensId": "lens_011",
+                "sensorName": "IMX858"
+            }
+        ]
+    },
+    {
         "batteryCapacity": 5000,
         "displaySize": 6.5,
         "mainCams": [
