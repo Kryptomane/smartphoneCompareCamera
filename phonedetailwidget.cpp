@@ -86,9 +86,23 @@ void PhoneInfoWidget::onSmartphoneSelected(int index) {
     QList<SensorLensPair> pairs = smartphones[index].getMainCams();
     QList<SensorLensPair> selfie = smartphones[index].getSelfieCams();
 
+
+
     QString camText;
     for (int i=0; i<pairs.size(); i++){
-        camText.append(QString("<b>Kamera: %1</b><br>").arg(i+1));
+        CameraSensor sensor = m_sensorWidget->getCameraByName(pairs[i].sensorName);
+        Lens lens = m_lensWidget->getLensById(pairs[i].lensId);
+
+        double maxLight = sensor.sensorArea() / (lens.apertureMin() * lens.apertureMin());
+
+        if (lens.stabi() == StabilizationMethod::OIS){
+            maxLight*=1.6;
+        }
+        if (lens.stabi() == StabilizationMethod::Gimbal){
+            maxLight*=1.8;
+        }
+
+        camText.append(QString("<b>Kamera: %1 - Max: L=%2</b><br>").arg(i+1).arg(maxLight));
         camText.append(createSensorPairString(pairs[i]));
     }
 

@@ -699,5 +699,72 @@
                 "sensorName": "IMX615"
             }
         ]
+    },
+    {
+        "batteryCapacity": 5000,
+        "displaySize": 6.9,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825445,
+                "lensId": "lens_006",
+                "sensorName": "S5KJN3"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_063",
+                "sensorName": "S5KHP2"
+            },
+            {
+                "fieldOfView": 35.81485134814052,
+                "lensId": "lens_035",
+                "sensorName": "S5K3K1"
+            },
+            {
+                "fieldOfView": 22.07339065962173,
+                "lensId": "lens_062",
+                "sensorName": "IMX854"
+            }
+        ],
+        "manufacture": "S26 Ultra",
+        "name": "Samsung",
+        "releaseYear": 2026,
+        "selfieCams": [
+            {
+                "fieldOfView": 79.56777735820835,
+                "lensId": "lens_031",
+                "sensorName": "S5K3LU"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 3692,
+        "displaySize": 6.3,
+        "mainCams": [
+            {
+                "fieldOfView": 118.0335763909898,
+                "lensId": "lens_005",
+                "sensorName": "IMX972"
+            },
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_024",
+                "sensorName": "IMX903"
+            },
+            {
+                "fieldOfView": 24.432002500209755,
+                "lensId": "lens_061",
+                "sensorName": "IMX973"
+            }
+        ],
+        "manufacture": "iPhone 17 Pro",
+        "name": "Apple",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 89.76415392899423,
+                "lensId": "lens_012",
+                "sensorName": "IMX914"
+            }
+        ]
     }
 ]

@@ -50,7 +50,7 @@ private:
     QTableWidget* comparisonTable;
     QList<Smartphone> smartphones;
     QList<QComboBox*> comboBoxes;
-    QVector<int> standardFocalLengths = {14, 25, 35, 85, 100, 135};
+    QVector<int> standardFocalLengths = {14, 24, 35, 85, 111, 135};
     void setupUI();
 };
 

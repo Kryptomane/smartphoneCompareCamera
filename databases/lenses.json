@@ -565,5 +565,41 @@
         "id": "lens_063",
         "stabilization": 1,
         "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.6,
+        "apertureMin": 1.6,
+        "focalLengthMax": 24,
+        "focalLengthMin": 24,
+        "id": "lens_064",
+        "stabilization": 1,
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.7,
+        "apertureMin": 1.7,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_065",
+        "stabilization": 1,
+        "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 3,
+        "apertureMin": 2.4,
+        "focalLengthMax": 100,
+        "focalLengthMin": 75,
+        "id": "lens_066",
+        "stabilization": 1,
+        "type": "Zoomobjektiv"
+    },
+    {
+        "apertureMax": 2.2,
+        "apertureMin": 2.2,
+        "focalLengthMax": 21,
+        "focalLengthMin": 21,
+        "id": "lens_067",
+        "stabilization": 0,
+        "type": "Festbrennweite"
     }
 ]
