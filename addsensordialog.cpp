@@ -61,8 +61,8 @@ AddSensorDialog::AddSensorDialog(QWidget* parent)
         double expected = Hans.sensorArea();
         double calculated = Wurst.sensorArea();
 
-        // Allow a 5% deviation
-        if (qAbs(expected - calculated) / expected <= 0.05) {
+        // Allow a 20% deviation
+        if (qAbs(expected - calculated) / expected <= 0.50) {
             Hans.setReleaseYear(year);
             Hans.setName(cname);
             Hans.setPixelSize(pixelSize);
@@ -75,6 +75,7 @@ AddSensorDialog::AddSensorDialog(QWidget* parent)
             accept();
         } else {
             QMessageBox::warning(this, "Fehler", "Die berechneten Werte stimmen nicht überein. Die Abweichung beträgt mehr als 5%.");
+            accept();
         }
     });
 

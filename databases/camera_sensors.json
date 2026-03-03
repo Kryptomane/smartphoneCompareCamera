@@ -841,6 +841,26 @@
     },
     {
         "bitDepth": 0,
+        "cropFactor": 6.134118366141732,
+        "diagonal": 7.058879111137049,
+        "format": "4:3",
+        "height": 4.23532746668223,
+        "horizontalPixels": 8000,
+        "inchSize": "1/2,55",
+        "manufacture": "Sony",
+        "name": "IMX973",
+        "other": "",
+        "pattern": "",
+        "pixelSize": 0.7058879111137049,
+        "releaseYear": 2010,
+        "resolution": 48000000,
+        "sensitivity": 1,
+        "sensorArea": 23.91733166671055,
+        "verticalPixels": 6000,
+        "width": 5.647103288909639
+    },
+    {
+        "bitDepth": 0,
         "cropFactor": 7.360942039370079,
         "diagonal": 5.882399259280874,
         "format": "4:3",
@@ -1538,5 +1558,25 @@
         "sensorArea": 17.280272129198366,
         "verticalPixels": 2736,
         "width": 4.800037795573193
+    },
+    {
+        "bitDepth": 8,
+        "cropFactor": 6.639281055118109,
+        "diagonal": 6,
+        "format": "4:3",
+        "height": 3.53,
+        "horizontalPixels": 4896,
+        "inchSize": "1/2,7",
+        "manufacture": "Sony",
+        "name": "IMX914",
+        "other": "",
+        "pattern": "",
+        "pixelSize": 0.96,
+        "releaseYear": 2025,
+        "resolution": 18000000,
+        "sensitivity": 1,
+        "sensorArea": 16.6,
+        "verticalPixels": 3672,
+        "width": 5.24
     }
 ]

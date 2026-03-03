@@ -354,7 +354,7 @@
                 "sensorName": "IMX754"
             },
             {
-                "fieldOfView": 21.692057889100983,
+                "fieldOfView": 22.07339065962173,
                 "lensId": "lens_052",
                 "sensorName": "IMX854"
             }
@@ -452,7 +452,7 @@
                 "sensorName": "IMX563"
             },
             {
-                "fieldOfView": 84.10618480366745,
+                "fieldOfView": 86.53636079494296,
                 "lensId": "lens_020",
                 "sensorName": "S5KHM3"
             },
@@ -493,12 +493,12 @@
                 "sensorName": "S5KHM3"
             },
             {
-                "fieldOfView": 34.37218244477069,
+                "fieldOfView": 33.47148136150132,
                 "lensId": "lens_039",
                 "sensorName": "S5K3J1"
             },
             {
-                "fieldOfView": 10.754863353148359,
+                "fieldOfView": 10.309210096926643,
                 "lensId": "lens_060",
                 "sensorName": "S5K3J1"
             }
