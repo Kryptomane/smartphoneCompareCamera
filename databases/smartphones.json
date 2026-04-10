@@ -766,5 +766,36 @@
                 "sensorName": "IMX914"
             }
         ]
+    },
+    {
+        "batteryCapacity": 6600,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_007",
+                "sensorName": "LYT-818"
+            },
+            {
+                "fieldOfView": 63.47950220900379,
+                "lensId": "lens_068",
+                "sensorName": "LYT-901"
+            },
+            {
+                "fieldOfView": 28.579455823525453,
+                "lensId": "lens_069",
+                "sensorName": "S5KHP0"
+            }
+        ],
+        "manufacture": "Vivo",
+        "name": "X300 Ultra",
+        "releaseYear": 2026,
+        "selfieCams": [
+            {
+                "fieldOfView": 84.10618480366745,
+                "lensId": "lens_029",
+                "sensorName": "S5KJN1"
+            }
+        ]
     }
 ]
