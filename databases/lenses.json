@@ -646,5 +646,14 @@
         "id": "lens_072",
         "stabilization": 1,
         "type": "Festbrennweite"
+    },
+    {
+        "apertureMax": 1.65,
+        "apertureMin": 1.65,
+        "focalLengthMax": 23,
+        "focalLengthMin": 23,
+        "id": "lens_073",
+        "stabilization": 1,
+        "type": "Festbrennweite"
     }
 ]

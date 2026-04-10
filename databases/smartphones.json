@@ -773,7 +773,7 @@
         "mainCams": [
             {
                 "fieldOfView": 114.22243960825446,
-                "lensId": "lens_007",
+                "lensId": "lens_054",
                 "sensorName": "LYT-818"
             },
             {
@@ -795,6 +795,73 @@
                 "fieldOfView": 84.10618480366745,
                 "lensId": "lens_029",
                 "sensorName": "S5KJN1"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 7050,
+        "displaySize": 6.82,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_007",
+                "sensorName": "S5KJNL"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_070",
+                "sensorName": "LYT-901"
+            },
+            {
+                "fieldOfView": 34.37218244477069,
+                "lensId": "lens_071",
+                "sensorName": "OV52A"
+            },
+            {
+                "fieldOfView": 10.754863353148359,
+                "lensId": "lens_072",
+                "sensorName": "LYT-600 (IMX882)"
+            }
+        ],
+        "manufacture": "Oppo",
+        "name": "X9 Ultra",
+        "releaseYear": 2026,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_015",
+                "sensorName": "IMX809"
+            }
+        ]
+    },
+    {
+        "batteryCapacity": 6800,
+        "displaySize": 6.9,
+        "mainCams": [
+            {
+                "fieldOfView": 114.22243960825446,
+                "lensId": "lens_008",
+                "sensorName": "S5KJN5"
+            },
+            {
+                "fieldOfView": 86.53636079494296,
+                "lensId": "lens_073",
+                "sensorName": "OV50X50"
+            },
+            {
+                "fieldOfView": 32.20333179140816,
+                "lensId": "lens_066",
+                "sensorName": "S5KHPE"
+            }
+        ],
+        "manufacture": "Xiaomi",
+        "name": "17 Ultra",
+        "releaseYear": 2025,
+        "selfieCams": [
+            {
+                "fieldOfView": 91.74627778172767,
+                "lensId": "lens_067",
+                "sensorName": "OV50M"
             }
         ]
     }
